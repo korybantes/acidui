@@ -1,0 +1,26 @@
+.ac-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--ac-text-primary);
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    transition: color 0.2s ease;
+    cursor: pointer;
+}
+
+.ac-link:hover {
+    color: var(--ac-brand);
+}
+
+.ac-link-arrow {
+    transition: transform 0.2s ease;
+}
+
+.ac-link:hover .ac-link-arrow {
+    transform: translateX(4px);
+}

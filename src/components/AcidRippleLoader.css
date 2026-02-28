@@ -1,0 +1,23 @@
+.ac-ripple-loader {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ac-ripple-ring {
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    border: 2px solid;
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.ac-ripple-center {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    z-index: 1;
+    box-shadow: 0 0 10px currentColor;
+}

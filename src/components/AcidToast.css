@@ -1,0 +1,77 @@
+.ac-toast-viewport {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    pointer-events: none;
+    z-index: 5000;
+    width: 100%;
+    max-width: 380px;
+}
+
+.ac-toast {
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: var(--ac-surface);
+    border: 1px solid var(--ac-border-bright);
+    border-radius: var(--ac-radius-md);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    min-width: 300px;
+}
+
+.ac-toast-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+}
+
+.ac-toast-message {
+    flex: 1;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--ac-text-primary);
+    letter-spacing: 0.02em;
+}
+
+.ac-toast-close {
+    background: transparent;
+    border: none;
+    color: var(--ac-text-muted);
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+}
+
+.ac-toast-close:hover {
+    color: var(--ac-text-primary);
+}
+
+/* Variants */
+.ac-toast-success .ac-toast-icon {
+    color: #4caf50;
+}
+
+.ac-toast-error .ac-toast-icon {
+    color: var(--ac-brand);
+}
+
+.ac-toast-warning .ac-toast-icon {
+    color: #ff9800;
+}
+
+.ac-toast-info .ac-toast-icon {
+    color: #2196f3;
+}
+
+[data-theme='light'] .ac-toast {
+    background: white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}

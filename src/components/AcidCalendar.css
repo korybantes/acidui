@@ -1,0 +1,136 @@
+.ac-calendar {
+    display: inline-flex;
+    flex-direction: column;
+    border: 1px solid var(--ac-border-muted);
+    background: var(--ac-surface);
+    user-select: none;
+    min-width: 300px;
+}
+
+.ac-calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--ac-border-muted);
+}
+
+.ac-calendar-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: 1px solid var(--ac-border-muted);
+    color: var(--ac-text-secondary);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.ac-calendar-nav:hover {
+    border-color: var(--ac-border-bright);
+    color: var(--ac-text-primary);
+    background: var(--ac-surface-hover);
+}
+
+.ac-calendar-month-label {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--ac-text-primary);
+}
+
+.ac-calendar-grid {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.ac-calendar-day-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    color: var(--ac-text-muted);
+    padding: 0.3rem;
+}
+
+/* We need 7 columns */
+.ac-calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    position: relative;
+}
+
+.ac-calendar-cells {
+    display: contents;
+}
+
+.ac-calendar-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1;
+    background: transparent;
+    border: none;
+    color: var(--ac-text-primary);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    padding: 0;
+}
+
+.ac-calendar-cell:hover {
+    background: var(--ac-surface-hover);
+    color: var(--ac-text-primary);
+}
+
+.ac-calendar-cell-other {
+    color: var(--ac-text-muted);
+    cursor: default;
+}
+
+.ac-calendar-cell-other:hover {
+    background: transparent;
+}
+
+.ac-calendar-cell-today {
+    color: var(--ac-brand);
+    font-weight: 700;
+    position: relative;
+}
+
+.ac-calendar-cell-today::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--ac-brand);
+}
+
+.ac-calendar-cell-selected {
+    background: var(--ac-text-primary) !important;
+    color: var(--ac-bg) !important;
+}
+
+.ac-calendar-footer {
+    padding: 0.75rem 1.25rem;
+    border-top: 1px solid var(--ac-border-muted);
+}
+
+.ac-calendar-selected-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    color: var(--ac-text-muted);
+}

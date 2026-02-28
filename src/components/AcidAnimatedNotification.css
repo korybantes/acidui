@@ -1,0 +1,103 @@
+.ac-notification-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 9999;
+    pointer-events: none;
+    width: 360px;
+    max-width: calc(100vw - 4rem);
+}
+
+.ac-notification {
+    position: relative;
+    display: flex;
+    gap: 16px;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--ac-border-muted);
+    padding: 1rem;
+    border-radius: 8px;
+    pointer-events: auto;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.ac-notification-icon {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(var(--ac-brand-rgb), 0.1);
+    border: 1px solid rgba(var(--ac-brand-rgb), 0.2);
+    border-radius: 6px;
+    color: var(--ac-brand);
+}
+
+.ac-notification-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.ac-notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.ac-notification-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    color: var(--ac-text-primary);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.ac-notification-time {
+    font-size: 0.6rem;
+    color: var(--ac-text-muted);
+    font-family: var(--font-mono);
+}
+
+.ac-notification-message {
+    font-size: 0.75rem;
+    color: var(--ac-text-secondary);
+    line-height: 1.4;
+    margin: 0;
+}
+
+.ac-notification-close {
+    background: transparent;
+    border: none;
+    color: var(--ac-text-muted);
+    cursor: pointer;
+    padding: 2px;
+    transition: color 0.15s;
+    height: fit-content;
+}
+
+.ac-notification-close:hover {
+    color: var(--ac-brand);
+}
+
+.ac-notification-border {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background: var(--ac-brand);
+    animation: ac-notification-progress 5s linear forwards;
+}
+
+@keyframes ac-notification-progress {
+    from {
+        width: 100%;
+    }
+
+    to {
+        width: 0%;
+    }
+}

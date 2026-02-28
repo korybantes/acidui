@@ -1,0 +1,51 @@
+.ac-codeblock-wrapper {
+    background: var(--ac-bg);
+    border: 1px solid var(--ac-border-muted);
+    padding: 0.75rem;
+    border-radius: var(--ac-radius-md);
+    /* Using 4px border radius specifically for this nested input box look from the screenshot */
+    border-radius: 4px;
+}
+
+.ac-codeblock-inner {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border: 1px solid var(--ac-border-muted);
+    border-radius: 4px;
+    padding: 0.75rem 1rem;
+}
+
+.ac-codeblock-prefix {
+    color: var(--ac-brand);
+    font-family: var(--font-mono);
+    font-weight: 700;
+    margin-right: 0.75rem;
+    user-select: none;
+}
+
+.ac-codeblock-text {
+    flex-grow: 1;
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    color: var(--ac-text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ac-codeblock-copy {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--ac-text-secondary);
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+}
+
+.ac-codeblock-copy:hover {
+    color: var(--ac-text-primary);
+}

@@ -1,0 +1,60 @@
+.ac-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--ac-border-muted);
+    border-radius: 8px;
+    background: var(--ac-bg);
+}
+
+.ac-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--font-inter);
+    font-size: 0.875rem;
+    text-align: left;
+}
+
+.ac-table-thead {
+    background: var(--ac-surface);
+    border-bottom: 1px solid var(--ac-border-muted);
+}
+
+.ac-table-th {
+    padding: 1rem 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--ac-text-primary);
+    letter-spacing: 0.05em;
+}
+
+.ac-table-tr {
+    border-bottom: 1px solid var(--ac-border-muted);
+    transition: background 0.2s;
+}
+
+.ac-table-tr:last-child {
+    border-bottom: none;
+}
+
+.ac-table-tr:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.ac-table-td {
+    padding: 1rem 1.5rem;
+    color: var(--ac-text-secondary);
+    line-height: 1.5;
+    vertical-align: top;
+}
+
+/* Specific styling for technical cells */
+.ac-table-td code {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ac-brand);
+    background: rgba(244, 67, 54, 0.1);
+    padding: 0.2rem 0.4rem;
+    border-radius: 4px;
+}

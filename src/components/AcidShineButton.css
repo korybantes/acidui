@@ -1,0 +1,36 @@
+.ac-shine-btn {
+    position: relative;
+    overflow: hidden;
+    padding: 0.75rem 2rem;
+    background: #111;
+    color: var(--ac-brand);
+    border: 1px solid var(--ac-brand);
+    font-family: var(--font-mono);
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+}
+
+.ac-shine-btn:hover {
+    background: var(--ac-brand);
+    color: #000;
+}
+
+.ac-shine-overlay {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(to right,
+            transparent,
+            var(--shine-color),
+            transparent);
+    transform: skewX(-25deg);
+    transition: left 0.5s;
+}
+
+.ac-shine-btn:hover .ac-shine-overlay {
+    left: 200%;
+}

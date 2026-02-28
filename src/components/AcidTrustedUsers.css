@@ -1,0 +1,59 @@
+.ac-trusted-container {
+    width: 100%;
+    padding: 3rem 0;
+}
+
+.ac-trusted-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 3rem;
+}
+
+.ac-trusted-line {
+    flex: 1;
+    height: 1px;
+    background: var(--ac-border-muted);
+}
+
+.ac-trusted-title {
+    font-size: 0.65rem;
+    font-family: var(--font-mono);
+    color: var(--ac-text-muted);
+    letter-spacing: 0.2em;
+    white-space: nowrap;
+}
+
+.ac-trusted-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 2rem;
+    align-items: center;
+}
+
+.ac-trusted-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    filter: grayscale(100%);
+    opacity: 0.6;
+    transition: all 0.3s;
+    cursor: default;
+}
+
+.ac-trusted-item:hover {
+    opacity: 1;
+}
+
+.ac-trusted-logo {
+    font-size: 2rem;
+    color: var(--ac-text-primary);
+}
+
+.ac-trusted-name {
+    font-size: 0.6rem;
+    font-family: var(--font-mono);
+    color: var(--ac-text-muted);
+    text-transform: uppercase;
+}

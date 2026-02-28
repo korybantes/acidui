@@ -1,0 +1,604 @@
+.docs-container {
+    display: grid;
+    grid-template-columns: 260px 1fr 240px;
+    gap: 0;
+    min-height: 100vh;
+    background: var(--ac-bg);
+}
+
+@media (max-width: 1200px) {
+    .docs-container {
+        grid-template-columns: 260px 1fr;
+    }
+
+    .docs-toc {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .docs-container {
+        grid-template-columns: 1fr;
+    }
+
+    .docs-sidebar {
+        display: none;
+    }
+}
+
+/* Sidebar Styling */
+.docs-sidebar {
+    border-right: 1px solid var(--ac-border-muted);
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    overflow-y: auto;
+}
+
+/* Main Content area */
+.docs-main {
+    padding: 3rem 4rem;
+    max-width: 1000px;
+}
+
+.docs-breadcrumbs {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--ac-text-muted);
+    margin-bottom: 2rem;
+}
+
+.docs-breadcrumbs .current {
+    color: var(--ac-text-primary);
+    font-weight: 500;
+}
+
+/* Copy Menu Styles */
+.copy-menu-wrapper {
+    position: relative;
+}
+
+.copy-menu {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 240px;
+    background: var(--ac-surface);
+    border: 1px solid var(--ac-border-muted);
+    border-radius: 12px;
+    padding: 8px;
+    z-index: 100;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.copy-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 10px 12px;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    color: var(--ac-text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+}
+
+.copy-menu-item:hover {
+    background: #000;
+    color: var(--ac-text-primary);
+}
+
+.copy-menu-item svg {
+    color: var(--ac-text-muted);
+}
+
+.docs-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2.5rem;
+}
+
+.docs-title {
+    font-size: 3rem;
+    font-family: var(--font-primary);
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    color: var(--ac-text-primary);
+    margin-bottom: 1rem;
+}
+
+.docs-description {
+    font-size: 1.125rem;
+    color: var(--ac-text-secondary);
+    line-height: 1.6;
+    max-width: 700px;
+}
+
+.docs-control-group {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.docs-control-btn {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: 1px solid var(--ac-border-muted);
+    background: transparent;
+    color: var(--ac-text-secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.docs-control-btn:hover {
+    border-color: var(--ac-text-primary);
+    color: var(--ac-text-primary);
+}
+
+/* Action Bar Styling */
+.docs-action-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.action-tabs {
+    display: flex;
+    background: var(--ac-surface);
+    padding: 4px;
+    border-radius: 8px;
+    gap: 4px;
+}
+
+.action-tab {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 500;
+    border: none;
+    background: transparent;
+    color: var(--ac-text-secondary);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.action-tab.active {
+    background: var(--ac-text-primary);
+    color: var(--ac-bg);
+}
+
+.action-right {
+    display: flex;
+    gap: 1rem;
+}
+
+/* Pagination / Next Prev */
+.docs-pagination {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 6rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--ac-border-muted);
+    gap: 2rem;
+}
+
+.pagination-btn {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    border: 1px solid var(--ac-border-muted);
+    background: var(--ac-surface);
+    transition: all 0.2s;
+    text-decoration: none;
+    max-width: 400px;
+}
+
+.pagination-btn:hover {
+    border-color: var(--ac-brand);
+    background: var(--ac-surface-hover);
+    transform: translateY(-2px);
+}
+
+.pagination-btn .dir {
+    font-size: 0.7rem;
+    color: var(--ac-text-muted);
+    font-family: var(--font-mono);
+    margin-bottom: 0.5rem;
+}
+
+.pagination-btn .title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--ac-text-primary);
+}
+
+.pagination-btn.prev {
+    align-items: flex-start;
+}
+
+.pagination-btn.next {
+    align-items: flex-end;
+    text-align: right;
+}
+
+/* Usage Section */
+.docs-usage-section {
+    margin-bottom: 4rem;
+}
+
+.usage-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.usage-card {
+    border: 1px solid var(--ac-border-muted);
+    padding: 1.5rem;
+}
+
+.usage-label {
+    font-size: 0.7rem;
+    font-family: var(--font-mono);
+    color: var(--ac-text-muted);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+/* Description Section */
+.docs-desc-section {
+    margin: 2rem 0 4rem;
+}
+
+.docs-desc-text {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--ac-text-secondary);
+}
+
+/* Tables */
+.docs-table-wrapper {
+    margin-top: 1.5rem;
+    border: 1px solid var(--ac-border-muted);
+    overflow: hidden;
+}
+
+.docs-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.docs-table th {
+    text-align: left;
+    padding: 1rem;
+    background: var(--ac-surface);
+    border-bottom: 1px solid var(--ac-border-muted);
+    font-size: 0.8rem;
+    color: var(--ac-text-muted);
+    font-family: var(--font-mono);
+}
+
+.docs-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--ac-border-muted);
+    font-size: 0.9rem;
+    font-family: var(--font-mono);
+}
+
+.docs-table tr:last-child td {
+    border-bottom: none;
+}
+
+.docs-table .prop-name {
+    color: var(--ac-brand);
+    font-weight: 600;
+}
+
+.docs-table .prop-type {
+    color: var(--ac-text-primary);
+}
+
+.docs-table .prop-default {
+    color: var(--ac-text-muted);
+}
+
+/* Showcase Stability */
+.docs-showcase-container {
+    min-height: 400px;
+    /* Fixed minimum height to prevent jitter */
+    display: flex;
+    flex-direction: column;
+}
+
+.showcase-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem !important;
+}
+
+.github-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 1rem;
+    height: 36px;
+    border: 1px solid var(--ac-border-muted);
+    border-radius: 99px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--ac-text-primary);
+}
+
+.star-count {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: 0.5rem;
+    padding-left: 0.5rem;
+    border-left: 1px solid var(--ac-border-muted);
+}
+
+.copy-dropdown {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 1rem;
+    height: 36px;
+    border: 1px solid var(--ac-border-muted);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--ac-text-primary);
+    font-weight: 500;
+    cursor: pointer;
+}
+
+/* Showcase Styling */
+.docs-showcase-container {
+    border: 1px solid var(--ac-border-muted);
+    border-radius: 12px;
+    background: var(--ac-bg);
+    margin-bottom: 4rem;
+    overflow: hidden;
+}
+
+.showcase-header {
+    padding: 0.75rem 1.25rem;
+    border-bottom: 1px solid var(--ac-border-muted);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.refresh-btn {
+    background: transparent;
+    border: none;
+    color: var(--ac-text-muted);
+    cursor: pointer;
+}
+
+.showcase-content {
+    padding: 4rem 2rem;
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.docs-showcase-container.compact .showcase-content {
+    min-height: 180px;
+    padding: 2rem;
+}
+
+.preview-layout {
+    text-align: center;
+}
+
+.preview-title {
+    font-size: 2.25rem;
+    margin-bottom: 1rem;
+}
+
+.preview-desc {
+    color: var(--ac-text-secondary);
+    margin-bottom: 4rem;
+}
+
+.preview-grid {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+}
+
+/* Doc Content Sections */
+.docs-doc-section {
+    margin-bottom: 5rem;
+}
+
+.section-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+}
+
+.section-text {
+    color: var(--ac-text-secondary);
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+}
+
+.docs-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 6rem;
+    margin-top: 4rem;
+}
+
+.docs-section-desc {
+    color: var(--ac-text-secondary);
+    font-size: 1rem;
+    margin: -0.5rem 0 2rem;
+    opacity: 0.8;
+}
+
+.docs-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.docs-list li {
+    padding-left: 2rem;
+    position: relative;
+    color: var(--ac-text-secondary);
+    line-height: 1.6;
+}
+
+.docs-list li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--ac-brand);
+    font-weight: bold;
+}
+
+/* Table of Contents sidebar */
+.docs-toc {
+    padding: 3rem 2rem;
+    border-left: 1px solid var(--ac-border-muted);
+    height: 100vh;
+    position: sticky;
+    top: 0;
+}
+
+.toc-title {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    color: var(--ac-text-primary);
+    margin-bottom: 1.5rem;
+}
+
+.toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.toc-list li {
+    font-size: 0.9rem;
+    color: var(--ac-text-secondary);
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.toc-list li:hover {
+    color: var(--ac-text-primary);
+}
+
+.toc-list li.active {
+    color: var(--ac-brand);
+    font-weight: 500;
+}
+
+/* New Docs Page Content Styles */
+.docs-page-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    padding: 2rem 0;
+    text-align: left;
+}
+
+.docs-intro-hero .content-h1 {
+    font-size: 3.5rem;
+    margin: 1.5rem 0;
+    letter-spacing: -0.04em;
+    line-height: 1;
+}
+
+.content-p {
+    color: var(--ac-text-secondary);
+    font-size: 1.125rem;
+    line-height: 1.7;
+    max-width: 800px;
+}
+
+.docs-grid-header {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.docs-grid-header .content-h3 {
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    color: var(--ac-text-muted);
+    white-space: nowrap;
+}
+
+.header-line {
+    flex: 1;
+    height: 1px;
+    background: var(--ac-border-muted);
+}
+
+.docs-principles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+}
+
+.principle-card {
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    border-radius: 0;
+}
+
+.principle-card h4 {
+    font-size: 1.1rem;
+    letter-spacing: -0.02em;
+    color: var(--ac-text-primary);
+}
+
+.principle-card p {
+    font-size: 0.95rem;
+    color: var(--ac-text-secondary);
+    line-height: 1.6;
+}
+
+.docs-step-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}

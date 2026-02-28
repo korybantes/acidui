@@ -1,0 +1,61 @@
+.ac-grid-box {
+    position: relative;
+    border: 1px solid var(--ac-border-muted);
+    background: var(--ac-bg);
+    padding: 1.5rem;
+}
+
+.ac-grid-inner {
+    position: relative;
+    z-index: 2;
+}
+
+.ac-ch {
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.ac-ch::before,
+.ac-ch::after {
+    content: '';
+    position: absolute;
+    background: var(--ac-text-muted);
+}
+
+.ac-ch::before {
+    top: 4px;
+    left: 0;
+    width: 9px;
+    height: 1px;
+}
+
+.ac-ch::after {
+    top: 0;
+    left: 4px;
+    width: 1px;
+    height: 9px;
+}
+
+/* Positioning */
+.ac-ch-tl {
+    top: -5px;
+    left: -5px;
+}
+
+.ac-ch-tr {
+    top: -5px;
+    right: -5px;
+}
+
+.ac-ch-bl {
+    bottom: -5px;
+    left: -5px;
+}
+
+.ac-ch-br {
+    bottom: -5px;
+    right: -5px;
+}

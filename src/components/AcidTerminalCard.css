@@ -1,0 +1,63 @@
+.ac-terminal-card {
+    display: flex;
+    flex-direction: column;
+    background: #000000;
+    border: 1px solid var(--ac-border-bright);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    width: 100%;
+}
+
+.ac-terminal-header {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid var(--ac-border-muted);
+}
+
+.ac-terminal-controls {
+    display: flex;
+    gap: 8px;
+    margin-right: 1.5rem;
+}
+
+.ac-control {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.ac-control-close {
+    background: #ff5f56;
+}
+
+.ac-control-minimize {
+    background: #ffbd2e;
+}
+
+.ac-control-maximize {
+    background: #27c93f;
+}
+
+.ac-terminal-title {
+    font-size: 0.7rem;
+    font-family: var(--font-mono);
+    color: var(--ac-text-muted);
+    letter-spacing: 0.05em;
+    flex: 1;
+    text-align: center;
+    margin-right: 46px;
+    /* Offset for symmetry against controls */
+}
+
+.ac-terminal-body {
+    flex: 1;
+    padding: 1.5rem;
+    font-family: var(--font-mono);
+    color: var(--ac-text-primary);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    overflow: auto;
+}

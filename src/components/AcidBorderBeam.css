@@ -1,0 +1,27 @@
+.ac-border-beam {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    border: var(--thickness) solid transparent;
+    border-radius: inherit;
+    mask-clip: padding-box, border-box;
+    mask-composite: intersect;
+    mask-image: linear-gradient(transparent, transparent), linear-gradient(#000, #000);
+}
+
+.ac-border-beam::after {
+    content: "";
+    position: absolute;
+    aspect-ratio: 1;
+    width: var(--size);
+    background: linear-gradient(to left, var(--color-from), var(--color-to), transparent);
+    offset-path: rect(0 auto auto 0 round var(--size));
+    animation: border-beam-anim var(--duration) linear infinite;
+    animation-delay: var(--delay);
+}
+
+@keyframes border-beam-anim {
+    to {
+        offset-distance: 100%;
+    }
+}

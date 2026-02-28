@@ -1,0 +1,129 @@
+.ac-timeline-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+.ac-timeline-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 6rem;
+}
+
+/* Background brutalist line */
+.ac-timeline-track {
+    position: absolute;
+    top: 0;
+    left: 24px;
+    width: 1px;
+    height: 100%;
+    background: var(--ac-border-muted);
+    z-index: 1;
+}
+
+@media(min-width: 768px) {
+    .ac-timeline-track {
+        left: 48px;
+    }
+}
+
+/* Scroll progressing line over the track */
+.ac-timeline-progress {
+    position: absolute;
+    top: 0;
+    left: 24px;
+    width: 1px;
+    z-index: 2;
+    transition: all 0.1s linear;
+    background: var(--ac-text-primary);
+}
+
+@media(min-width: 768px) {
+    .ac-timeline-progress {
+        left: 48px;
+    }
+}
+
+.ac-timeline-item {
+    display: flex;
+    position: relative;
+    z-index: 3;
+}
+
+.ac-timeline-node-container {
+    width: 52px;
+    display: flex;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 6px;
+}
+
+@media(min-width: 768px) {
+    .ac-timeline-node-container {
+        width: 100px;
+    }
+}
+
+.ac-timeline-node {
+    width: 12px;
+    height: 12px;
+    border-radius: var(--ac-radius-sm);
+    background: var(--ac-bg);
+    border: 1px solid var(--ac-text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.ac-timeline-node-inner {
+    width: 4px;
+    height: 4px;
+    background: transparent;
+    border-radius: var(--ac-radius-sm);
+    transition: background 0.2s;
+}
+
+/* Hover effects for nodes */
+.ac-timeline-item:hover .ac-timeline-node {
+    border-color: var(--ac-text-primary);
+}
+
+.ac-timeline-item:hover .ac-timeline-node-inner {
+    background: var(--ac-text-primary);
+}
+
+.ac-timeline-content-container {
+    flex-grow: 1;
+    padding-left: 1rem;
+}
+
+@media(min-width: 768px) {
+    .ac-timeline-content-container {
+        padding-left: 2rem;
+    }
+}
+
+.ac-timeline-title {
+    font-size: 1.5rem;
+    font-family: var(--font-inter);
+    font-weight: 500;
+    margin-bottom: 1rem;
+    color: var(--ac-text-primary);
+    letter-spacing: -0.02em;
+}
+
+@media(min-width: 768px) {
+    .ac-timeline-title {
+        font-size: 2rem;
+    }
+}
+
+.ac-timeline-content {
+    color: var(--ac-text-secondary);
+    font-size: 1rem;
+    line-height: 1.6;
+}

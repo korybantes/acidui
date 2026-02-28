@@ -1,0 +1,30 @@
+.ac-text-marquee-wrap {
+    width: 100%;
+    overflow: hidden;
+    background: #000;
+    border-top: 1px solid var(--ac-border-muted);
+    border-bottom: 1px solid var(--ac-border-muted);
+    padding: 0.75rem 0;
+    white-space: nowrap;
+    display: flex;
+}
+
+.ac-text-marquee-content {
+    display: flex;
+    align-items: center;
+}
+
+.ac-text-marquee-item {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--ac-text-primary);
+    padding: 0 1rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.ac-marquee-separator {
+    margin-left: 2rem;
+    color: var(--ac-brand);
+    font-weight: 800;
+}

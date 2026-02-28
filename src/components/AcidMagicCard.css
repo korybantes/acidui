@@ -1,0 +1,27 @@
+.ac-magic-card {
+    position: relative;
+    background: var(--ac-surface);
+    border: 1px solid var(--ac-border-muted);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.3s;
+}
+
+.ac-magic-card:hover {
+    border-color: var(--ac-border-bright);
+}
+
+.ac-magic-glow {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    transition: opacity 0.5s;
+}
+
+.ac-magic-content {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+}

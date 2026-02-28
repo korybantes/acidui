@@ -1,0 +1,48 @@
+.ac-switch-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    user-select: none;
+}
+
+.ac-switch-label {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--ac-text-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.ac-switch-root {
+    width: 44px;
+    height: 24px;
+    background: var(--ac-surface);
+    border: 1px solid var(--ac-border-muted);
+    border-radius: var(--ac-radius-full);
+    padding: 3px;
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.ac-switch-checked {
+    background: var(--ac-brand);
+    border-color: var(--ac-brand);
+}
+
+.ac-switch-thumb {
+    width: 16px;
+    height: 16px;
+    background: var(--ac-text-primary);
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.ac-switch-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+[data-theme='light'] .ac-switch-checked {
+    background: var(--ac-brand);
+}

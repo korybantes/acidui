@@ -1,0 +1,132 @@
+.ac-chart {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--ac-border-muted);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-sizing: border-box;
+}
+
+.ac-chart-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.ac-chart-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--ac-brand);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--ac-brand);
+}
+
+.ac-chart-title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--ac-text-muted);
+}
+
+.ac-chart-container {
+    flex: 1;
+    min-height: 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ac-chart-svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.ac-chart-grid line {
+    stroke: var(--ac-border-muted);
+    stroke-width: 1;
+    stroke-dasharray: 4 4;
+}
+
+.ac-chart-path-line {
+    fill: none;
+    stroke: var(--ac-brand);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.ac-chart-point {
+    fill: var(--ac-bg);
+    stroke: var(--ac-brand);
+    stroke-width: 2;
+}
+
+.ac-chart-bar {
+    fill: var(--ac-brand);
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.ac-chart-bar:hover {
+    opacity: 1;
+}
+
+.ac-chart-path-area-fill {
+    fill: var(--ac-brand);
+    opacity: 0.1;
+}
+
+.ac-chart-path-area-line {
+    fill: none;
+    stroke: var(--ac-brand);
+    stroke-width: 2;
+}
+
+.ac-chart-pie-slice {
+    stroke: var(--ac-bg);
+    stroke-width: 2;
+    fill: var(--ac-brand);
+    opacity: calc(1 - (var(--slice-index) * 0.15));
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+}
+
+.ac-chart-pie-slice:hover {
+    transform: scale(1.05);
+}
+
+.ac-chart-pie-inner {
+    fill: var(--ac-bg);
+}
+
+.ac-chart-radar-grid {
+    fill: none;
+    stroke: var(--ac-border-muted);
+    stroke-width: 1;
+}
+
+.ac-chart-path-radar {
+    fill: var(--ac-brand);
+    fill-opacity: 0.2;
+    stroke: var(--ac-brand);
+    stroke-width: 2;
+}
+
+.ac-chart-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    padding: 0 40px;
+}
+
+.ac-chart-label-item {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--ac-text-muted);
+    text-transform: uppercase;
+}

@@ -1,0 +1,207 @@
+.ac-command-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 3000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ac-overlay-backdrop {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(4px);
+}
+
+.ac-command-wrapper {
+    position: relative;
+    z-index: 3001;
+    width: 100%;
+    max-width: 650px;
+    padding: 1rem;
+}
+
+.ac-command-box {
+    background: var(--ac-surface);
+    border: 1px solid var(--ac-border-bright);
+    border-radius: var(--ac-radius-lg);
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.8);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.ac-command-header {
+    display: flex;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--ac-border-muted);
+    gap: 1rem;
+}
+
+.ac-search-icon {
+    color: var(--ac-text-muted);
+}
+
+.ac-command-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    color: var(--ac-text-primary);
+    outline: none;
+}
+
+.ac-command-input::placeholder {
+    color: var(--ac-text-muted);
+    opacity: 0.5;
+}
+
+.ac-esc-hint {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--ac-text-muted);
+    border: 1px solid var(--ac-border-muted);
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+.ac-command-list {
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 0.5rem;
+}
+
+.ac-command-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    margin-bottom: 2px;
+}
+
+.ac-command-item.active {
+    background: var(--ac-surface-hover);
+    box-shadow: inset 0 0 0 1px var(--ac-border-muted);
+}
+
+.ac-item-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.ac-item-icon-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: var(--ac-bg);
+    border: 1px solid var(--ac-border-muted);
+    border-radius: 6px;
+    color: var(--ac-text-secondary);
+}
+
+.ac-command-item.active .ac-item-icon-box {
+    border-color: var(--ac-brand);
+    color: var(--ac-brand);
+}
+
+.ac-item-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.ac-item-label {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    color: var(--ac-text-primary);
+    font-weight: 600;
+}
+
+.ac-item-desc {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--ac-text-muted);
+}
+
+.ac-item-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.ac-item-shortcuts {
+    display: flex;
+    gap: 4px;
+}
+
+.ac-kbd {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    background: var(--ac-bg);
+    border: 1px solid var(--ac-border-muted);
+    padding: 2px 4px;
+    border-radius: 3px;
+    color: var(--ac-text-muted);
+}
+
+.ac-arrow {
+    color: var(--ac-text-muted);
+    opacity: 0;
+    transform: translateX(-5px);
+    transition: all 0.2s ease;
+}
+
+.ac-command-item.active .ac-arrow {
+    opacity: 1;
+    transform: translateX(0);
+    color: var(--ac-brand);
+}
+
+.ac-no-results {
+    padding: 2rem;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ac-text-muted);
+    letter-spacing: 0.1em;
+}
+
+.ac-command-footer {
+    display: flex;
+    gap: 1.5rem;
+    padding: 0.75rem 1.5rem;
+    border-top: 1px solid var(--ac-border-muted);
+    background: var(--ac-surface-hover);
+}
+
+.ac-footer-hint {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--ac-text-muted);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+[data-theme='light'] .ac-command-box {
+    background: white;
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.15);
+}
+
+[data-theme='light'] .ac-overlay-backdrop {
+    background: rgba(255, 255, 255, 0.7);
+}

@@ -1,0 +1,107 @@
+.ac-scroll-list-container {
+    position: relative;
+    border: 1px solid var(--ac-border-muted);
+    border-radius: 8px;
+    background: var(--ac-bg);
+    overflow: hidden;
+}
+
+.ac-scroll-list-viewport {
+    height: 100%;
+    overflow-y: auto;
+    padding: 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.ac-scroll-list-viewport::-webkit-scrollbar {
+    width: 4px;
+}
+
+.ac-scroll-list-viewport::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.ac-scroll-list-viewport::-webkit-scrollbar-thumb {
+    background: var(--ac-border-muted);
+    border-radius: 4px;
+}
+
+.ac-scroll-list-viewport::-webkit-scrollbar-thumb:hover {
+    background: var(--ac-brand);
+}
+
+.ac-scroll-list-mask {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 40px;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.ac-mask-top {
+    top: 0;
+    background: linear-gradient(to bottom, var(--ac-bg), transparent);
+}
+
+.ac-mask-bottom {
+    bottom: 0;
+    background: linear-gradient(to top, var(--ac-bg), transparent);
+}
+
+.ac-scroll-item {
+    display: flex;
+    gap: 12px;
+    position: relative;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.ac-scroll-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.ac-scroll-item-indicator {
+    width: 2px;
+    background: var(--ac-border-muted);
+    position: relative;
+}
+
+.ac-scroll-item:hover .ac-scroll-item-indicator {
+    background: var(--ac-brand);
+}
+
+.ac-scroll-item-content {
+    flex: 1;
+    min-width: 0;
+}
+
+.ac-scroll-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4px;
+}
+
+.ac-scroll-item-title {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--ac-text-primary);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+}
+
+.ac-scroll-item-time {
+    font-size: 0.6rem;
+    color: var(--ac-text-muted);
+    font-family: var(--font-mono);
+}
+
+.ac-scroll-item-body {
+    font-size: 0.75rem;
+    color: var(--ac-text-secondary);
+    line-height: 1.4;
+}

@@ -1,0 +1,59 @@
+.ac-marquee-container {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-top: 4px solid;
+    border-bottom: 4px solid;
+    background-color: var(--ac-bg);
+    padding: 1rem 0;
+    transform: rotate(-2deg) scale(1.05);
+    z-index: 10;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+.ac-marquee-content {
+    display: inline-flex;
+    will-change: transform;
+}
+
+.ac-marquee-text {
+    font-family: var(--font-inter);
+    font-weight: 900;
+    font-size: 4rem;
+    line-height: 1;
+    text-transform: uppercase;
+    padding: 0 2rem;
+    letter-spacing: -0.05em;
+    -webkit-text-stroke: 2px currentColor;
+    color: transparent;
+    transition: all 0.3s ease;
+}
+
+.ac-marquee-text:hover {
+    color: currentColor;
+}
+
+/* Colors */
+.ac-marquee-lime {
+    border-color: var(--ac-lime);
+    color: var(--ac-lime);
+}
+
+.ac-marquee-pink {
+    border-color: var(--ac-pink);
+    color: var(--ac-pink);
+}
+
+.ac-marquee-cyan {
+    border-color: var(--ac-cyan);
+    color: var(--ac-cyan);
+}
+
+.ac-marquee-purple {
+    border-color: var(--ac-purple);
+    color: var(--ac-purple);
+}

@@ -1,0 +1,34 @@
+.ac-ripple-btn {
+    position: relative;
+    overflow: hidden;
+    padding: 0.75rem 1.5rem;
+    background: var(--ac-brand);
+    color: #000;
+    border: none;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.2s;
+}
+
+.ac-btn-label {
+    position: relative;
+    z-index: 2;
+}
+
+.ac-ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple-anim linear forwards;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes ripple-anim {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}

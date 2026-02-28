@@ -1,0 +1,45 @@
+.ac-drag-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.ac-drag-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--ac-surface);
+    border: 1px solid var(--ac-border-muted);
+    padding: 12px;
+    border-radius: 8px;
+    cursor: grab;
+    user-select: none;
+    position: relative;
+    z-index: 1;
+}
+
+.ac-drag-item:active {
+    cursor: grabbing;
+}
+
+.ac-drag-handle {
+    color: var(--ac-text-muted);
+    display: flex;
+    align-items: center;
+    transition: color 0.15s;
+}
+
+.ac-drag-item:hover .ac-drag-handle {
+    color: var(--ac-brand);
+}
+
+.ac-drag-content {
+    flex: 1;
+    font-size: 0.875rem;
+    color: var(--ac-text-primary);
+    font-family: var(--font-mono);
+}

@@ -1,0 +1,61 @@
+.ac-toggle-group {
+    display: inline-flex;
+    border: 1px solid var(--ac-border-muted);
+    overflow: hidden;
+}
+
+.ac-toggle-group-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    background: transparent;
+    border: none;
+    border-right: 1px solid var(--ac-border-muted);
+    color: var(--ac-text-secondary);
+    font-family: var(--font-mono);
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    letter-spacing: 0.04em;
+}
+
+.ac-toggle-group-sm .ac-toggle-group-item {
+    padding: 0.3rem 0.65rem;
+    font-size: 0.75rem;
+}
+
+.ac-toggle-group-md .ac-toggle-group-item {
+    padding: 0.5rem 1.1rem;
+    font-size: 0.85rem;
+}
+
+.ac-toggle-group-lg .ac-toggle-group-item {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+}
+
+.ac-toggle-group-item:last-child {
+    border-right: none;
+}
+
+.ac-toggle-group-item:hover {
+    background: var(--ac-surface-hover);
+    color: var(--ac-text-primary);
+}
+
+.ac-toggle-group-selected {
+    background: var(--ac-text-primary) !important;
+    color: var(--ac-bg) !important;
+}
+
+.ac-toggle-group-outline .ac-toggle-group-selected {
+    background: var(--ac-brand) !important;
+    color: #fff !important;
+    border-color: var(--ac-brand);
+}
+
+.ac-toggle-group-item-disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}

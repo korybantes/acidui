@@ -1,0 +1,44 @@
+.ac-divider {
+    background: var(--ac-border-muted);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ac-divider-horizontal {
+    width: 100%;
+    height: 1px;
+    margin: 1.5rem 0;
+}
+
+.ac-divider-vertical {
+    width: 1px;
+    height: 100%;
+    margin: 0 1.5rem;
+}
+
+.ac-divider-label {
+    position: absolute;
+    padding: 0 0.75rem;
+    background: var(--ac-bg);
+    color: var(--ac-text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    z-index: 1;
+}
+
+.ac-divider-has-label.ac-divider-horizontal::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background: var(--ac-border-muted);
+}
+
+/* No label background if on a surface */
+[data-theme='light'] .ac-divider-label {
+    background: white;
+}

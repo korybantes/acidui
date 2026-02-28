@@ -1,0 +1,49 @@
+.ac-aurora-text {
+    position: relative;
+    display: inline-block;
+    color: var(--ac-text-primary);
+    font-weight: 800;
+}
+
+.ac-aurora-overlay {
+    position: absolute;
+    inset: 0;
+    color: transparent;
+    -webkit-text-stroke: 0px transparent;
+    background: linear-gradient(to right,
+            #f43f5e,
+            #fb923c,
+            #facc15,
+            #4ade80,
+            #2dd4bf,
+            #3b82f6,
+            #a855f7,
+            #ec4899,
+            #f43f5e);
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    filter: blur(8px);
+    opacity: 0.6;
+    animation: aurora-flow 8s linear infinite;
+}
+
+.ac-aurora-low .ac-aurora-overlay {
+    filter: blur(12px);
+    opacity: 0.3;
+}
+
+.ac-aurora-high .ac-aurora-overlay {
+    filter: blur(6px);
+    opacity: 0.8;
+}
+
+@keyframes aurora-flow {
+    0% {
+        background-position: 0% center;
+    }
+
+    100% {
+        background-position: 200% center;
+    }
+}

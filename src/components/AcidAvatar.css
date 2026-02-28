@@ -1,0 +1,70 @@
+.ac-avatar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--ac-surface);
+    border: 1px solid var(--ac-border-muted);
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.ac-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ac-avatar-fallback {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--ac-text-muted);
+    font-size: 0.9rem;
+}
+
+/* Sizes */
+.ac-avatar-sm {
+    width: 32px;
+    height: 32px;
+}
+
+.ac-avatar-md {
+    width: 44px;
+    height: 44px;
+}
+
+.ac-avatar-lg {
+    width: 64px;
+    height: 64px;
+}
+
+.ac-avatar-xl {
+    width: 96px;
+    height: 96px;
+}
+
+/* Shapes */
+.ac-avatar-circle {
+    border-radius: 50%;
+}
+
+.ac-avatar-square {
+    border-radius: var(--ac-radius-sm);
+}
+
+.ac-avatar-industrial {
+    clip-path: polygon(10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%, 0 10%);
+}
+
+.ac-avatar-status {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 25%;
+    height: 25%;
+    background: #4caf50;
+    border: 2px solid var(--ac-bg);
+    border-radius: 50%;
+    display: none;
+    /* Optional: Toggle on if active */
+}

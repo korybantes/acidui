@@ -1,0 +1,59 @@
+.ac-stack-list {
+    display: flex;
+    flex-direction: column;
+    background: var(--ac-surface);
+    border: 1px solid var(--ac-border-muted);
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.ac-stack-header {
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid var(--ac-border-muted);
+    font-size: 0.65rem;
+    font-family: var(--font-mono);
+    color: var(--ac-text-muted);
+    letter-spacing: 0.1em;
+}
+
+.ac-stack-item {
+    padding: 1rem;
+    border-bottom: 1px solid var(--ac-border-muted);
+    transition: background 0.2s;
+}
+
+.ac-stack-item:last-child {
+    border-bottom: none;
+}
+
+.ac-stack-item:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.ac-stack-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.ac-stack-label {
+    font-size: 0.8rem;
+    color: var(--ac-text-secondary);
+    font-family: var(--font-mono);
+}
+
+.ac-stack-value {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--ac-brand);
+    font-family: var(--font-mono);
+}
+
+.ac-stack-sub {
+    font-size: 0.65rem;
+    color: var(--ac-text-muted);
+    margin-top: 4px;
+    text-transform: uppercase;
+}

@@ -1,0 +1,73 @@
+.ac-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 1px solid var(--ac-border-muted);
+    background: transparent;
+    color: var(--ac-text-secondary);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+}
+
+.ac-toggle-sm {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.75rem;
+}
+
+.ac-toggle-md {
+    padding: 0.5rem 1.25rem;
+}
+
+.ac-toggle-lg {
+    padding: 0.75rem 1.75rem;
+    font-size: 1rem;
+}
+
+/* Variants */
+.ac-toggle-default:hover {
+    border-color: var(--ac-border-bright);
+    color: var(--ac-text-primary);
+    background: var(--ac-surface);
+}
+
+.ac-toggle-default.ac-toggle-pressed {
+    background: var(--ac-text-primary);
+    color: var(--ac-bg);
+    border-color: var(--ac-text-primary);
+}
+
+.ac-toggle-outline {
+    border-color: var(--ac-border-bright);
+}
+
+.ac-toggle-outline:hover {
+    border-color: var(--ac-text-primary);
+    color: var(--ac-text-primary);
+}
+
+.ac-toggle-outline.ac-toggle-pressed {
+    border-color: var(--ac-brand);
+    color: var(--ac-brand);
+    background: color-mix(in srgb, var(--ac-brand) 8%, transparent);
+}
+
+.ac-toggle-brand:hover {
+    border-color: var(--ac-brand);
+    color: var(--ac-brand);
+}
+
+.ac-toggle-brand.ac-toggle-pressed {
+    background: var(--ac-brand);
+    color: #fff;
+    border-color: var(--ac-brand);
+}
+
+.ac-toggle-disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}

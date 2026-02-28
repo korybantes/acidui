@@ -1,0 +1,142 @@
+.ac-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: var(--ac-bg);
+    border-bottom: 2px solid var(--ac-border);
+    font-family: var(--font-mono);
+}
+
+.ac-navbar-top-bar {
+    height: 64px;
+    display: flex;
+    align-items: center;
+}
+
+.ac-navbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.ac-navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: var(--ac-text-primary);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.brand-text {
+    font-size: 1.1rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+}
+
+.version {
+    font-size: 0.6rem;
+    color: var(--ac-brand);
+    border: 1px solid var(--ac-brand);
+    padding: 0 4px;
+    border-radius: 2px;
+}
+
+.ac-navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.ac-navbar-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: var(--ac-text-secondary);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    padding: 0.5rem 0;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+}
+
+.ac-navbar-link:hover {
+    color: var(--ac-text-primary);
+}
+
+.ac-navbar-link.active {
+    color: var(--ac-brand);
+    border-bottom-color: var(--ac-brand);
+}
+
+.ac-navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.ac-btn-icon {
+    background: var(--ac-surface);
+    border: 1px solid var(--ac-border);
+    color: var(--ac-text-primary);
+    padding: 0.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.ac-btn-icon:hover {
+    background: var(--ac-border);
+    border-color: var(--ac-text-secondary);
+}
+
+.ac-navbar-mobile-overlay {
+    position: fixed;
+    top: 64px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+    z-index: 999;
+}
+
+.ac-navbar-mobile-menu {
+    background: var(--ac-bg);
+    border-bottom: 2px solid var(--ac-border);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.ac-mobile-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    color: var(--ac-text-primary);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+@media (max-width: 768px) {
+    .desktop-only {
+        display: none;
+    }
+}
+
+@media (min-width: 769px) {
+    .mobile-only {
+        display: none;
+    }
+}

@@ -1,0 +1,141 @@
+.ac-electro-wrapper {
+    position: relative;
+    padding: 1px;
+    background: transparent;
+    overflow: hidden;
+    border-radius: 4px;
+}
+
+.ac-electro-content {
+    background: var(--ac-bg);
+    padding: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.ac-electro-border {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.ac-electro-line {
+    position: absolute;
+    opacity: 0.8;
+}
+
+.ac-electro-top {
+    top: 0;
+    left: 0;
+    width: 100%;
+    animation: ac-electro-h 2s infinite linear;
+}
+
+.ac-electro-bottom {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    animation: ac-electro-h 2s infinite linear reverse;
+}
+
+.ac-electro-left {
+    top: 0;
+    left: 0;
+    height: 100%;
+    animation: ac-electro-v 2s infinite linear;
+}
+
+.ac-electro-right {
+    top: 0;
+    right: 0;
+    height: 100%;
+    animation: ac-electro-v 2s infinite linear reverse;
+}
+
+.ac-electro-corners .ac-corner {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border: 1px solid var(--ac-brand);
+    z-index: 2;
+}
+
+.ac-corner-tl {
+    top: 0;
+    left: 0;
+    border-right: none;
+    border-bottom: none;
+}
+
+.ac-corner-tr {
+    top: 0;
+    right: 0;
+    border-left: none;
+    border-bottom: none;
+}
+
+.ac-corner-bl {
+    bottom: 0;
+    left: 0;
+    border-right: none;
+    border-top: none;
+}
+
+.ac-corner-br {
+    bottom: 0;
+    right: 0;
+    border-left: none;
+    border-top: none;
+}
+
+@keyframes ac-electro-h {
+    0% {
+        transform: scaleX(0);
+        transform-origin: left;
+        opacity: 0;
+    }
+
+    50% {
+        transform: scaleX(1);
+        transform-origin: left;
+        opacity: 1;
+    }
+
+    50.1% {
+        transform: scaleX(1);
+        transform-origin: right;
+        opacity: 1;
+    }
+
+    100% {
+        transform: scaleX(0);
+        transform-origin: right;
+        opacity: 0;
+    }
+}
+
+@keyframes ac-electro-v {
+    0% {
+        transform: scaleY(0);
+        transform-origin: top;
+        opacity: 0;
+    }
+
+    50% {
+        transform: scaleY(1);
+        transform-origin: top;
+        opacity: 1;
+    }
+
+    50.1% {
+        transform: scaleY(1);
+        transform-origin: bottom;
+        opacity: 1;
+    }
+
+    100% {
+        transform: scaleY(0);
+        transform-origin: bottom;
+        opacity: 0;
+    }
+}

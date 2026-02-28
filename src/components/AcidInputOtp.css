@@ -1,0 +1,57 @@
+.ac-otp-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.ac-otp-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--ac-text-muted);
+    text-transform: uppercase;
+}
+
+.ac-otp-inputs {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.ac-otp-cell {
+    width: 48px;
+    height: 56px;
+    border: 1px solid var(--ac-border-muted);
+    background: var(--ac-surface);
+    color: var(--ac-text-primary);
+    font-family: var(--font-mono);
+    font-size: 1.5rem;
+    font-weight: 700;
+    text-align: center;
+    outline: none;
+    transition: all 0.2s ease;
+    letter-spacing: 0;
+    /* remove browser defaults */
+    -moz-appearance: textfield;
+}
+
+.ac-otp-cell::-webkit-outer-spin-button,
+.ac-otp-cell::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.ac-otp-cell:focus {
+    border-color: var(--ac-text-primary);
+    background: var(--ac-surface-hover);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--ac-text-primary) 10%, transparent);
+}
+
+.ac-otp-cell-filled {
+    border-color: var(--ac-brand);
+    color: var(--ac-brand);
+}
+
+.ac-otp-cell:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}

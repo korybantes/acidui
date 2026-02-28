@@ -1,0 +1,64 @@
+.ac-drawer-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    z-index: 2000;
+}
+
+.ac-drawer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--ac-bg);
+    border-top: 1px solid var(--ac-brand);
+    border-radius: 20px 20px 0 0;
+    z-index: 2001;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+.ac-drawer-handle-wrapper {
+    width: 100%;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+}
+
+.ac-drawer-handle-wrapper:active {
+    cursor: grabbing;
+}
+
+.ac-drawer-handle {
+    width: 40px;
+    height: 4px;
+    background: var(--ac-border-active);
+    border-radius: 2px;
+}
+
+.ac-drawer-header {
+    padding: 0 1.5rem 1rem 1.5rem;
+    text-align: center;
+}
+
+.ac-drawer-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--ac-text);
+    margin: 0;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+}
+
+.ac-drawer-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 0 1.5rem 2rem 1.5rem;
+}

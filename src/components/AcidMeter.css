@@ -1,0 +1,118 @@
+.ac-meter-control {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+.ac-meter-label {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--ac-text-secondary);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transform: rotate(-90deg);
+    margin-bottom: 2rem;
+    white-space: nowrap;
+}
+
+.ac-meter-track {
+    width: 14px;
+    height: 200px;
+    background: var(--ac-border-muted);
+    border-radius: 9999px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.ac-meter-dot-top {
+    position: absolute;
+    top: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    background: var(--ac-bg);
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.ac-meter-dot-bottom {
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    background: var(--ac-bg);
+    /* Punch-hole look */
+    border-radius: 50%;
+    z-index: 3;
+}
+
+.ac-meter-fill {
+    width: 100%;
+    background: linear-gradient(to top, var(--ac-brand), #ff8a65);
+    border-radius: 9999px;
+    position: relative;
+    z-index: 2;
+}
+
+.ac-meter-fill-dot {
+    position: absolute;
+    top: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    background: var(--ac-bg);
+    border-radius: 50%;
+}
+
+/* Horizontal Style */
+.ac-meter-horizontal {
+    flex-direction: row;
+    width: 100%;
+    max-width: 400px;
+}
+
+.ac-meter-horizontal .ac-meter-label {
+    transform: none;
+    margin-bottom: 0;
+    margin-right: 2rem;
+    min-width: 80px;
+}
+
+.ac-meter-horizontal .ac-meter-track {
+    width: 100%;
+    height: 14px;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.ac-meter-horizontal .ac-meter-dot-top {
+    left: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.ac-meter-horizontal .ac-meter-dot-bottom {
+    right: 4px;
+    left: auto;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.ac-meter-horizontal .ac-meter-fill {
+    height: 100%;
+    background: linear-gradient(to right, var(--ac-brand), #ff8a65);
+}
+
+.ac-meter-horizontal .ac-meter-fill-dot {
+    right: 4px;
+    left: auto;
+    top: 50%;
+    transform: translateY(-50%);
+}

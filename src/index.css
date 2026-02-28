@@ -1,0 +1,136 @@
+:root {
+  /* Minimalist Technical Palette - DARK (Default) */
+  --ac-bg: #000000;
+  --ac-surface: #0a0a0a;
+  --ac-surface-hover: #121212;
+
+  --ac-text-primary: #ededed;
+  --ac-text-secondary: #a0a0a0;
+  --ac-text-muted: #666666;
+
+  --ac-border-muted: #1f1f1f;
+  --ac-border-bright: #333333;
+  --ac-border-active: #ffffff;
+
+  /* Aliases for compatibility */
+  --ac-border: var(--ac-border-muted);
+  --ac-text: var(--ac-text-primary);
+
+  /* Brand Accent */
+  --ac-brand: #f44336;
+  --ac-brand-rgb: 244, 67, 54;
+
+  /* Technical Indicators */
+  --ac-success: #27c93f;
+  --ac-lime: #27c93f;
+  --ac-warning: #ffbd2e;
+  --ac-error: #ff5f57;
+  --ac-info: #00f0ff;
+  --ac-cyan: #00f0ff;
+
+  /* Typography */
+  --font-primary: 'Space Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  --font-mono: 'Space Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+
+  /* Radii */
+  --ac-radius-sm: 4px;
+  --ac-radius-md: 8px;
+  --ac-radius-lg: 12px;
+  --ac-radius-full: 99px;
+
+  /* Background Effects */
+  --ac-grid-opacity: 0.05;
+}
+
+[data-theme='light'] {
+  --ac-bg: #ffffff;
+  --ac-surface: #f7f7f7;
+  --ac-surface-hover: #eeeeee;
+
+  --ac-text-primary: #121212;
+  --ac-text-secondary: #555555;
+  --ac-text-muted: #999999;
+
+  --ac-border-muted: #e5e5e5;
+  --ac-border-bright: #cccccc;
+  --ac-border-active: #000000;
+
+  /* Aliases for compatibility */
+  --ac-border: var(--ac-border-muted);
+  --ac-text: var(--ac-text-primary);
+
+  /* Technical Indicators */
+  --ac-success: #1a8a2a;
+  --ac-lime: #1a8a2a;
+  --ac-warning: #b38600;
+  --ac-error: #cc3300;
+  --ac-info: #007780;
+  --ac-cyan: #007780;
+
+  --ac-grid-opacity: 0.1;
+  --ac-brand-rgb: 244, 67, 54;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-primary);
+  background-color: var(--ac-bg);
+  color: var(--ac-text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-family: var(--font-primary);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+p {
+  margin: 0;
+}
+
+/* Base Utility Classes for Layout */
+.ac-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.ac-grid {
+  display: grid;
+  gap: 1px;
+  /* 1px gap for grid lines */
+  background: var(--ac-border-muted);
+  border: 1px solid var(--ac-border-muted);
+}
+
+.ac-grid>* {
+  background: var(--ac-bg);
+}
+
+.ac-flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Selection */
+::selection {
+  background: var(--ac-text-primary);
+  color: var(--ac-bg);
+}

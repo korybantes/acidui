@@ -1,0 +1,102 @@
+.ac-tabs-system {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+}
+
+.ac-tabs-list {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    border-bottom: 1px solid var(--ac-border);
+    padding-bottom: 0.5rem;
+}
+
+.ac-tab-trigger {
+    background: transparent;
+    border: none;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: var(--ac-text-secondary);
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 0.5rem 0;
+    position: relative;
+    transition: all 0.2s;
+}
+
+.ac-tab-trigger::after {
+    content: '';
+    position: absolute;
+    bottom: -0.6rem;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--ac-brand);
+    transition: width 0.3s ease;
+}
+
+.ac-tab-trigger:hover {
+    color: var(--ac-text-primary);
+}
+
+.ac-tab-active {
+    color: var(--ac-text-primary);
+}
+
+.ac-tab-active::after {
+    width: 100%;
+}
+
+/* Outline Variant */
+.ac-tabs-outline .ac-tabs-list {
+    gap: 0;
+    border-bottom: 1px solid var(--ac-border-muted);
+}
+
+.ac-tabs-outline .ac-tab-trigger {
+    padding: 0.75rem 1.5rem;
+    border: 1px solid var(--ac-border-muted);
+    border-bottom: none;
+    margin-right: -1px;
+}
+
+.ac-tabs-outline .ac-tab-trigger::after {
+    display: none;
+}
+
+.ac-tabs-outline .ac-tab-active {
+    background: var(--ac-surface);
+    border-color: var(--ac-border);
+    border-bottom: 2px solid var(--ac-brand);
+}
+
+/* Pills Variant */
+.ac-tabs-pills .ac-tabs-list {
+    background: var(--ac-surface);
+    border-radius: 8px;
+    padding: 4px;
+    gap: 4px;
+    border-bottom: none;
+}
+
+.ac-tabs-pills .ac-tab-trigger {
+    padding: 0.5rem 1.25rem;
+    border-radius: 6px;
+}
+
+.ac-tabs-pills .ac-tab-trigger::after {
+    display: none;
+}
+
+.ac-tabs-pills .ac-tab-active {
+    background: var(--ac-brand);
+    color: #fff;
+}
+
+.ac-tabs-content {
+    min-height: 100px;
+    font-family: var(--font-mono);
+}

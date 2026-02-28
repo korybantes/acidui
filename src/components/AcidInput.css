@@ -1,0 +1,99 @@
+.ac-input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.ac-input-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: none;
+    color: var(--ac-text-secondary);
+    transition: color 0.2s;
+}
+
+.ac-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.ac-input-prefix {
+    position: absolute;
+    left: 0.75rem;
+    color: var(--ac-text-secondary);
+    font-family: var(--font-mono);
+    pointer-events: none;
+}
+
+.ac-input-field {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background-color: var(--ac-surface);
+    border: 1px solid var(--ac-border-muted);
+    border-radius: 0;
+    color: var(--ac-text-primary);
+    font-family: var(--font-mono);
+    font-size: 0.875rem;
+    outline: none;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    clip-path: polygon(0 0,
+            calc(100% - 8px) 0,
+            100% 8px,
+            100% 100%,
+            8px 100%,
+            0 calc(100% - 8px));
+}
+
+.ac-input-field:focus {
+    border-color: var(--ac-brand);
+    background-color: var(--ac-surface-hover);
+}
+
+.ac-input-field::placeholder {
+    color: var(--ac-text-muted);
+}
+
+/* Variants */
+.ac-input-outline {
+    background-color: transparent;
+}
+
+.ac-input-filled {
+    background-color: var(--ac-surface);
+    border-color: transparent;
+}
+
+.ac-input-filled:focus {
+    background-color: var(--ac-surface-hover);
+    border-color: var(--ac-text-primary);
+}
+
+.ac-input-terminal {
+    padding-left: 2rem;
+    background-color: var(--ac-bg);
+    border-color: var(--ac-border-muted);
+}
+
+.ac-textarea-field {
+    min-height: 120px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+.ac-input-helper {
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    color: var(--ac-text-muted);
+    margin-top: 0.25rem;
+    display: block;
+}
+
+.ac-input-helper.error {
+    color: var(--ac-brand);
+}
+
+.ac-input-error {
+    border-color: var(--ac-brand) !important;
+}

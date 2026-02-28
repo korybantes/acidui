@@ -1,0 +1,28 @@
+.ac-scroll-area {
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    border: 1px solid var(--ac-border-muted);
+    background: rgba(0, 0, 0, 0.2);
+}
+
+/* Custom Scrollbar */
+.ac-scroll-area::-webkit-scrollbar {
+    width: 6px;
+}
+
+.ac-scroll-area::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.ac-scroll-area::-webkit-scrollbar-thumb {
+    background: var(--ac-border-muted);
+}
+
+.ac-scroll-area::-webkit-scrollbar-thumb:hover {
+    background: var(--ac-brand);
+}
+
+.ac-scroll-content {
+    padding: 1rem;
+}

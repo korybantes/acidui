@@ -1,0 +1,47 @@
+.ac-nav-menu {
+    width: fit-content;
+}
+
+.ac-nav-list {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ac-nav-horizontal .ac-nav-list {
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.ac-nav-vertical .ac-nav-list {
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.ac-nav-link {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--ac-text-secondary);
+    transition: color 0.2s;
+    position: relative;
+    padding: 0.5rem 0;
+}
+
+.ac-nav-link:hover {
+    color: var(--ac-text-primary);
+}
+
+.ac-nav-link.ac-active {
+    color: var(--ac-brand);
+}
+
+.ac-nav-indicator {
+    height: 2px;
+    background: var(--ac-brand);
+    width: 100%;
+    margin-top: 4px;
+}

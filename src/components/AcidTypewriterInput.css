@@ -1,0 +1,37 @@
+.ac-typewriter-input-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.ac-typewriter-label {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--ac-brand);
+    letter-spacing: 0.1em;
+}
+
+.ac-cursor {
+    animation: cursor-blink 1s step-end infinite;
+}
+
+.ac-typewriter-field {
+    background: #000;
+    border: 1px solid var(--ac-border-muted);
+    padding: 0.75rem 1rem;
+    color: white;
+    font-family: var(--font-mono);
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.ac-typewriter-field:focus {
+    border-color: var(--ac-brand);
+}
+
+@keyframes cursor-blink {
+    50% {
+        opacity: 0;
+    }
+}

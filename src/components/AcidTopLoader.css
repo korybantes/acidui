@@ -1,0 +1,24 @@
+.ac-top-loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99999;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.ac-top-loader-bar {
+    height: 100%;
+    box-shadow: 0 0 10px rgba(var(--ac-brand-rgb), 0.5);
+}
+
+.ac-top-loader-glow {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 100px;
+    filter: blur(8px);
+    opacity: 0.8;
+}

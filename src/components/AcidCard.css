@@ -1,0 +1,42 @@
+.ac-card {
+    border-radius: var(--ac-radius-sm);
+    padding: 1.5rem;
+    overflow: hidden;
+    position: relative;
+    transition: border-color 0.2s ease, background 0.2s ease;
+    background: var(--ac-surface);
+}
+
+/* Base Hover */
+.ac-card:hover {
+    border-color: var(--ac-text-muted);
+}
+
+/* Flat variant */
+.ac-card-flat {
+    border: 1px solid transparent;
+}
+
+.ac-card-flat:hover {
+    background: var(--ac-surface-hover);
+}
+
+/* Outline variant */
+.ac-card-outline {
+    border: 1px solid var(--ac-border-muted);
+}
+
+.ac-card-outline:hover {
+    border-color: var(--ac-text-secondary);
+}
+
+/* Dashed variant */
+.ac-card-dashed {
+    border: 1px dashed var(--ac-border-bright);
+    background: transparent;
+}
+
+.ac-card-dashed:hover {
+    border-color: var(--ac-text-primary);
+    background: var(--ac-surface);
+}

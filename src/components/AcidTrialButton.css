@@ -1,0 +1,55 @@
+.ac-trial-btn {
+    position: relative;
+    background: #fff;
+    color: #000;
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: var(--font-mono);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 14px rgba(255, 255, 255, 0.1);
+}
+
+.ac-trial-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);
+}
+
+.ac-trial-main {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 800;
+    font-size: 1rem;
+}
+
+.ac-trial-secondary {
+    font-size: 0.6rem;
+    opacity: 0.6;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+}
+
+.ac-trial-icon {
+    color: #f59e0b;
+}
+
+.ac-trial-glow {
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(45deg, #f59e0b, #ef4444, #3b82f6);
+    border-radius: inherit;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s;
+    filter: blur(8px);
+}
+
+.ac-trial-btn:hover .ac-trial-glow {
+    opacity: 0.4;
+}

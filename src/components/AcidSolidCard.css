@@ -1,0 +1,55 @@
+.ac-solid-card {
+    background: #f0f0f0;
+    /* Off-white bright contrast against the pure black system */
+    color: #000;
+    border-radius: 12px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    min-height: 480px;
+}
+
+.ac-solid-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: auto;
+    /* Pushes content down */
+}
+
+/* Override AcidLabel colors specifically for light layout */
+.ac-solid-card .ac-label {
+    color: #666;
+}
+
+.ac-solid-card .ac-dot-brand {
+    background-color: var(--ac-brand);
+}
+
+.ac-solid-ghost-text {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: #777;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.ac-solid-content {
+    margin-top: 4rem;
+}
+
+.ac-solid-graphic {
+    margin-bottom: 1.5rem;
+    color: #111;
+}
+
+.ac-solid-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-family: var(--font-inter);
+    line-height: 1.05;
+    font-weight: 500;
+    letter-spacing: -0.04em;
+    color: #000;
+    margin-bottom: 2rem;
+    max-width: 600px;
+}

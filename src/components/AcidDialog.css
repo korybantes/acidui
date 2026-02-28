@@ -1,0 +1,124 @@
+.ac-dialog-overlay-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ac-dialog-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(8px);
+}
+
+.ac-dialog-container {
+    position: relative;
+    z-index: 2001;
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+}
+
+.ac-dialog {
+    background: var(--ac-bg);
+    border: 1px solid var(--ac-border-muted);
+    border-radius: var(--ac-radius-lg);
+    box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+    overflow: hidden;
+}
+
+/* Sizes */
+.ac-dialog-sm {
+    width: 400px;
+}
+
+.ac-dialog-md {
+    width: 600px;
+}
+
+.ac-dialog-lg {
+    width: 900px;
+}
+
+.ac-dialog-full {
+    width: calc(100vw - 4rem);
+    height: calc(100vh - 4rem);
+}
+
+.ac-dialog-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--ac-border-muted);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ac-dialog-header-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.ac-dialog-title {
+    font-family: var(--font-primary);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--ac-text-primary);
+}
+
+.ac-dialog-description {
+    font-size: 0.875rem;
+    color: var(--ac-text-muted);
+}
+
+.ac-dialog-close {
+    background: transparent;
+    border: none;
+    color: var(--ac-text-muted);
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.ac-dialog-close:hover {
+    color: var(--ac-text-primary);
+}
+
+.ac-dialog-body {
+    padding: 2rem;
+    overflow-y: auto;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--ac-text-secondary);
+    line-height: 1.6;
+}
+
+.ac-dialog-footer {
+    padding: 1.5rem;
+    border-top: 1px solid var(--ac-border-muted);
+    background: var(--ac-surface);
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+[data-theme='light'] .ac-dialog {
+    background: white;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='light'] .ac-dialog-overlay {
+    background: rgba(255, 255, 255, 0.7);
+}

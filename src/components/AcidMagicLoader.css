@@ -1,0 +1,47 @@
+.ac-magic-loader {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ac-loader-ring {
+    position: absolute;
+    border: 2px solid transparent;
+    border-top-color: inherit;
+    border-radius: 50%;
+}
+
+.ac-ring-outer {
+    inset: 0;
+    border-width: 2px;
+}
+
+.ac-ring-middle {
+    inset: 15%;
+    border-width: 2px;
+}
+
+.ac-ring-inner {
+    inset: 30%;
+    border-width: 2px;
+}
+
+.ac-loader-core {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    animation: ac-core-pulse 1s infinite alternate;
+}
+
+@keyframes ac-core-pulse {
+    from {
+        transform: scale(0.8);
+        opacity: 0.5;
+    }
+
+    to {
+        transform: scale(1.5);
+        opacity: 1;
+    }
+}
