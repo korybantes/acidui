@@ -1,15 +1,47 @@
 import { useState, useMemo } from 'react';
 import { sidebarData } from '../data/sidebar';
 import { AcidBadge } from '../components/AcidBadge';
+import { AcidButton } from '../components/AcidButton';
+import { AcidProgress } from '../components/AcidProgress';
+import { AcidSkeleton } from '../components/AcidSkeleton';
+import { AcidCheckbox } from '../components/AcidCheckbox';
+import { AcidSwitch } from '../components/AcidSwitch';
+import { AcidSlider } from '../components/AcidSlider';
+import { AcidAvatar } from '../components/AcidAvatar';
+import { AcidLabel } from '../components/AcidLabel';
+import { AcidRippleLoader } from '../components/AcidRippleLoader';
+import { AcidTypingText } from '../components/AcidTypingText';
+import { AcidLink } from '../components/AcidLink';
+import { AcidDivider } from '../components/AcidDivider';
 import { ChevronRight, Search, Terminal, Grid, List, Activity, Cpu, Box, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import clsx from 'clsx';
 import './Library.css';
 
+const getInteractivePreview = (name: string) => {
+    switch (name.toLowerCase()) {
+        case 'button': return <AcidButton variant="primary" size="sm">INTERACT</AcidButton>;
+        case 'badge': return <AcidBadge variant="brand">METADATA</AcidBadge>;
+        case 'progress': return <AcidProgress value={75} variant="brand" showLabel={false} />;
+        case 'skeleton': return <AcidSkeleton width="100%" height={20} />;
+        case 'checkbox': return <AcidCheckbox label="AUTH_NODE" />;
+        case 'switch': return <AcidSwitch label="SYNC" />;
+        case 'slider': return <div style={{ width: '100%', padding: '0 10px' }}><AcidSlider defaultValue={45} /></div>;
+        case 'avatar': return <AcidAvatar fallback="US" shape="industrial" />;
+        case 'label': return <AcidLabel color="brand">SYS_LABEL</AcidLabel>;
+        case 'ripple loader': return <AcidRippleLoader size={40} />;
+        case 'typing text': return <AcidTypingText text="SYS.INIT" speed={40} />;
+        case 'link': return <AcidLink href="#">SYS_URL</AcidLink>;
+        case 'divider': return <AcidDivider />;
+        default: return null;
+    }
+};
+
 export function Library() {
     const [search, setSearch] = useState('');
     const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+    const [hoveredCard, setHoveredCard] = useState<string | null>(null);
 
     const categories = useMemo(() => sidebarData.map(cat => cat.title), []);
 
@@ -145,6 +177,8 @@ export function Library() {
                                     exit={{ opacity: 0, scale: 0.9 }}
                                     transition={{ duration: 0.2, delay: idx * 0.02 }}
                                     whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                                    onMouseEnter={() => setHoveredCard(item.name)}
+                                    onMouseLeave={() => setHoveredCard(null)}
                                 >
                                     <div className="card-scanner-line" />
                                     <div className="card-top-header">
@@ -153,13 +187,39 @@ export function Library() {
                                     </div>
 
                                     <div className="card-main">
-                                        <div className="icon-box">
-                                            <Box size={24} className="module-icon" />
-                                        </div>
-                                        <div className="card-text">
-                                            <h3 className="module-name">{item.name.toUpperCase()}</h3>
-                                            <span className="module-id">ID: {Math.random().toString(16).substring(2, 8).toUpperCase()}</span>
-                                        </div>
+                                        <AnimatePresence mode="wait">
+                                            {hoveredCard === item.name && getInteractivePreview(item.name) ? (
+                                                <motion.div
+                                                    key="preview"
+                                                    initial={{ opacity: 0, scale: 0.95 }}
+                                                    animate={{ opacity: 1, scale: 1 }}
+                                                    exit={{ opacity: 0, scale: 0.95 }}
+                                                    transition={{ duration: 0.2 }}
+                                                    className="interactive-preview-container"
+                                                    style={{ width: '100%', display: 'flex', alignItems: 'center', minHeight: '44px' }}
+                                                    onClick={(e) => e.preventDefault()}
+                                                >
+                                                    {getInteractivePreview(item.name)}
+                                                </motion.div>
+                                            ) : (
+                                                <motion.div
+                                                    key="content"
+                                                    initial={{ opacity: 0 }}
+                                                    animate={{ opacity: 1 }}
+                                                    exit={{ opacity: 0 }}
+                                                    className="card-main-content"
+                                                    style={{ display: 'flex', alignItems: 'center', gap: '1rem', width: '100%' }}
+                                                >
+                                                    <div className="icon-box">
+                                                        <Box size={24} className="module-icon" />
+                                                    </div>
+                                                    <div className="card-text">
+                                                        <h3 className="module-name">{item.name.toUpperCase()}</h3>
+                                                        <span className="module-id">ID: {Math.random().toString(16).substring(2, 8).toUpperCase()}</span>
+                                                    </div>
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
                                     </div>
 
                                     <div className="card-footer-premium">

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "bin": {
-    "acidui": "./src/cli/main.mjs"
+    "acidui-core": "./src/cli/main.mjs"
   },
   "scripts": {
     "dev": "vite",

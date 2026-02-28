@@ -400,8 +400,8 @@ export function Docs() {
                     </section>
                 </div>
             ),
-            code: '// npx acidui init',
-            cli: 'npx acidui init',
+            code: '// npx acidui-core init',
+            cli: 'npx acidui-core init',
             props: []
         },
 
@@ -422,7 +422,7 @@ export function Docs() {
                 </div>
             ),
             code: `<AcidDynamicNavbar items={[...]} />`,
-            cli: 'npx acidui add dynamic-navbar',
+            cli: 'npx acidui-core add dynamic-navbar',
             props: [
                 { name: 'items', type: 'NavItem[]', desc: 'Array of nav links with icons.' },
                 { name: 'className', type: 'string', desc: 'Custom container styles.' }
@@ -431,15 +431,114 @@ export function Docs() {
         'installation': {
             name: 'INSTALLATION',
             desc: 'Sequence order for system initialization.',
-            icon: <Settings size={32} />,
+            icon: <Terminal size={32} />,
             preview: (
                 <div className="preview-layout docs-page-content">
-                    <AcidCodeBlock code="npm install @acidui/react framer-motion lucide-react clsx" />
+                    <section className="docs-intro-hero">
+                        <AcidLabel color="brand">DEPLOYMENT_PROTOCOL</AcidLabel>
+                        <h2 className="content-h1">SYSTEM_INITIALIZATION</h2>
+                        <p className="content-p">
+                            AcidUI is distributed via a custom CLI and component registry. Choose your preferred package manager to begin deployment.
+                        </p>
+                    </section>
+
+                    <section className="docs-grid-section">
+                        <h3 className="content-h3">1. CHOOSE_YOUR_CORE</h3>
+                        <div style={{ marginTop: '1.5rem' }}>
+                            <AcidTabs
+                                defaultOpen="npm"
+                                tabs={[
+                                    {
+                                        id: 'npm', label: 'NPM', content: (
+                                            <AcidCodeBlock code="npm install acidui-core framer-motion lucide-react clsx" />
+                                        )
+                                    },
+                                    {
+                                        id: 'yarn', label: 'YARN', content: (
+                                            <AcidCodeBlock code="yarn add acidui-core framer-motion lucide-react clsx" />
+                                        )
+                                    },
+                                    {
+                                        id: 'bun', label: 'BUN', content: (
+                                            <AcidCodeBlock code="bun add acidui-core framer-motion lucide-react clsx" />
+                                        )
+                                    }
+                                ]}
+                            />
+                        </div>
+                    </section>
+
+                    <section className="docs-grid-section">
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1rem' }}>
+                            <h3 className="content-h3">2. CATEGORY_BASED_INSTALLATION</h3>
+                            <AcidBadge variant="brand">NEW_FEATURE</AcidBadge>
+                        </div>
+                        <p className="content-p">
+                            Our high-performance feature allows you to install entire groups of related components in one command. Perfect for rapid dashboard orchestration or landing page deployment.
+                        </p>
+
+                        <div className="industrial-alert" style={{ marginBottom: '2rem', padding: '1.5rem', border: '1px solid var(--ac-brand)', background: 'rgba(0,255,136,0.05)', borderRadius: '4px' }}>
+                            <h4 style={{ color: 'var(--ac-brand)', margin: '0 0 10px 0', fontSize: '0.8rem' }}>POWERFUL_FEATURE</h4>
+                            <p style={{ fontSize: '0.85rem', lineHeight: '1.5' }}>
+                                This feature automatically handles intelligent dependency management. If a category requires <code className="code-inline">framer-motion</code> or <code className="code-inline">lucide-react</code>, the CLI will alert you and offer to initialize them.
+                            </p>
+                        </div>
+
+                        <AcidCodeBlock code="npx acidui-core add --category <category-name>\n# or short form\nnpx acidui-core add -c basic" />
+
+                        <div className="docs-table-wrapper" style={{ marginTop: '2rem' }}>
+                            <table className="industrial-table">
+                                <thead>
+                                    <tr>
+                                        <th>CATEGORY</th>
+                                        <th>DESCRIPTION</th>
+                                        <th>CORE_DEPS</th>
+                                        <th>COMMAND</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code className="text-brand">basic</code></td>
+                                        <td>Foundational UI units</td>
+                                        <td>None</td>
+                                        <td><code className="text-muted">add -c basic</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code className="text-brand">ui</code></td>
+                                        <td>Standard interactive elements</td>
+                                        <td>lucide-react</td>
+                                        <td><code className="text-muted">add -c ui</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code className="text-brand">layout</code></td>
+                                        <td>Structural containers</td>
+                                        <td>lucide-react</td>
+                                        <td><code className="text-muted">add -c layout</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code className="text-brand">navigation</code></td>
+                                        <td>Routing & Menu units</td>
+                                        <td>framer-motion</td>
+                                        <td><code className="text-muted">add -c navigation</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code className="text-brand">background</code></td>
+                                        <td>Visual effects & Shaders</td>
+                                        <td>framer-motion</td>
+                                        <td><code className="text-muted">add -c background</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code className="text-brand">charts</code></td>
+                                        <td>Data visualization units</td>
+                                        <td>recharts</td>
+                                        <td><code className="text-muted">add -c charts</code></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
                 </div>
-            ),
-            code: 'npm install @acidui/react',
-            cli: 'npm install @acidui/react',
-            props: []
+            )
         },
         'alert': {
             name: 'ALERT',
@@ -454,7 +553,7 @@ export function Docs() {
                 </div>
             ),
             code: `<AcidAlert variant="error" title="Title">Content</AcidAlert>`,
-            cli: 'npx acidui add alert',
+            cli: 'npx acidui-core add alert',
             props: [
                 { name: 'variant', type: '"info" | "error" | "success" | "warning"', default: 'info', desc: 'Visual state intent.' },
                 { name: 'title', type: 'string', desc: 'Header text for the alert.' }
@@ -482,7 +581,7 @@ export function Docs() {
                 </div>
             ),
             code: `<AcidAvatar shape="industrial" size="xl" fallback="AO" />`,
-            cli: 'npx acidui add avatar',
+            cli: 'npx acidui-core add avatar',
             props: [
                 { name: 'shape', type: '"industrial" | "circle"', default: 'circle', desc: 'Outer boundary geometry.' },
                 { name: 'size', type: '"sm" | "md" | "lg" | "xl"', default: 'md', desc: 'Scale factor.' }
@@ -503,7 +602,7 @@ export function Docs() {
                 </div>
             ),
             code: `<AcidBadge variant="brand">STABLE</AcidBadge>`,
-            cli: 'npx acidui add badge',
+            cli: 'npx acidui-core add badge',
             props: [
                 { name: 'variant', type: '"brand" | "outline" | "ghost"', default: 'brand', desc: 'Color intensity.' }
             ],
@@ -525,7 +624,7 @@ export function Docs() {
                 </div>
             ),
             code: `<AcidButton variant="primary">ACTION</AcidButton>`,
-            cli: 'npx acidui add button',
+            cli: 'npx acidui-core add button',
             props: [
                 { name: 'variant', type: '"primary" | "outline" | "ghost"', default: 'primary', desc: 'Action weight.' },
                 { name: 'size', type: '"sm" | "md" | "lg"', default: 'md', desc: 'Touch target size.' }
@@ -555,7 +654,7 @@ export function Docs() {
                 </div>
             ),
             code: `<AcidCard>\n  <AcidLabel>Label</AcidLabel>\n  <h4>Title</h4>\n</AcidCard>`,
-            cli: 'npx acidui add card',
+            cli: 'npx acidui-core add card',
         },
         'carousel': {
             name: 'CAROUSEL',
@@ -564,7 +663,7 @@ export function Docs() {
             icon: <Layout size={32} />,
             preview: <CarouselDemo />,
             code: `<AcidCarousel items={[\n  { id: '1', title: 'Slide', description: '...', content: <div /> }\n]} />`,
-            cli: 'npx acidui add carousel',
+            cli: 'npx acidui-core add carousel',
             props: [
                 { name: 'items', type: 'AcidCarouselItem[]', desc: 'Array of data slides.' },
                 { name: 'direction', type: '"horizontal" | "vertical"', default: 'horizontal', desc: 'Layout axis.' },
@@ -592,7 +691,7 @@ export function Docs() {
                 </div>
             ),
             code: `<AcidDialog trigger={<Button />} title="Title">Content</AcidDialog>`,
-            cli: 'npx acidui add dialog',
+            cli: 'npx acidui-core add dialog',
             props: [
                 { name: 'trigger', type: 'ReactNode', desc: 'The anchor element.' },
                 { name: 'title', type: 'string', desc: 'Header text.' },
@@ -617,7 +716,7 @@ export function Docs() {
                 </div>
             ),
             code: `<AcidDropdown trigger={<Button />} items={[]} />`,
-            cli: 'npx acidui add dropdown',
+            cli: 'npx acidui-core add dropdown',
             props: [
                 { name: 'items', type: 'DropdownItem[]', desc: 'Array of menu entries.' }
             ]
@@ -635,7 +734,7 @@ export function Docs() {
                 </div>
             ),
             code: `<AcidProgress value={65} variant="brand" />`,
-            cli: 'npx acidui add progress',
+            cli: 'npx acidui-core add progress',
             props: [
                 { name: 'value', type: 'number', desc: '0-100 completion percentage.' },
                 { name: 'variant', type: 'string', desc: 'Brand vs Status coloring.' }
@@ -659,7 +758,7 @@ export function Docs() {
                 </div>
             ),
             code: `<AcidSkeleton width={100} height={20} />`,
-            cli: 'npx acidui add skeleton',
+            cli: 'npx acidui-core add skeleton',
             props: [
                 { name: 'shape', type: '" industrial" | "circle"', default: 'industrial', desc: 'Inner geometry.' }
             ]
@@ -672,7 +771,7 @@ export function Docs() {
             compact: true,
             preview: <ToastDemo />,
             code: `const { toast } = useToast();\ntoast("MSG", "success");`,
-            cli: 'npx acidui add toast',
+            cli: 'npx acidui-core add toast',
         },
         'tooltip': {
             name: 'TOOLTIP',
@@ -688,7 +787,7 @@ export function Docs() {
                 </div>
             ),
             code: `<AcidTooltip content="Tip">Child</AcidTooltip>`,
-            cli: 'npx acidui add tooltip',
+            cli: 'npx acidui-core add tooltip',
             props: [{ name: 'content', type: 'string', desc: 'Text to display.' }]
         },
         'calendar': {
@@ -697,7 +796,7 @@ export function Docs() {
             longDesc: 'A high-precision calendar component engineered for technical date selection with smooth transitions.',
             icon: <Activity size={32} />,
             preview: <AcidCalendar defaultValue={new Date()} />,
-            cli: 'npx acidui add calendar',
+            cli: 'npx acidui-core add calendar',
             props: [
                 { name: 'value', type: 'Date', desc: 'Controlled selection state.' },
                 { name: 'onChange', type: 'function', desc: 'Selection callback.' }
@@ -715,7 +814,7 @@ export function Docs() {
                 </div>
             ),
             code: `<AcidCheckbox label="Title" />`,
-            cli: 'npx acidui add checkbox',
+            cli: 'npx acidui-core add checkbox',
             props: [
                 { name: 'label', type: 'string', desc: 'Primary label.' },
                 { name: 'description', type: 'string', desc: 'Subtext metadata.' }
@@ -748,7 +847,7 @@ export function Docs() {
                     </AcidForm>
                 </div>
             ),
-            cli: 'npx acidui add form',
+            cli: 'npx acidui-core add form',
             props: [
                 { name: 'onSubmit', type: 'function', desc: 'Handler called on valid submission.' },
                 { name: 'gap', type: '"sm" | "md" | "lg"', default: 'md', desc: 'Vertical spacing between fields.' },
