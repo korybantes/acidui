@@ -24,6 +24,7 @@ import { AcidAccordion } from '../components/AcidAccordion';
 import { AcidDivider } from '../components/AcidDivider';
 import { AcidSwitch } from '../components/AcidSwitch';
 import { useToast } from '../components/AcidToast';
+import { AcidSEO } from '../components/AcidSEO';
 import { AcidInput } from '../components/AcidInput';
 import { AcidTimeline } from '../components/AcidTimeline';
 import { AcidStepList } from '../components/AcidStepList';
@@ -2127,6 +2128,11 @@ function LoginForm() {
 
     return (
         <div className="docs-container">
+            <AcidSEO
+                title={`${config.name} | Documentation`}
+                description={config.desc}
+                keywords="React, UI Library, Components, Documentation"
+            />
             <AcidSidebar categories={filteredSidebar} className="docs-sidebar">
                 <div className="sidebar-search">
                     <SearchIcon size={16} />

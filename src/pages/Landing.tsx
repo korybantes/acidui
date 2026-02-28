@@ -6,22 +6,23 @@ import { AcidCarousel } from '../components/AcidCarousel';
 import { AcidTypingText } from '../components/AcidTypingText';
 import { AcidVideoText } from '../components/AcidVideoText';
 import { AcidProgress } from '../components/AcidProgress';
-import { Terminal, Github, Activity, Copy, Check } from 'lucide-react';
-import { useState } from 'react';
+import { AcidTerminalCard } from '../components/AcidTerminalCard';
+import { AcidCodeBlock } from '../components/AcidCodeBlock';
+import { AcidBadge } from '../components/AcidBadge';
+import { Terminal, Github, Activity } from 'lucide-react';
+import { AcidSEO } from '../components/AcidSEO';
 import './Landing.css';
 
 export function Landing() {
-    const [copied, setCopied] = useState(false);
-    const installCmd = "npm i acidui-core framer-motion lucide-react clsx";
 
-    const copyToClipboard = () => {
-        navigator.clipboard.writeText(installCmd);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-    };
 
     return (
         <div className="landing-min-container">
+            <AcidSEO
+                title="Industrial Grade React Interface"
+                description="AcidUI Core - The only structural UI library that focuses on absolute precision, high-performance web applications, and kinetic feedback."
+                keywords="React, UI Library, Framer Motion, Industrial UI, Web Development, Tailwind"
+            />
             {/* Minimal Background Noise */}
             <div className="landing-noise" />
 
@@ -34,16 +35,14 @@ export function Landing() {
                         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                         className="hero-min-left"
                     >
-                        <div className="hero-min-tag">
-                            <span className="orange-dot" /> VISION
-                        </div>
-                        <h1 className="hero-min-title">
+                        <AcidBadge variant="brand" style={{ marginBottom: '1.5rem', display: 'inline-flex' }}>VISION_PROTOCOL</AcidBadge>
+                        <h1 className="hero-min-title" style={{ marginTop: '0.5rem' }}>
                             Industrial-Grade <br />
                             React Interface <br />
                             Architecture
                         </h1>
 
-                        <p className="hero-min-desc">
+                        <p className="hero-min-desc" style={{ marginTop: '1.5rem', marginBottom: '2.5rem' }}>
                             The only structural UI library that focuses
                             on absolute precision and kinetic feedback.
                             <br /><br />
@@ -53,17 +52,9 @@ export function Landing() {
                             performance or aesthetic.
                         </p>
 
-                        <div className="hero-min-actions">
-                            <div className="install-box-min">
-                                <div className="install-box-tabs">
-                                    <span className="install-tab active">REACT / NEXT.JS</span>
-                                    <span className="install-tab">VITE</span>
-                                </div>
-                                <div className="install-box-content" onClick={copyToClipboard}>
-                                    <span className="prompt">{'>'}</span> {installCmd}
-                                    {copied ? <Check size={16} className="text-brand absolute-icon" /> : <Copy size={16} className="text-muted absolute-icon" />}
-                                </div>
-                            </div>
+                        <div className="hero-min-actions" style={{ width: '100%', maxWidth: '400px' }}>
+                            <div style={{ marginBottom: '0.5rem', fontSize: '0.75rem', opacity: 0.6, fontFamily: 'var(--font-mono)', letterSpacing: '0.1em' }}>INITIALIZE_CORE:</div>
+                            <AcidCodeBlock code="npm i acidui-core" />
                         </div>
                     </motion.div>
 
@@ -73,29 +64,23 @@ export function Landing() {
                         transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
                         className="hero-min-right"
                     >
-                        <div className="hero-visual-card">
-                            <div className="visual-header">
-                                <span className="visual-dot red"></span>
-                                <span className="visual-dot yellow"></span>
-                                <span className="visual-dot green"></span>
-                                <span className="visual-title">acid_core_link.sh</span>
-                            </div>
-                            <div className="visual-body font-mono text-sm leading-relaxed p-6" style={{ whiteSpace: 'pre-wrap', color: '#ccc' }}>
+                        <div style={{ width: '100%', maxWidth: '500px', margin: '0 auto' }}>
+                            <AcidTerminalCard title="acid_core_link.sh">
                                 <AcidTypingText
                                     text={'Initializing structural system... [OK]\nLoading visual protocols... [OK]\nBinding coordinates... [SUCCESS]\n\n> Welcome to AcidUI.'}
                                     speed={15}
                                 />
                                 <div style={{ marginTop: '2.5rem', display: 'flex', gap: '2rem', width: '100%' }}>
                                     <div style={{ flex: 1 }}>
-                                        <div style={{ fontSize: '0.75rem', color: '#666', marginBottom: '0.75rem', letterSpacing: '0.1em' }}>SYSTEM_LOAD</div>
+                                        <div style={{ fontSize: '0.75rem', color: '#666', marginBottom: '0.75rem', letterSpacing: '0.1em', fontFamily: 'var(--font-mono)' }}>SYSTEM_LOAD</div>
                                         <AcidProgress value={84} variant="brand" />
                                     </div>
                                     <div style={{ flex: 1 }}>
-                                        <div style={{ fontSize: '0.75rem', color: '#666', marginBottom: '0.75rem', letterSpacing: '0.1em' }}>MEMORY_ALLOC</div>
+                                        <div style={{ fontSize: '0.75rem', color: '#666', marginBottom: '0.75rem', letterSpacing: '0.1em', fontFamily: 'var(--font-mono)' }}>MEMORY_ALLOC</div>
                                         <AcidProgress value={45} variant="success" />
                                     </div>
                                 </div>
-                            </div>
+                            </AcidTerminalCard>
                         </div>
                     </motion.div>
                 </div>

@@ -13,6 +13,7 @@ import { AcidRippleLoader } from '../components/AcidRippleLoader';
 import { AcidTypingText } from '../components/AcidTypingText';
 import { AcidLink } from '../components/AcidLink';
 import { AcidDivider } from '../components/AcidDivider';
+import { AcidSEO } from '../components/AcidSEO';
 import { ChevronRight, Search, Terminal, Grid, List, Activity, Cpu, Box, Sparkles } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import clsx from 'clsx';
@@ -65,6 +66,11 @@ export function Library() {
 
     return (
         <div className="library-container">
+            <AcidSEO
+                title="Component Explorer | Library"
+                description="Discover and integrate high-performance industrial modules into your architecture."
+                keywords="React Components, UI Library, Design System, Blocks"
+            />
             <header className="library-premium-header">
                 <div className="header-bg-glow" />
 
