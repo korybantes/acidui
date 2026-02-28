@@ -1,18 +1,5 @@
 # ACIDUI_CORE // INDUSTRIAL_UI_SYSTEM
 
-
-      ___           ___                       ___                    ___                 
-     /\  \         /\  \          ___        /\  \                  /\__\          ___   
-    /::\  \       /::\  \        /\  \      /::\  \                /:/  /         /\  \  
-   /:/\:\  \     /:/\:\  \       \:\  \    /:/\:\  \              /:/  /          \:\  \ 
-  /::\~\:\  \   /:/  \:\  \      /::\__\  /:/  \:\__\            /:/  /  ___      /::\__\
- /:/\:\ \:\__\ /:/__/ \:\__\  __/:/\/__/ /:/__/ \:|__|          /:/__/  /\__\  __/:/\/__/
- \/__\:\/:/  / \:\  \  \/__/ /\/:/  /    \:\  \ /:/  /          \:\  \ /:/  / /\/:/  /   
-      \::/  /   \:\  \       \::/__/      \:\  /:/  /            \:\  /:/  /  \::/__/    
-      /:/  /     \:\  \       \:\__\       \:\/:/  /              \:\/:/  /    \:\__\    
-     /:/  /       \:\__\       \/__/        \::/__/                \::/  /      \/__/    
-     \/__/         \/__/                     ~~                     \/__/                
-
 > **TACTICAL_STATUS: READY_FOR_DEPLOYMENT**
 > 
 > ACIDUI is a high-performance, industrial-grade React component library built for speed, aesthetics, and tactical precision. Designed with a "premium-acid" aesthetic, it leverages Framer Motion for smooth, micro-animated interactions and Vite for lightning-fast development.
