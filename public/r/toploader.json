@@ -1,0 +1,22 @@
+{
+  "name": "toploader",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidTopLoader.tsx",
+      "content": "import { useEffect, useState } from 'react';\r\nimport { motion, AnimatePresence } from 'framer-motion';\r\nimport './AcidTopLoader.css';\r\n\r\nexport interface AcidTopLoaderProps {\r\n    visible?: boolean;\r\n    color?: string;\r\n    height?: number;\r\n    speed?: number;\r\n}\r\n\r\nexport const AcidTopLoader = ({\r\n    visible = false,\r\n    color = 'var(--ac-brand)',\r\n    height = 3,\r\n    speed = 0.5\r\n}: AcidTopLoaderProps) => {\r\n    const [progress, setProgress] = useState(0);\r\n\r\n    useEffect(() => {\r\n        let timer: ReturnType<typeof setInterval>;\r\n        if (visible) {\r\n            const resetTimer = setTimeout(() => setProgress(0), 0);\r\n            timer = setInterval(() => {\r\n                setProgress(prev => {\r\n                    if (prev >= 90) return prev;\r\n                    return prev + (Math.random() * 5);\r\n                });\r\n            }, 300);\r\n            return () => {\r\n                clearTimeout(resetTimer);\r\n                clearInterval(timer);\r\n            };\r\n        } else {\r\n            setProgress(100);\r\n        }\r\n    }, [visible]);\r\n\r\n    return (\r\n        <AnimatePresence>\r\n            {visible && (\r\n                <motion.div\r\n                    initial={{ opacity: 0 }}\r\n                    animate={{ opacity: 1 }}\r\n                    exit={{ opacity: 0, transition: { delay: 0.2 } }}\r\n                    className=\"ac-top-loader-container\"\r\n                    style={{ height }}\r\n                >\r\n                    <motion.div\r\n                        className=\"ac-top-loader-bar\"\r\n                        style={{ background: color }}\r\n                        initial={{ width: '0%' }}\r\n                        animate={{ width: `${progress}%` }}\r\n                        transition={{ duration: speed }}\r\n                    />\r\n                    <div className=\"ac-top-loader-glow\" style={{ backgroundColor: color }} />\r\n                </motion.div>\r\n            )}\r\n        </AnimatePresence>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidTopLoader.css",
+      "content": ".ac-top-loader-container {\r\n    position: fixed;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    z-index: 99999;\r\n    pointer-events: none;\r\n    overflow: hidden;\r\n}\r\n\r\n.ac-top-loader-bar {\r\n    height: 100%;\r\n    box-shadow: 0 0 10px rgba(var(--ac-brand-rgb), 0.5);\r\n}\r\n\r\n.ac-top-loader-glow {\r\n    position: absolute;\r\n    right: 0;\r\n    top: 0;\r\n    height: 100%;\r\n    width: 100px;\r\n    filter: blur(8px);\r\n    opacity: 0.8;\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

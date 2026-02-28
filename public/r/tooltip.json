@@ -1,0 +1,22 @@
+{
+  "name": "tooltip",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidTooltip.tsx",
+      "content": "import React, { useState } from 'react';\r\nimport { motion, AnimatePresence } from 'framer-motion';\r\nimport clsx from 'clsx';\r\nimport './AcidTooltip.css';\r\n\r\nexport interface AcidTooltipProps {\r\n    content: React.ReactNode;\r\n    children: React.ReactNode;\r\n    position?: 'top' | 'bottom' | 'left' | 'right';\r\n    className?: string;\r\n}\r\n\r\nexport const AcidTooltip = ({\r\n    content,\r\n    children,\r\n    position = 'top',\r\n    className\r\n}: AcidTooltipProps) => {\r\n    const [isVisible, setIsVisible] = useState(false);\r\n\r\n    return (\r\n        <div\r\n            className=\"ac-tooltip-wrapper\"\r\n            onMouseEnter={() => setIsVisible(true)}\r\n            onMouseLeave={() => setIsVisible(false)}\r\n        >\r\n            {children}\r\n            <AnimatePresence>\r\n                {isVisible && (\r\n                    <motion.div\r\n                        initial={{ opacity: 0, scale: 0.95, x: (position === 'top' || position === 'bottom') ? '-50%' : 0, y: (position === 'left' || position === 'right') ? '-50%' : 0 }}\r\n                        animate={{ opacity: 1, scale: 1, x: (position === 'top' || position === 'bottom') ? '-50%' : 0, y: (position === 'left' || position === 'right') ? '-50%' : 0 }}\r\n                        exit={{ opacity: 0, scale: 0.95 }}\r\n                        transition={{ duration: 0.1 }}\r\n                        className={clsx('ac-tooltip', `ac-tooltip-${position}`, className)}\r\n                    >\r\n                        {content}\r\n                        <div className=\"ac-tooltip-arrow\" />\r\n                    </motion.div>\r\n                )}\r\n            </AnimatePresence>\r\n        </div>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidTooltip.css",
+      "content": ".ac-tooltip-wrapper {\r\n    position: relative;\r\n    display: inline-flex;\r\n}\r\n\r\n.ac-tooltip {\r\n    position: absolute;\r\n    background: var(--ac-surface);\r\n    border: 1px solid var(--ac-border-bright);\r\n    padding: 0.5rem 0.75rem;\r\n    border-radius: var(--ac-radius-sm);\r\n    z-index: 1100;\r\n    pointer-events: none;\r\n    font-family: var(--font-mono);\r\n    font-size: 0.75rem;\r\n    color: var(--ac-text-primary);\r\n    white-space: nowrap;\r\n    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);\r\n}\r\n\r\n.ac-tooltip-arrow {\r\n    position: absolute;\r\n    width: 8px;\r\n    height: 8px;\r\n    background: var(--ac-surface);\r\n    border: 1px solid var(--ac-border-bright);\r\n    transform: rotate(45deg);\r\n}\r\n\r\n/* Positions */\r\n.ac-tooltip-top {\r\n    bottom: calc(100% + 10px);\r\n    left: 50%;\r\n}\r\n\r\n.ac-tooltip-top .ac-tooltip-arrow {\r\n    bottom: -5px;\r\n    left: 50%;\r\n    transform: translateX(-50%) rotate(45deg);\r\n    border-top: none;\r\n    border-left: none;\r\n}\r\n\r\n.ac-tooltip-bottom {\r\n    top: calc(100% + 10px);\r\n    left: 50%;\r\n}\r\n\r\n.ac-tooltip-bottom .ac-tooltip-arrow {\r\n    top: -5px;\r\n    left: 50%;\r\n    transform: translateX(-50%) rotate(45deg);\r\n    border-bottom: none;\r\n    border-right: none;\r\n}\r\n\r\n.ac-tooltip-left {\r\n    right: calc(100% + 10px);\r\n    top: 50%;\r\n}\r\n\r\n.ac-tooltip-left .ac-tooltip-arrow {\r\n    right: -5px;\r\n    top: 50%;\r\n    transform: translateY(-50%) rotate(45deg);\r\n    border-bottom: none;\r\n    border-left: none;\r\n}\r\n\r\n.ac-tooltip-right {\r\n    left: calc(100% + 10px);\r\n    top: 50%;\r\n}\r\n\r\n.ac-tooltip-right .ac-tooltip-arrow {\r\n    left: -5px;\r\n    top: 50%;\r\n    transform: translateY(-50%) rotate(45deg);\r\n    border-top: none;\r\n    border-right: none;\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "gridbox",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidGridBox.tsx",
+      "content": "import React from 'react';\r\nimport clsx from 'clsx';\r\nimport './AcidGridBox.css';\r\n\r\nexport interface AcidGridBoxProps extends React.HTMLAttributes<HTMLDivElement> {\r\n    children?: React.ReactNode;\r\n    showCrosshairs?: boolean;\r\n}\r\n\r\nexport const AcidGridBox = React.forwardRef<HTMLDivElement, AcidGridBoxProps>(\r\n    ({ className, showCrosshairs = true, children, ...props }, ref) => {\r\n        return (\r\n            <div className={clsx('ac-grid-box', className)} ref={ref} {...props}>\r\n                {showCrosshairs && (\r\n                    <>\r\n                        <div className=\"ac-ch ac-ch-tl\" />\r\n                        <div className=\"ac-ch ac-ch-tr\" />\r\n                        <div className=\"ac-ch ac-ch-bl\" />\r\n                        <div className=\"ac-ch ac-ch-br\" />\r\n                    </>\r\n                )}\r\n                <div className=\"ac-grid-inner\">{children}</div>\r\n            </div>\r\n        );\r\n    }\r\n);\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidGridBox.css",
+      "content": ".ac-grid-box {\r\n    position: relative;\r\n    border: 1px solid var(--ac-border-muted);\r\n    background: var(--ac-bg);\r\n    padding: 1.5rem;\r\n}\r\n\r\n.ac-grid-inner {\r\n    position: relative;\r\n    z-index: 2;\r\n}\r\n\r\n.ac-ch {\r\n    position: absolute;\r\n    width: 9px;\r\n    height: 9px;\r\n    pointer-events: none;\r\n    z-index: 1;\r\n}\r\n\r\n.ac-ch::before,\r\n.ac-ch::after {\r\n    content: '';\r\n    position: absolute;\r\n    background: var(--ac-text-muted);\r\n}\r\n\r\n.ac-ch::before {\r\n    top: 4px;\r\n    left: 0;\r\n    width: 9px;\r\n    height: 1px;\r\n}\r\n\r\n.ac-ch::after {\r\n    top: 0;\r\n    left: 4px;\r\n    width: 1px;\r\n    height: 9px;\r\n}\r\n\r\n/* Positioning */\r\n.ac-ch-tl {\r\n    top: -5px;\r\n    left: -5px;\r\n}\r\n\r\n.ac-ch-tr {\r\n    top: -5px;\r\n    right: -5px;\r\n}\r\n\r\n.ac-ch-bl {\r\n    bottom: -5px;\r\n    left: -5px;\r\n}\r\n\r\n.ac-ch-br {\r\n    bottom: -5px;\r\n    right: -5px;\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

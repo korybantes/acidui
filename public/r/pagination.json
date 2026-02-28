@@ -1,0 +1,22 @@
+{
+  "name": "pagination",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidPagination.tsx",
+      "content": "import { ChevronLeft, ChevronRight } from 'lucide-react';\r\nimport clsx from 'clsx';\r\nimport './AcidPagination.css';\r\n\r\nexport interface AcidPaginationProps {\r\n    currentPage: number;\r\n    totalPages: number;\r\n    onPageChange?: (page: number) => void;\r\n    className?: string;\r\n}\r\n\r\nexport const AcidPagination = ({\r\n    currentPage,\r\n    totalPages,\r\n    onPageChange,\r\n    className\r\n}: AcidPaginationProps) => {\r\n    const pages = Array.from({ length: totalPages }, (_, i) => i + 1);\r\n\r\n    return (\r\n        <nav className={clsx('ac-pagination', className)}>\r\n            <button\r\n                className=\"ac-pagination-btn\"\r\n                disabled={currentPage === 1}\r\n                onClick={() => onPageChange?.(currentPage - 1)}\r\n            >\r\n                <ChevronLeft size={16} />\r\n            </button>\r\n\r\n            <div className=\"ac-pagination-pages\">\r\n                {pages.map(page => (\r\n                    <button\r\n                        key={page}\r\n                        className={clsx('ac-pagination-page', currentPage === page && 'ac-active')}\r\n                        onClick={() => onPageChange?.(page)}\r\n                    >\r\n                        {page.toString().padStart(2, '0')}\r\n                    </button>\r\n                ))}\r\n            </div>\r\n\r\n            <button\r\n                className=\"ac-pagination-btn\"\r\n                disabled={currentPage === totalPages}\r\n                onClick={() => onPageChange?.(currentPage + 1)}\r\n            >\r\n                <ChevronRight size={16} />\r\n            </button>\r\n        </nav>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidPagination.css",
+      "content": ".ac-pagination {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 1rem;\r\n}\r\n\r\n.ac-pagination-btn {\r\n    width: 36px;\r\n    height: 36px;\r\n    background: transparent;\r\n    border: 1px solid var(--ac-border-muted);\r\n    color: var(--ac-text-primary);\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    cursor: pointer;\r\n    transition: all 0.2s;\r\n}\r\n\r\n.ac-pagination-btn:disabled {\r\n    opacity: 0.3;\r\n    pointer-events: none;\r\n}\r\n\r\n.ac-pagination-btn:hover:not(:disabled) {\r\n    border-color: var(--ac-brand);\r\n    color: var(--ac-brand);\r\n}\r\n\r\n.ac-pagination-pages {\r\n    display: flex;\r\n    gap: 0.5rem;\r\n}\r\n\r\n.ac-pagination-page {\r\n    width: 36px;\r\n    height: 36px;\r\n    background: transparent;\r\n    border: 1px solid var(--ac-border-muted);\r\n    color: var(--ac-text-secondary);\r\n    font-family: var(--font-mono);\r\n    font-size: 0.8rem;\r\n    cursor: pointer;\r\n    transition: all 0.2s;\r\n}\r\n\r\n.ac-pagination-page:hover {\r\n    color: var(--ac-text-primary);\r\n    border-color: var(--ac-text-primary);\r\n}\r\n\r\n.ac-pagination-page.ac-active {\r\n    background: var(--ac-brand);\r\n    border-color: var(--ac-brand);\r\n    color: #000;\r\n    font-weight: 700;\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

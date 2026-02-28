@@ -1,0 +1,22 @@
+{
+  "name": "trialbutton",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidTrialButton.tsx",
+      "content": "import React from 'react';\r\nimport clsx from 'clsx';\r\nimport { Sparkles } from 'lucide-react';\r\nimport './AcidTrialButton.css';\r\n\r\nexport interface AcidTrialButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {\r\n    secondaryText?: string;\r\n}\r\n\r\nexport const AcidTrialButton = ({\r\n    children,\r\n    className,\r\n    secondaryText = 'NO_CREDIT_CARD_REQUIRED',\r\n    ...props\r\n}: AcidTrialButtonProps) => {\r\n    return (\r\n        <button className={clsx('ac-trial-btn', className)} {...props}>\r\n            <div className=\"ac-trial-main\">\r\n                <Sparkles size={16} className=\"ac-trial-icon\" />\r\n                <span>{children}</span>\r\n            </div>\r\n            {secondaryText && <span className=\"ac-trial-secondary\">{secondaryText}</span>}\r\n            <div className=\"ac-trial-glow\" />\r\n        </button>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidTrialButton.css",
+      "content": ".ac-trial-btn {\r\n    position: relative;\r\n    background: #fff;\r\n    color: #000;\r\n    border: none;\r\n    padding: 0.75rem 2rem;\r\n    border-radius: 8px;\r\n    cursor: pointer;\r\n    font-family: var(--font-mono);\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    gap: 2px;\r\n    transition: transform 0.2s, box-shadow 0.2s;\r\n    box-shadow: 0 4px 14px rgba(255, 255, 255, 0.1);\r\n}\r\n\r\n.ac-trial-btn:hover {\r\n    transform: translateY(-2px);\r\n    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.2);\r\n}\r\n\r\n.ac-trial-main {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 0.5rem;\r\n    font-weight: 800;\r\n    font-size: 1rem;\r\n}\r\n\r\n.ac-trial-secondary {\r\n    font-size: 0.6rem;\r\n    opacity: 0.6;\r\n    font-weight: 500;\r\n    letter-spacing: 0.1em;\r\n}\r\n\r\n.ac-trial-icon {\r\n    color: #f59e0b;\r\n}\r\n\r\n.ac-trial-glow {\r\n    position: absolute;\r\n    inset: -2px;\r\n    background: linear-gradient(45deg, #f59e0b, #ef4444, #3b82f6);\r\n    border-radius: inherit;\r\n    z-index: -1;\r\n    opacity: 0;\r\n    transition: opacity 0.3s;\r\n    filter: blur(8px);\r\n}\r\n\r\n.ac-trial-btn:hover .ac-trial-glow {\r\n    opacity: 0.4;\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

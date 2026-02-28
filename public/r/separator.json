@@ -1,0 +1,22 @@
+{
+  "name": "separator",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidSeparator.tsx",
+      "content": "import React from 'react';\r\nimport clsx from 'clsx';\r\nimport './AcidSeparator.css';\r\n\r\nexport interface AcidSeparatorProps extends React.HTMLAttributes<HTMLDivElement> {\r\n    orientation?: 'horizontal' | 'vertical';\r\n    decorative?: boolean;\r\n}\r\n\r\nexport const AcidSeparator = ({\r\n    orientation = 'horizontal',\r\n    decorative = true,\r\n    className,\r\n    ...props\r\n}: AcidSeparatorProps) => {\r\n    return (\r\n        <div\r\n            role={decorative ? 'none' : 'separator'}\r\n            aria-orientation={decorative ? undefined : orientation}\r\n            className={clsx('ac-separator', `ac-separator-${orientation}`, className)}\r\n            {...props}\r\n        />\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidSeparator.css",
+      "content": ".ac-separator {\r\n    background: var(--ac-border-muted);\r\n}\r\n\r\n.ac-separator-horizontal {\r\n    height: 1px;\r\n    width: 100%;\r\n    margin: 1rem 0;\r\n}\r\n\r\n.ac-separator-vertical {\r\n    width: 1px;\r\n    height: 100%;\r\n    margin: 0 1rem;\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

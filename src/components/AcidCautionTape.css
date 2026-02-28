@@ -1,0 +1,43 @@
+.ac-caution-tape {
+    width: 100%;
+    background: repeating-linear-gradient(-45deg,
+            #000,
+            #000 20px,
+            #facc15 20px,
+            #facc15 40px);
+    /* Bold black and yellow stripes */
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    white-space: nowrap;
+    border-top: 2px solid #000;
+    border-bottom: 2px solid #000;
+}
+
+.ac-caution-content {
+    display: inline-flex;
+    animation: ac-caution-scroll 10s linear infinite;
+}
+
+.ac-caution-text {
+    color: #fff;
+    background: #000;
+    /* Contrast box behind text */
+    padding: 0.1rem 1rem;
+    margin: 0 40px;
+    font-family: var(--font-mono);
+    font-weight: 800;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+@keyframes ac-caution-scroll {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}

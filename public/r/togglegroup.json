@@ -1,0 +1,22 @@
+{
+  "name": "togglegroup",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidToggleGroup.tsx",
+      "content": "import { useState } from 'react';\r\nimport clsx from 'clsx';\r\nimport './AcidToggleGroup.css';\r\n\r\nexport interface AcidToggleGroupItem {\r\n    value: string;\r\n    label: React.ReactNode;\r\n    disabled?: boolean;\r\n}\r\n\r\nexport interface AcidToggleGroupProps {\r\n    items: AcidToggleGroupItem[];\r\n    value?: string | string[];\r\n    defaultValue?: string | string[];\r\n    type?: 'single' | 'multiple';\r\n    onChange?: (value: string | string[]) => void;\r\n    variant?: 'default' | 'outline';\r\n    size?: 'sm' | 'md' | 'lg';\r\n    className?: string;\r\n}\r\n\r\nexport const AcidToggleGroup = ({\r\n    items,\r\n    value,\r\n    defaultValue,\r\n    type = 'single',\r\n    onChange,\r\n    variant = 'default',\r\n    size = 'md',\r\n    className\r\n}: AcidToggleGroupProps) => {\r\n    const getDefault = () => {\r\n        if (defaultValue !== undefined) return defaultValue;\r\n        return type === 'multiple' ? [] : '';\r\n    };\r\n\r\n    const [internalValue, setInternalValue] = useState<string | string[]>(getDefault());\r\n    const selected = value !== undefined ? value : internalValue;\r\n\r\n    const isSelected = (val: string) => {\r\n        if (type === 'multiple') return (selected as string[]).includes(val);\r\n        return selected === val;\r\n    };\r\n\r\n    const handleToggle = (val: string) => {\r\n        let next: string | string[];\r\n        if (type === 'multiple') {\r\n            const arr = selected as string[];\r\n            next = arr.includes(val) ? arr.filter(v => v !== val) : [...arr, val];\r\n        } else {\r\n            next = selected === val ? '' : val;\r\n        }\r\n        setInternalValue(next);\r\n        onChange?.(next);\r\n    };\r\n\r\n    return (\r\n        <div className={clsx('ac-toggle-group', `ac-toggle-group-${variant}`, `ac-toggle-group-${size}`, className)}>\r\n            {items.map((item) => (\r\n                <button\r\n                    key={item.value}\r\n                    className={clsx(\r\n                        'ac-toggle-group-item',\r\n                        isSelected(item.value) && 'ac-toggle-group-selected',\r\n                        item.disabled && 'ac-toggle-group-item-disabled'\r\n                    )}\r\n                    onClick={() => !item.disabled && handleToggle(item.value)}\r\n                    aria-pressed={isSelected(item.value)}\r\n                    disabled={item.disabled}\r\n                >\r\n                    {item.label}\r\n                </button>\r\n            ))}\r\n        </div>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidToggleGroup.css",
+      "content": ".ac-toggle-group {\r\n    display: inline-flex;\r\n    border: 1px solid var(--ac-border-muted);\r\n    overflow: hidden;\r\n}\r\n\r\n.ac-toggle-group-item {\r\n    display: inline-flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    gap: 0.4rem;\r\n    background: transparent;\r\n    border: none;\r\n    border-right: 1px solid var(--ac-border-muted);\r\n    color: var(--ac-text-secondary);\r\n    font-family: var(--font-mono);\r\n    font-weight: 500;\r\n    cursor: pointer;\r\n    transition: all 0.15s ease;\r\n    letter-spacing: 0.04em;\r\n}\r\n\r\n.ac-toggle-group-sm .ac-toggle-group-item {\r\n    padding: 0.3rem 0.65rem;\r\n    font-size: 0.75rem;\r\n}\r\n\r\n.ac-toggle-group-md .ac-toggle-group-item {\r\n    padding: 0.5rem 1.1rem;\r\n    font-size: 0.85rem;\r\n}\r\n\r\n.ac-toggle-group-lg .ac-toggle-group-item {\r\n    padding: 0.75rem 1.5rem;\r\n    font-size: 1rem;\r\n}\r\n\r\n.ac-toggle-group-item:last-child {\r\n    border-right: none;\r\n}\r\n\r\n.ac-toggle-group-item:hover {\r\n    background: var(--ac-surface-hover);\r\n    color: var(--ac-text-primary);\r\n}\r\n\r\n.ac-toggle-group-selected {\r\n    background: var(--ac-text-primary) !important;\r\n    color: var(--ac-bg) !important;\r\n}\r\n\r\n.ac-toggle-group-outline .ac-toggle-group-selected {\r\n    background: var(--ac-brand) !important;\r\n    color: #fff !important;\r\n    border-color: var(--ac-brand);\r\n}\r\n\r\n.ac-toggle-group-item-disabled {\r\n    opacity: 0.35;\r\n    cursor: not-allowed;\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

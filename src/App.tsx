@@ -1,5 +1,7 @@
+import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { AcidNavbar } from './components/AcidNavbar';
+import { AcidDynamicNavbar } from './components/AcidDynamicNavbar';
 import { Landing } from './pages/Landing';
 import { Docs } from './pages/Docs';
 import { Library } from './pages/Library';
@@ -8,10 +10,20 @@ import './App.css';
 import { AcidToastProvider } from './components/AcidToast';
 
 function App() {
+  const [navbarType, setNavbarType] = useState<'default' | 'dynamic'>('default');
+
+  useEffect(() => {
+    const handleSwitch = (e: any) => {
+      setNavbarType(e.detail);
+    };
+    window.addEventListener('ac-switch-navbar', handleSwitch);
+    return () => window.removeEventListener('ac-switch-navbar', handleSwitch);
+  }, []);
+
   return (
     <AcidToastProvider>
       <div className="app-layout">
-        <AcidNavbar />
+        {navbarType === 'default' ? <AcidNavbar /> : <AcidDynamicNavbar />}
 
         <Routes>
           <Route path="/" element={<Landing />} />

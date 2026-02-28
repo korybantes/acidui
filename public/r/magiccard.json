@@ -1,0 +1,22 @@
+{
+  "name": "magiccard",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidMagicCard.tsx",
+      "content": "import React, { useRef, useState } from 'react';\r\nimport clsx from 'clsx';\r\nimport './AcidMagicCard.css';\r\n\r\nexport interface AcidMagicCardProps {\r\n    children: React.ReactNode;\r\n    className?: string;\r\n    glowColor?: string;\r\n    style?: React.CSSProperties;\r\n}\r\n\r\nexport const AcidMagicCard = ({\r\n    children,\r\n    className,\r\n    glowColor = 'rgba(244, 67, 54, 0.15)',\r\n    style\r\n}: AcidMagicCardProps) => {\r\n    const cardRef = useRef<HTMLDivElement>(null);\r\n    const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });\r\n\r\n    const handleMouseMove = (e: React.MouseEvent) => {\r\n        if (!cardRef.current) return;\r\n        const rect = cardRef.current.getBoundingClientRect();\r\n        setMousePos({\r\n            x: e.clientX - rect.left,\r\n            y: e.clientY - rect.top\r\n        });\r\n    };\r\n\r\n    return (\r\n        <div\r\n            ref={cardRef}\r\n            className={clsx('ac-magic-card', className)}\r\n            onMouseMove={handleMouseMove}\r\n            onMouseLeave={() => setMousePos({ x: -1000, y: -1000 })}\r\n            style={style}\r\n        >\r\n            <div\r\n                className=\"ac-magic-glow\"\r\n                style={{\r\n                    background: `radial-gradient(400px circle at ${mousePos.x}px ${mousePos.y}px, ${glowColor}, transparent 40%)`\r\n                }}\r\n            />\r\n            <div className=\"ac-magic-content\">\r\n                {children}\r\n            </div>\r\n        </div>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidMagicCard.css",
+      "content": ".ac-magic-card {\r\n    position: relative;\r\n    background: var(--ac-surface);\r\n    border: 1px solid var(--ac-border-muted);\r\n    border-radius: 12px;\r\n    overflow: hidden;\r\n    transition: border-color 0.3s;\r\n}\r\n\r\n.ac-magic-card:hover {\r\n    border-color: var(--ac-border-bright);\r\n}\r\n\r\n.ac-magic-glow {\r\n    position: absolute;\r\n    inset: 0;\r\n    pointer-events: none;\r\n    z-index: 0;\r\n    transition: opacity 0.5s;\r\n}\r\n\r\n.ac-magic-content {\r\n    position: relative;\r\n    z-index: 1;\r\n    height: 100%;\r\n    width: 100%;\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

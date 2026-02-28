@@ -1,0 +1,22 @@
+{
+  "name": "solidcard",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidSolidCard.tsx",
+      "content": "import React from 'react';\r\nimport clsx from 'clsx';\r\nimport { AcidLabel } from './AcidLabel';\r\nimport './AcidSolidCard.css';\r\n\r\nexport interface AcidSolidCardProps extends React.HTMLAttributes<HTMLDivElement> {\r\n    label?: string;\r\n    title?: string;\r\n    children?: React.ReactNode;\r\n}\r\n\r\nexport const AcidSolidCard = React.forwardRef<HTMLDivElement, AcidSolidCardProps>(\r\n    ({ className, label, title, children, ...props }, ref) => {\r\n        return (\r\n            <div className={clsx('ac-solid-card', className)} ref={ref} {...props}>\r\n                {label && (\r\n                    <div className=\"ac-solid-header\">\r\n                        <AcidLabel>{label}</AcidLabel>\r\n                        <span className=\"ac-solid-ghost-text\">START BUILDING</span>\r\n                    </div>\r\n                )}\r\n                <div className=\"ac-solid-content\">\r\n                    <div className=\"ac-solid-graphic\">\r\n                        {/* Fake asterix icon mimicking the factory logo graphic */}\r\n                        <svg width=\"32\" height=\"32\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\" strokeLinecap=\"square\" strokeLinejoin=\"miter\">\r\n                            <path d=\"M12 2v20M2 12h20M4.93 4.93l14.14 14.14M4.93 19.07L19.07 4.93\" />\r\n                        </svg>\r\n                    </div>\r\n                    {title && <h2 className=\"ac-solid-title\">{title}</h2>}\r\n                    {children}\r\n                </div>\r\n            </div>\r\n        );\r\n    }\r\n);\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidSolidCard.css",
+      "content": ".ac-solid-card {\r\n    background: #f0f0f0;\r\n    /* Off-white bright contrast against the pure black system */\r\n    color: #000;\r\n    border-radius: 12px;\r\n    padding: 2rem;\r\n    display: flex;\r\n    flex-direction: column;\r\n    min-height: 480px;\r\n}\r\n\r\n.ac-solid-header {\r\n    display: flex;\r\n    justify-content: space-between;\r\n    align-items: center;\r\n    margin-bottom: auto;\r\n    /* Pushes content down */\r\n}\r\n\r\n/* Override AcidLabel colors specifically for light layout */\r\n.ac-solid-card .ac-label {\r\n    color: #666;\r\n}\r\n\r\n.ac-solid-card .ac-dot-brand {\r\n    background-color: var(--ac-brand);\r\n}\r\n\r\n.ac-solid-ghost-text {\r\n    font-family: var(--font-mono);\r\n    font-size: 0.75rem;\r\n    color: #777;\r\n    letter-spacing: 0.05em;\r\n    text-transform: uppercase;\r\n}\r\n\r\n.ac-solid-content {\r\n    margin-top: 4rem;\r\n}\r\n\r\n.ac-solid-graphic {\r\n    margin-bottom: 1.5rem;\r\n    color: #111;\r\n}\r\n\r\n.ac-solid-title {\r\n    font-size: clamp(2.5rem, 5vw, 4rem);\r\n    font-family: var(--font-inter);\r\n    line-height: 1.05;\r\n    font-weight: 500;\r\n    letter-spacing: -0.04em;\r\n    color: #000;\r\n    margin-bottom: 2rem;\r\n    max-width: 600px;\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

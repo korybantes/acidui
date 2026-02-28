@@ -12,6 +12,7 @@
     transition: all 0.15s ease;
     overflow: visible;
     z-index: 1;
+    border-radius: 0;
     background: transparent;
     outline: none;
 }

@@ -1,0 +1,22 @@
+{
+  "name": "accordion",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidAccordion.tsx",
+      "content": "import React, { useState } from 'react';\r\nimport { motion, AnimatePresence } from 'framer-motion';\r\nimport { ChevronDown } from 'lucide-react';\r\nimport clsx from 'clsx';\r\nimport './AcidAccordion.css';\r\n\r\nexport interface AccordionItem {\r\n    id: string;\r\n    title: string;\r\n    content: React.ReactNode;\r\n}\r\n\r\nexport interface AcidAccordionProps {\r\n    items: AccordionItem[];\r\n    allowMultiple?: boolean;\r\n    className?: string;\r\n}\r\n\r\nexport const AcidAccordion = ({\r\n    items,\r\n    allowMultiple = false,\r\n    className\r\n}: AcidAccordionProps) => {\r\n    const [openIds, setOpenIds] = useState<string[]>([]);\r\n\r\n    const toggleItem = (id: string) => {\r\n        if (allowMultiple) {\r\n            setOpenIds(prev => prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]);\r\n        } else {\r\n            setOpenIds(prev => prev.includes(id) ? [] : [id]);\r\n        }\r\n    };\r\n\r\n    return (\r\n        <div className={clsx('ac-accordion', className)}>\r\n            {items.map((item) => {\r\n                const isOpen = openIds.includes(item.id);\r\n                return (\r\n                    <div key={item.id} className={clsx('ac-accordion-item', isOpen && 'active')}>\r\n                        <button\r\n                            className=\"ac-accordion-trigger\"\r\n                            onClick={() => toggleItem(item.id)}\r\n                        >\r\n                            <span className=\"ac-accordion-title\">{item.title}</span>\r\n                            <motion.div\r\n                                animate={{ rotate: isOpen ? 180 : 0 }}\r\n                                transition={{ duration: 0.2 }}\r\n                            >\r\n                                <ChevronDown size={18} />\r\n                            </motion.div>\r\n                        </button>\r\n                        <AnimatePresence>\r\n                            {isOpen && (\r\n                                <motion.div\r\n                                    initial={{ height: 0, opacity: 0 }}\r\n                                    animate={{ height: 'auto', opacity: 1 }}\r\n                                    exit={{ height: 0, opacity: 0 }}\r\n                                    transition={{ duration: 0.2, ease: 'easeInOut' }}\r\n                                    className=\"ac-accordion-content-wrapper\"\r\n                                >\r\n                                    <div className=\"ac-accordion-content\">\r\n                                        {item.content}\r\n                                    </div>\r\n                                </motion.div>\r\n                            )}\r\n                        </AnimatePresence>\r\n                    </div>\r\n                );\r\n            })}\r\n        </div>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidAccordion.css",
+      "content": ".ac-accordion {\r\n    width: 100%;\r\n    border: 1px solid var(--ac-border-muted);\r\n    border-radius: var(--ac-radius-md);\r\n    overflow: hidden;\r\n}\r\n\r\n.ac-accordion-item {\r\n    border-bottom: 1px solid var(--ac-border-muted);\r\n}\r\n\r\n.ac-accordion-item:last-child {\r\n    border-bottom: none;\r\n}\r\n\r\n.ac-accordion-trigger {\r\n    width: 100%;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: space-between;\r\n    padding: 1.25rem 1.5rem;\r\n    background: transparent;\r\n    border: none;\r\n    color: var(--ac-text-primary);\r\n    cursor: pointer;\r\n    transition: all 0.2s ease;\r\n    text-align: left;\r\n}\r\n\r\n.ac-accordion-trigger:hover {\r\n    background: var(--ac-surface);\r\n}\r\n\r\n.ac-accordion-title {\r\n    font-family: var(--font-primary);\r\n    font-size: 0.9rem;\r\n    font-weight: 700;\r\n    letter-spacing: 0.02em;\r\n}\r\n\r\n.ac-accordion-content-wrapper {\r\n    overflow: hidden;\r\n    background: var(--ac-surface);\r\n}\r\n\r\n.ac-accordion-content {\r\n    padding: 0 1.5rem 1.5rem;\r\n    color: var(--ac-text-secondary);\r\n    font-family: var(--font-mono);\r\n    font-size: 0.85rem;\r\n    line-height: 1.6;\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

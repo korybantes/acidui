@@ -1,0 +1,22 @@
+{
+  "name": "skeleton",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidSkeleton.tsx",
+      "content": "\r\nimport clsx from 'clsx';\r\nimport './AcidSkeleton.css';\r\n\r\nexport interface AcidSkeletonProps {\r\n    width?: string | number;\r\n    height?: string | number;\r\n    shape?: 'rectangle' | 'circle' | 'industrial';\r\n    className?: string;\r\n}\r\n\r\nexport const AcidSkeleton = ({\r\n    width = '100%',\r\n    height = '1rem',\r\n    shape = 'rectangle',\r\n    className\r\n}: AcidSkeletonProps) => {\r\n    const style = {\r\n        width,\r\n        height,\r\n    };\r\n\r\n    return (\r\n        <div\r\n            className={clsx('ac-skeleton', `ac-skeleton-${shape}`, className)}\r\n            style={style}\r\n        />\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidSkeleton.css",
+      "content": ".ac-skeleton {\r\n    background: var(--ac-border-muted);\r\n    position: relative;\r\n    overflow: hidden;\r\n    opacity: 0.8;\r\n}\r\n\r\n.ac-skeleton::after {\r\n    content: '';\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    background: linear-gradient(90deg,\r\n            transparent,\r\n            rgba(255, 255, 255, 0.1),\r\n            transparent);\r\n    animation: ac-skeleton-shimmer 2s infinite;\r\n}\r\n\r\n[data-theme='light'] .ac-skeleton::after {\r\n    background: linear-gradient(90deg,\r\n            transparent,\r\n            rgba(0, 0, 0, 0.05),\r\n            transparent);\r\n}\r\n\r\n.ac-skeleton-circle {\r\n    border-radius: 50%;\r\n}\r\n\r\n.ac-skeleton-rectangle {\r\n    border-radius: var(--ac-radius-sm);\r\n}\r\n\r\n.ac-skeleton-industrial {\r\n    clip-path: polygon(5% 0, 100% 0, 100% 95%, 95% 100%, 0 100%, 0 5%);\r\n}\r\n\r\n@keyframes ac-skeleton-pulse {\r\n\r\n    0%,\r\n    100% {\r\n        opacity: 1;\r\n    }\r\n\r\n    50% {\r\n        opacity: 0.5;\r\n    }\r\n}\r\n\r\n@keyframes ac-skeleton-shimmer {\r\n    0% {\r\n        transform: translateX(-100%);\r\n    }\r\n\r\n    100% {\r\n        transform: translateX(100%);\r\n    }\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

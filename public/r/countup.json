@@ -1,0 +1,22 @@
+{
+  "name": "countup",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidCountUp.tsx",
+      "content": "import { useState, useEffect, useRef } from 'react';\r\nimport clsx from 'clsx';\r\nimport './AcidCountUp.css';\r\n\r\nexport interface AcidCountUpProps {\r\n    end: number;\r\n    start?: number;\r\n    duration?: number;\r\n    prefix?: string;\r\n    suffix?: string;\r\n    decimals?: number;\r\n    className?: string;\r\n    label?: string;\r\n}\r\n\r\nexport const AcidCountUp = ({\r\n    end,\r\n    start = 0,\r\n    duration = 2000,\r\n    prefix = '',\r\n    suffix = '',\r\n    decimals = 0,\r\n    className,\r\n    label\r\n}: AcidCountUpProps) => {\r\n    const [count, setCount] = useState(start);\r\n    const countRef = useRef(start);\r\n    const startTimeRef = useRef<number | null>(null);\r\n\r\n    useEffect(() => {\r\n        let animationFrameId: number;\r\n\r\n        const updateCount = (timestamp: number) => {\r\n            if (!startTimeRef.current) startTimeRef.current = timestamp;\r\n            const progress = Math.min((timestamp - startTimeRef.current) / duration, 1);\r\n\r\n            // Ease out quad\r\n            const easeProgress = progress * (2 - progress);\r\n            const currentCount = start + easeProgress * (end - start);\r\n\r\n            setCount(currentCount);\r\n            countRef.current = currentCount;\r\n\r\n            if (progress < 1) {\r\n                animationFrameId = requestAnimationFrame(updateCount);\r\n            }\r\n        };\r\n\r\n        animationFrameId = requestAnimationFrame(updateCount);\r\n        return () => cancelAnimationFrame(animationFrameId);\r\n    }, [end, start, duration]);\r\n\r\n    const formattedCount = count.toFixed(decimals);\r\n\r\n    return (\r\n        <div className={clsx('ac-count-up', className)}>\r\n            <div className=\"ac-count-up-main\">\r\n                {prefix && <span className=\"ac-count-up-prefix\">{prefix}</span>}\r\n                <span className=\"ac-count-up-value\">{formattedCount}</span>\r\n                {suffix && <span className=\"ac-count-up-suffix\">{suffix}</span>}\r\n            </div>\r\n            {label && <div className=\"ac-count-up-label\">{label}</div>}\r\n            <div className=\"ac-count-up-scanline\" />\r\n        </div>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidCountUp.css",
+      "content": ".ac-count-up {\r\n    position: relative;\r\n    display: inline-flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    background: rgba(255, 255, 255, 0.02);\r\n    border: 1px solid var(--ac-border-muted);\r\n    padding: 1rem 1.5rem;\r\n    border-radius: 4px;\r\n    overflow: hidden;\r\n    min-width: 120px;\r\n}\r\n\r\n.ac-count-up-main {\r\n    display: flex;\r\n    align-items: baseline;\r\n    gap: 2px;\r\n    font-family: var(--font-mono);\r\n    color: var(--ac-brand);\r\n    font-weight: 700;\r\n}\r\n\r\n.ac-count-up-prefix,\r\n.ac-count-up-suffix {\r\n    font-size: 0.8rem;\r\n    opacity: 0.7;\r\n    color: var(--ac-text-secondary);\r\n}\r\n\r\n.ac-count-up-value {\r\n    font-size: 1.5rem;\r\n    letter-spacing: -0.05em;\r\n    text-shadow: 0 0 10px rgba(var(--ac-brand-rgb), 0.3);\r\n}\r\n\r\n.ac-count-up-label {\r\n    margin-top: 4px;\r\n    font-size: 0.6rem;\r\n    text-transform: uppercase;\r\n    letter-spacing: 0.1em;\r\n    color: var(--ac-text-muted);\r\n    font-weight: 600;\r\n}\r\n\r\n.ac-count-up-scanline {\r\n    position: absolute;\r\n    inset: 0;\r\n    background: linear-gradient(to bottom,\r\n            transparent 50%,\r\n            rgba(255, 255, 255, 0.02) 50%);\r\n    background-size: 100% 4px;\r\n    pointer-events: none;\r\n    opacity: 0.5;\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

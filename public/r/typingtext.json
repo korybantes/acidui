@@ -1,0 +1,17 @@
+{
+  "name": "typingtext",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidTypingText.tsx",
+      "content": "import { useState, useEffect } from 'react';\r\nimport clsx from 'clsx';\r\n\r\nexport interface AcidTypingTextProps {\r\n    text: string;\r\n    speed?: number;\r\n    className?: string;\r\n    onComplete?: () => void;\r\n}\r\n\r\nexport const AcidTypingText = ({ text, speed = 50, className, onComplete }: AcidTypingTextProps) => {\r\n    const [displayed, setDisplayed] = useState('');\r\n\r\n    useEffect(() => {\r\n        let i = 0;\r\n        const timer = setInterval(() => {\r\n            setDisplayed(text.slice(0, i + 1));\r\n            i++;\r\n            if (i >= text.length) {\r\n                clearInterval(timer);\r\n                if (onComplete) onComplete();\r\n            }\r\n        }, speed);\r\n        return () => clearInterval(timer);\r\n    }, [text, speed, onComplete]);\r\n\r\n    return (\r\n        <span className={clsx('ac-typing-text', className)}>\r\n            {displayed}<span className=\"ac-typing-cursor\" style={{ visibility: displayed.length < text.length ? 'visible' : 'hidden' }}>|</span>\r\n        </span>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    }
+  ]
+}

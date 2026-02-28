@@ -1,0 +1,22 @@
+{
+  "name": "steplist",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidStepList.tsx",
+      "content": "\r\nimport clsx from 'clsx';\r\nimport './AcidStepList.css';\r\n\r\nexport interface StepItem {\r\n    id: string;\r\n    label: string;\r\n}\r\n\r\nexport interface AcidStepListProps {\r\n    steps: StepItem[];\r\n    activeId?: string;\r\n    className?: string;\r\n}\r\n\r\nexport const AcidStepList = ({ steps, activeId, className }: AcidStepListProps) => {\r\n    return (\r\n        <ul className={clsx('ac-step-list', className)}>\r\n            {steps.map((item, idx) => {\r\n                const isActive = activeId === item.id;\r\n                const number = (idx + 1).toString().padStart(2, '0');\r\n                return (\r\n                    <li key={item.id} className={clsx('ac-step-item', isActive && 'ac-step-active')}>\r\n                        <span className=\"ac-step-num\">{number}</span>\r\n                        <span className=\"ac-step-label\">{item.label}</span>\r\n                    </li>\r\n                );\r\n            })}\r\n        </ul>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidStepList.css",
+      "content": ".ac-step-list {\r\n    list-style: none;\r\n    padding: 0;\r\n    margin: 0;\r\n    display: flex;\r\n    flex-direction: column;\r\n    gap: 0.5rem;\r\n}\r\n\r\n.ac-step-item {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 0.75rem;\r\n    font-family: var(--font-mono);\r\n    font-size: 0.8rem;\r\n    letter-spacing: 0.05em;\r\n    color: var(--ac-text-secondary);\r\n    cursor: default;\r\n    transition: color 0.2s;\r\n}\r\n\r\n.ac-step-active {\r\n    color: var(--ac-text-primary);\r\n}\r\n\r\n.ac-step-item:hover {\r\n    color: var(--ac-text-primary);\r\n}\r\n\r\n.ac-step-num {\r\n    color: var(--ac-brand);\r\n    /* Orange highlight for numbers */\r\n}\r\n\r\n/* If active, keep orange, others could be muted if we wanted, but let's keep it uniform */",
+      "type": "registry:ui"
+    }
+  ]
+}

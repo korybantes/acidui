@@ -1,0 +1,22 @@
+{
+  "name": "terminalcard",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidTerminalCard.tsx",
+      "content": "import React from 'react';\r\nimport clsx from 'clsx';\r\nimport './AcidTerminalCard.css';\r\n\r\nexport interface AcidTerminalCardProps {\r\n    title?: string;\r\n    children: React.ReactNode;\r\n    className?: string;\r\n    showControls?: boolean;\r\n}\r\n\r\nexport const AcidTerminalCard = ({\r\n    title = 'terminal.sh',\r\n    children,\r\n    className,\r\n    showControls = true\r\n}: AcidTerminalCardProps) => {\r\n    return (\r\n        <div className={clsx('ac-terminal-card', className)}>\r\n            <div className=\"ac-terminal-header\">\r\n                {showControls && (\r\n                    <div className=\"ac-terminal-controls\">\r\n                        <span className=\"ac-control ac-control-close\" />\r\n                        <span className=\"ac-control ac-control-minimize\" />\r\n                        <span className=\"ac-control ac-control-maximize\" />\r\n                    </div>\r\n                )}\r\n                <div className=\"ac-terminal-title\">{title}</div>\r\n            </div>\r\n            <div className=\"ac-terminal-body\">\r\n                {children}\r\n            </div>\r\n        </div>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidTerminalCard.css",
+      "content": ".ac-terminal-card {\r\n    display: flex;\r\n    flex-direction: column;\r\n    background: #000000;\r\n    border: 1px solid var(--ac-border-bright);\r\n    border-radius: 6px;\r\n    overflow: hidden;\r\n    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);\r\n    width: 100%;\r\n}\r\n\r\n.ac-terminal-header {\r\n    display: flex;\r\n    align-items: center;\r\n    padding: 0.75rem 1rem;\r\n    background: rgba(255, 255, 255, 0.05);\r\n    border-bottom: 1px solid var(--ac-border-muted);\r\n}\r\n\r\n.ac-terminal-controls {\r\n    display: flex;\r\n    gap: 8px;\r\n    margin-right: 1.5rem;\r\n}\r\n\r\n.ac-control {\r\n    width: 10px;\r\n    height: 10px;\r\n    border-radius: 50%;\r\n}\r\n\r\n.ac-control-close {\r\n    background: #ff5f56;\r\n}\r\n\r\n.ac-control-minimize {\r\n    background: #ffbd2e;\r\n}\r\n\r\n.ac-control-maximize {\r\n    background: #27c93f;\r\n}\r\n\r\n.ac-terminal-title {\r\n    font-size: 0.7rem;\r\n    font-family: var(--font-mono);\r\n    color: var(--ac-text-muted);\r\n    letter-spacing: 0.05em;\r\n    flex: 1;\r\n    text-align: center;\r\n    margin-right: 46px;\r\n    /* Offset for symmetry against controls */\r\n}\r\n\r\n.ac-terminal-body {\r\n    flex: 1;\r\n    padding: 1.5rem;\r\n    font-family: var(--font-mono);\r\n    color: var(--ac-text-primary);\r\n    font-size: 0.85rem;\r\n    line-height: 1.6;\r\n    overflow: auto;\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

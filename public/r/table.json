@@ -1,0 +1,22 @@
+{
+  "name": "table",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidTable.tsx",
+      "content": "\r\nimport clsx from 'clsx';\r\nimport './AcidTable.css';\r\n\r\nexport interface AcidTableColumn {\r\n    header: string;\r\n    accessor: string;\r\n    className?: string;\r\n}\r\n\r\nexport interface AcidTableProps {\r\n    columns: AcidTableColumn[];\r\n    data: Record<string, unknown>[];\r\n    className?: string;\r\n}\r\n\r\nexport const AcidTable = ({ columns, data, className }: AcidTableProps) => {\r\n    return (\r\n        <div className={clsx('ac-table-wrapper', className)}>\r\n            <table className=\"ac-table\">\r\n                <thead className=\"ac-table-thead\">\r\n                    <tr>\r\n                        {columns.map((col, i) => (\r\n                            <th key={i} className={clsx('ac-table-th', col.className)}>\r\n                                {col.header}\r\n                            </th>\r\n                        ))}\r\n                    </tr>\r\n                </thead>\r\n                <tbody className=\"ac-table-tbody\">\r\n                    {data.map((row, i) => (\r\n                        <tr key={i} className=\"ac-table-tr\">\r\n                            {columns.map((col, j) => (\r\n                                <td key={j} className={clsx('ac-table-td', col.className)}>\r\n                                    {row[col.accessor] as React.ReactNode}\r\n                                </td>\r\n                            ))}\r\n                        </tr>\r\n                    ))}\r\n                </tbody>\r\n            </table>\r\n        </div>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidTable.css",
+      "content": ".ac-table-wrapper {\r\n    width: 100%;\r\n    overflow-x: auto;\r\n    border: 1px solid var(--ac-border-muted);\r\n    border-radius: 8px;\r\n    background: var(--ac-bg);\r\n}\r\n\r\n.ac-table {\r\n    width: 100%;\r\n    border-collapse: collapse;\r\n    font-family: var(--font-inter);\r\n    font-size: 0.875rem;\r\n    text-align: left;\r\n}\r\n\r\n.ac-table-thead {\r\n    background: var(--ac-surface);\r\n    border-bottom: 1px solid var(--ac-border-muted);\r\n}\r\n\r\n.ac-table-th {\r\n    padding: 1rem 1.5rem;\r\n    font-family: var(--font-mono);\r\n    font-size: 0.75rem;\r\n    font-weight: 700;\r\n    text-transform: uppercase;\r\n    color: var(--ac-text-primary);\r\n    letter-spacing: 0.05em;\r\n}\r\n\r\n.ac-table-tr {\r\n    border-bottom: 1px solid var(--ac-border-muted);\r\n    transition: background 0.2s;\r\n}\r\n\r\n.ac-table-tr:last-child {\r\n    border-bottom: none;\r\n}\r\n\r\n.ac-table-tr:hover {\r\n    background: rgba(255, 255, 255, 0.02);\r\n}\r\n\r\n.ac-table-td {\r\n    padding: 1rem 1.5rem;\r\n    color: var(--ac-text-secondary);\r\n    line-height: 1.5;\r\n    vertical-align: top;\r\n}\r\n\r\n/* Specific styling for technical cells */\r\n.ac-table-td code {\r\n    font-family: var(--font-mono);\r\n    font-size: 0.75rem;\r\n    color: var(--ac-brand);\r\n    background: rgba(244, 67, 54, 0.1);\r\n    padding: 0.2rem 0.4rem;\r\n    border-radius: 4px;\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "textmarquee",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidTextMarquee.tsx",
+      "content": "\r\nimport { motion } from 'framer-motion';\r\nimport clsx from 'clsx';\r\nimport './AcidTextMarquee.css';\r\n\r\nexport interface AcidTextMarqueeProps {\r\n    text: string;\r\n    speed?: number;\r\n    repeat?: number;\r\n    className?: string;\r\n    direction?: 'left' | 'right';\r\n}\r\n\r\nexport const AcidTextMarquee = ({ text, speed = 20, repeat = 4, className, direction = 'left' }: AcidTextMarqueeProps) => {\r\n    return (\r\n        <div className={clsx('ac-text-marquee-wrap', className)}>\r\n            <motion.div\r\n                className=\"ac-text-marquee-content\"\r\n                animate={{ x: direction === 'left' ? ['0%', '-50%'] : ['-50%', '0%'] }}\r\n                transition={{ duration: speed, repeat: Infinity, ease: \"linear\" }}\r\n            >\r\n                {Array.from({ length: repeat }).map((_, i) => (\r\n                    <span key={i} className=\"ac-text-marquee-item\">\r\n                        {text}\r\n                        <span className=\"ac-marquee-separator\">::</span>\r\n                    </span>\r\n                ))}\r\n                {Array.from({ length: repeat }).map((_, i) => (\r\n                    <span key={i + repeat} className=\"ac-text-marquee-item\">\r\n                        {text}\r\n                        <span className=\"ac-marquee-separator\">::</span>\r\n                    </span>\r\n                ))}\r\n            </motion.div>\r\n        </div>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidTextMarquee.css",
+      "content": ".ac-text-marquee-wrap {\r\n    width: 100%;\r\n    overflow: hidden;\r\n    background: #000;\r\n    border-top: 1px solid var(--ac-border-muted);\r\n    border-bottom: 1px solid var(--ac-border-muted);\r\n    padding: 0.75rem 0;\r\n    white-space: nowrap;\r\n    display: flex;\r\n}\r\n\r\n.ac-text-marquee-content {\r\n    display: flex;\r\n    align-items: center;\r\n}\r\n\r\n.ac-text-marquee-item {\r\n    font-family: var(--font-mono);\r\n    font-size: 0.9rem;\r\n    color: var(--ac-text-primary);\r\n    padding: 0 1rem;\r\n    letter-spacing: 0.1em;\r\n    text-transform: uppercase;\r\n}\r\n\r\n.ac-marquee-separator {\r\n    margin-left: 2rem;\r\n    color: var(--ac-brand);\r\n    font-weight: 800;\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

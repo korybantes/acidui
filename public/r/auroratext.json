@@ -1,0 +1,22 @@
+{
+  "name": "auroratext",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidAuroraText.tsx",
+      "content": "import React from 'react';\r\nimport clsx from 'clsx';\r\nimport './AcidAuroraText.css';\r\n\r\nexport interface AcidAuroraTextProps {\r\n    children: React.ReactNode;\r\n    className?: string;\r\n    style?: React.CSSProperties;\r\n    intensity?: 'low' | 'medium' | 'high';\r\n}\r\n\r\nexport const AcidAuroraText = ({ children, className, style, intensity = 'medium' }: AcidAuroraTextProps) => {\r\n    return (\r\n        <span className={clsx('ac-aurora-text', `ac-aurora-${intensity}`, className)} style={style}>\r\n            {children}\r\n            <span className=\"ac-aurora-overlay\" aria-hidden=\"true\">{children}</span>\r\n        </span>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidAuroraText.css",
+      "content": ".ac-aurora-text {\r\n    position: relative;\r\n    display: inline-block;\r\n    color: var(--ac-text-primary);\r\n    font-weight: 800;\r\n}\r\n\r\n.ac-aurora-overlay {\r\n    position: absolute;\r\n    inset: 0;\r\n    color: transparent;\r\n    -webkit-text-stroke: 0px transparent;\r\n    background: linear-gradient(to right,\r\n            #f43f5e,\r\n            #fb923c,\r\n            #facc15,\r\n            #4ade80,\r\n            #2dd4bf,\r\n            #3b82f6,\r\n            #a855f7,\r\n            #ec4899,\r\n            #f43f5e);\r\n    background-size: 200% auto;\r\n    background-clip: text;\r\n    -webkit-background-clip: text;\r\n    filter: blur(8px);\r\n    opacity: 0.6;\r\n    animation: aurora-flow 8s linear infinite;\r\n}\r\n\r\n.ac-aurora-low .ac-aurora-overlay {\r\n    filter: blur(12px);\r\n    opacity: 0.3;\r\n}\r\n\r\n.ac-aurora-high .ac-aurora-overlay {\r\n    filter: blur(6px);\r\n    opacity: 0.8;\r\n}\r\n\r\n@keyframes aurora-flow {\r\n    0% {\r\n        background-position: 0% center;\r\n    }\r\n\r\n    100% {\r\n        background-position: 200% center;\r\n    }\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

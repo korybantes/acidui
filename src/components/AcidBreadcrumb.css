@@ -1,3 +1,12 @@
+.ac-breadcrumb {
+    padding: 0.5rem 1rem;
+    background: #09090b;
+    border: 1px solid #27272a;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+}
+
 .ac-breadcrumb-list {
     display: flex;
     align-items: center;
@@ -15,14 +24,17 @@
 
 .ac-breadcrumb-separator {
     color: var(--ac-text-muted);
+    opacity: 0.3;
 }
 
 .ac-breadcrumb-link {
     font-family: var(--font-mono);
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--ac-text-secondary);
     text-decoration: none;
-    transition: color 0.2s;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
 }
 
 .ac-breadcrumb-link:hover {
@@ -31,6 +43,6 @@
 
 .ac-breadcrumb-link.ac-breadcrumb-current {
     color: var(--ac-text-primary);
-    font-weight: 600;
+    font-weight: 700;
     pointer-events: none;
 }

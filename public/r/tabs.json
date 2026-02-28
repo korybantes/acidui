@@ -1,0 +1,22 @@
+{
+  "name": "tabs",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidTabs.tsx",
+      "content": "import React, { useState } from 'react';\r\nimport clsx from 'clsx';\r\nimport './AcidTabs.css';\r\n\r\nexport interface AcidTabItem {\r\n    id: string;\r\n    label: string;\r\n    content: React.ReactNode;\r\n}\r\n\r\nexport interface AcidTabsProps {\r\n    tabs: AcidTabItem[];\r\n    defaultOpen?: string;\r\n    className?: string;\r\n    variant?: 'industrial' | 'outline' | 'pills';\r\n    onChange?: (id: string) => void;\r\n}\r\n\r\nexport const AcidTabs = ({ tabs, defaultOpen, className, variant = 'industrial', onChange }: AcidTabsProps) => {\r\n    const [active, setActive] = useState(defaultOpen || tabs[0]?.id);\r\n\r\n    const handleTabClick = (id: string) => {\r\n        setActive(id);\r\n        onChange?.(id);\r\n    };\r\n\r\n    const activeContent = tabs.find(t => t.id === active)?.content;\r\n\r\n    return (\r\n        <div className={clsx('ac-tabs-system', `ac-tabs-${variant}`, className)}>\r\n            <div className=\"ac-tabs-list\">\r\n                {tabs.map((tab) => (\r\n                    <button\r\n                        key={tab.id}\r\n                        className={clsx('ac-tab-trigger', active === tab.id && 'ac-tab-active')}\r\n                        onClick={() => handleTabClick(tab.id)}\r\n                    >\r\n                        {tab.label}\r\n                    </button>\r\n                ))}\r\n            </div>\r\n            <div className=\"ac-tabs-content\">\r\n                {activeContent}\r\n            </div>\r\n        </div>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidTabs.css",
+      "content": ".ac-tabs-system {\r\n    display: flex;\r\n    flex-direction: column;\r\n    gap: 1.5rem;\r\n    width: 100%;\r\n}\r\n\r\n.ac-tabs-list {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 2rem;\r\n    border-bottom: 1px solid var(--ac-border);\r\n    padding-bottom: 0.5rem;\r\n}\r\n\r\n.ac-tab-trigger {\r\n    background: transparent;\r\n    border: none;\r\n    font-family: var(--font-mono);\r\n    font-size: 0.75rem;\r\n    letter-spacing: 0.1em;\r\n    color: var(--ac-text-secondary);\r\n    text-transform: uppercase;\r\n    cursor: pointer;\r\n    padding: 0.5rem 0;\r\n    position: relative;\r\n    transition: all 0.2s;\r\n}\r\n\r\n.ac-tab-trigger::after {\r\n    content: '';\r\n    position: absolute;\r\n    bottom: -0.6rem;\r\n    left: 0;\r\n    width: 0;\r\n    height: 2px;\r\n    background: var(--ac-brand);\r\n    transition: width 0.3s ease;\r\n}\r\n\r\n.ac-tab-trigger:hover {\r\n    color: var(--ac-text-primary);\r\n}\r\n\r\n.ac-tab-active {\r\n    color: var(--ac-text-primary);\r\n}\r\n\r\n.ac-tab-active::after {\r\n    width: 100%;\r\n}\r\n\r\n/* Outline Variant */\r\n.ac-tabs-outline .ac-tabs-list {\r\n    gap: 0;\r\n    border-bottom: 1px solid var(--ac-border-muted);\r\n}\r\n\r\n.ac-tabs-outline .ac-tab-trigger {\r\n    padding: 0.75rem 1.5rem;\r\n    border: 1px solid var(--ac-border-muted);\r\n    border-bottom: none;\r\n    margin-right: -1px;\r\n}\r\n\r\n.ac-tabs-outline .ac-tab-trigger::after {\r\n    display: none;\r\n}\r\n\r\n.ac-tabs-outline .ac-tab-active {\r\n    background: var(--ac-surface);\r\n    border-color: var(--ac-border);\r\n    border-bottom: 2px solid var(--ac-brand);\r\n}\r\n\r\n/* Pills Variant */\r\n.ac-tabs-pills .ac-tabs-list {\r\n    background: var(--ac-surface);\r\n    border-radius: 8px;\r\n    padding: 4px;\r\n    gap: 4px;\r\n    border-bottom: none;\r\n}\r\n\r\n.ac-tabs-pills .ac-tab-trigger {\r\n    padding: 0.5rem 1.25rem;\r\n    border-radius: 6px;\r\n}\r\n\r\n.ac-tabs-pills .ac-tab-trigger::after {\r\n    display: none;\r\n}\r\n\r\n.ac-tabs-pills .ac-tab-active {\r\n    background: var(--ac-brand);\r\n    color: #fff;\r\n}\r\n\r\n.ac-tabs-content {\r\n    min-height: 100px;\r\n    font-family: var(--font-mono);\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "seo",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidSEO.tsx",
+      "content": "import { useEffect } from 'react';\r\n\r\nexport interface AcidSEOProps {\r\n    title: string;\r\n    description: string;\r\n    keywords?: string;\r\n}\r\n\r\nexport function AcidSEO({ title, description, keywords }: AcidSEOProps) {\r\n    useEffect(() => {\r\n        // Update title\r\n        document.title = `${title} | AcidUI Core`;\r\n\r\n        // Update or create Description meta tag\r\n        let metaDescription = document.querySelector('meta[name=\"description\"]');\r\n        if (!metaDescription) {\r\n            metaDescription = document.createElement('meta');\r\n            metaDescription.setAttribute('name', 'description');\r\n            document.head.appendChild(metaDescription);\r\n        }\r\n        metaDescription.setAttribute('content', description);\r\n\r\n        // Update or create Keywords meta tag if provided\r\n        if (keywords) {\r\n            let metaKeywords = document.querySelector('meta[name=\"keywords\"]');\r\n            if (!metaKeywords) {\r\n                metaKeywords = document.createElement('meta');\r\n                metaKeywords.setAttribute('name', 'keywords');\r\n                document.head.appendChild(metaKeywords);\r\n            }\r\n            metaKeywords.setAttribute('content', keywords);\r\n        }\r\n    }, [title, description, keywords]);\r\n\r\n    return null;\r\n}\r\n",
+      "type": "registry:ui"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "topstickybar",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidTopStickyBar.tsx",
+      "content": "import { useState } from 'react';\r\nimport { motion } from 'framer-motion';\r\nimport { AlertCircle, X } from 'lucide-react';\r\nimport clsx from 'clsx';\r\nimport './AcidTopStickyBar.css';\r\n\r\nexport interface AcidTopStickyBarProps {\r\n    message: string;\r\n    type?: 'info' | 'warning' | 'error';\r\n    onClose?: () => void;\r\n    className?: string;\r\n}\r\n\r\nexport const AcidTopStickyBar = ({\r\n    message,\r\n    type = 'info',\r\n    onClose,\r\n    className\r\n}: AcidTopStickyBarProps) => {\r\n    const [isVisible, setIsVisible] = useState(true);\r\n\r\n    if (!isVisible) return null;\r\n\r\n    const Icon = type === 'error' ? AlertCircle : AlertCircle; // Simplified for now\r\n\r\n    return (\r\n        <motion.div\r\n            initial={{ y: -50, opacity: 0 }}\r\n            animate={{ y: 0, opacity: 1 }}\r\n            exit={{ y: -50, opacity: 0 }}\r\n            className={clsx('ac-sticky-bar', `ac-sticky-bar-${type}`, className)}\r\n        >\r\n            <div className=\"ac-sticky-bar-content\">\r\n                <Icon size={14} className=\"ac-sticky-bar-icon\" />\r\n                <span className=\"ac-sticky-bar-text\">{message}</span>\r\n            </div>\r\n            {onClose && (\r\n                <button\r\n                    className=\"ac-sticky-bar-close\"\r\n                    onClick={() => {\r\n                        setIsVisible(false);\r\n                        onClose();\r\n                    }}\r\n                >\r\n                    <X size={14} />\r\n                </button>\r\n            )}\r\n            <div className=\"ac-sticky-bar-scanline\" />\r\n        </motion.div>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidTopStickyBar.css",
+      "content": ".ac-sticky-bar {\r\n    position: sticky;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    z-index: 1000;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: space-between;\r\n    padding: 0.5rem 1.5rem;\r\n    background: var(--ac-surface);\r\n    border-bottom: 1px solid var(--ac-border-muted);\r\n    backdrop-filter: blur(8px);\r\n    overflow: hidden;\r\n}\r\n\r\n.ac-sticky-bar-info {\r\n    border-bottom-color: var(--ac-brand);\r\n}\r\n\r\n.ac-sticky-bar-warning {\r\n    border-bottom-color: #ffbd2e;\r\n}\r\n\r\n.ac-sticky-bar-error {\r\n    border-bottom-color: #ff5f56;\r\n}\r\n\r\n.ac-sticky-bar-content {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 12px;\r\n}\r\n\r\n.ac-sticky-bar-icon {\r\n    color: var(--ac-brand);\r\n}\r\n\r\n.ac-sticky-bar-info .ac-sticky-bar-icon {\r\n    color: var(--ac-brand);\r\n}\r\n\r\n.ac-sticky-bar-warning .ac-sticky-bar-icon {\r\n    color: #ffbd2e;\r\n}\r\n\r\n.ac-sticky-bar-error .ac-sticky-bar-icon {\r\n    color: #ff5f56;\r\n}\r\n\r\n.ac-sticky-bar-text {\r\n    font-size: 0.75rem;\r\n    font-family: var(--font-mono);\r\n    color: var(--ac-text-primary);\r\n    letter-spacing: 0.02em;\r\n}\r\n\r\n.ac-sticky-bar-close {\r\n    background: transparent;\r\n    border: none;\r\n    color: var(--ac-text-muted);\r\n    cursor: pointer;\r\n    padding: 4px;\r\n    transition: color 0.15s;\r\n    display: flex;\r\n    align-items: center;\r\n}\r\n\r\n.ac-sticky-bar-close:hover {\r\n    color: var(--ac-brand);\r\n}\r\n\r\n.ac-sticky-bar-scanline {\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 1px;\r\n    background: rgba(var(--ac-brand-rgb), 0.2);\r\n    box-shadow: 0 0 10px var(--ac-brand);\r\n    animation: ac-sticky-scan 3s linear infinite;\r\n    pointer-events: none;\r\n}\r\n\r\n@keyframes ac-sticky-scan {\r\n    from {\r\n        transform: translateY(-10px);\r\n        opacity: 0;\r\n    }\r\n\r\n    50% {\r\n        opacity: 0.5;\r\n    }\r\n\r\n    to {\r\n        transform: translateY(50px);\r\n        opacity: 0;\r\n    }\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

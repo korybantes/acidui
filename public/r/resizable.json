@@ -1,0 +1,22 @@
+{
+  "name": "resizable",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidResizable.tsx",
+      "content": "import React, { useState } from 'react';\r\nimport clsx from 'clsx';\r\nimport './AcidResizable.css';\r\n\r\nexport interface AcidResizableProps {\r\n    children: [React.ReactNode, React.ReactNode];\r\n    defaultSize?: number; // percentage\r\n    className?: string;\r\n}\r\n\r\nexport const AcidResizable = ({ children, defaultSize = 50, className }: AcidResizableProps) => {\r\n    const [size, setSize] = useState(defaultSize);\r\n\r\n    const onMouseDown = (e: React.MouseEvent) => {\r\n        const startX = e.clientX;\r\n        const startSize = size;\r\n\r\n        const onMouseMove = (moveEvent: MouseEvent) => {\r\n            const delta = ((moveEvent.clientX - startX) / window.innerWidth) * 100;\r\n            const newSize = Math.min(Math.max(startSize + delta, 10), 90);\r\n            setSize(newSize);\r\n        };\r\n\r\n        const onMouseUp = () => {\r\n            document.removeEventListener('mousemove', onMouseMove);\r\n            document.removeEventListener('mouseup', onMouseUp);\r\n        };\r\n\r\n        document.addEventListener('mousemove', onMouseMove);\r\n        document.addEventListener('mouseup', onMouseUp);\r\n    };\r\n\r\n    return (\r\n        <div className={clsx('ac-resizable-container', className)}>\r\n            <div className=\"ac-resizable-panel\" style={{ width: `${size}%` }}>\r\n                {children[0]}\r\n            </div>\r\n            <div className=\"ac-resizable-handle\" onMouseDown={onMouseDown}>\r\n                <div className=\"ac-handle-line\" />\r\n            </div>\r\n            <div className=\"ac-resizable-panel\" style={{ flex: 1 }}>\r\n                {children[1]}\r\n            </div>\r\n        </div>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidResizable.css",
+      "content": ".ac-resizable-container {\r\n    display: flex;\r\n    width: 100%;\r\n    height: 100%;\r\n    min-height: 200px;\r\n    border: 1px solid var(--ac-border-muted);\r\n    background: var(--ac-bg);\r\n}\r\n\r\n.ac-resizable-panel {\r\n    overflow: hidden;\r\n    height: 100%;\r\n}\r\n\r\n.ac-resizable-handle {\r\n    width: 8px;\r\n    cursor: col-resize;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    background: var(--ac-surface);\r\n    transition: background 0.2s;\r\n    user-select: none;\r\n}\r\n\r\n.ac-resizable-handle:hover {\r\n    background: var(--ac-border-muted);\r\n}\r\n\r\n.ac-handle-line {\r\n    width: 2px;\r\n    height: 40px;\r\n    background: var(--ac-text-muted);\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "borderbeam",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidBorderBeam.tsx",
+      "content": "import React from 'react';\r\nimport clsx from 'clsx';\r\nimport './AcidBorderBeam.css';\r\n\r\nexport interface AcidBorderBeamProps {\r\n    size?: number;\r\n    duration?: number;\r\n    delay?: number;\r\n    colorFrom?: string;\r\n    colorTo?: string;\r\n    borderThickness?: number;\r\n    className?: string;\r\n}\r\n\r\nexport const AcidBorderBeam = ({\r\n    size = 150,\r\n    duration = 8,\r\n    delay = 0,\r\n    colorFrom = 'var(--ac-brand)',\r\n    colorTo = '#ec4899',\r\n    borderThickness = 2,\r\n    className\r\n}: AcidBorderBeamProps) => {\r\n    return (\r\n        <div\r\n            className={clsx('ac-border-beam', className)}\r\n            style={{\r\n                '--size': `${size}px`,\r\n                '--duration': `${duration}s`,\r\n                '--delay': `${delay}s`,\r\n                '--color-from': colorFrom,\r\n                '--color-to': colorTo,\r\n                '--thickness': `${borderThickness}px`,\r\n            } as React.CSSProperties}\r\n        />\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidBorderBeam.css",
+      "content": ".ac-border-beam {\r\n    pointer-events: none;\r\n    position: absolute;\r\n    inset: 0;\r\n    border: var(--thickness) solid transparent;\r\n    border-radius: inherit;\r\n    mask-clip: padding-box, border-box;\r\n    mask-composite: intersect;\r\n    mask-image: linear-gradient(transparent, transparent), linear-gradient(#000, #000);\r\n}\r\n\r\n.ac-border-beam::after {\r\n    content: \"\";\r\n    position: absolute;\r\n    aspect-ratio: 1;\r\n    width: var(--size);\r\n    background: linear-gradient(to left, var(--color-from), var(--color-to), transparent);\r\n    offset-path: rect(0 auto auto 0 round var(--size));\r\n    animation: border-beam-anim var(--duration) linear infinite;\r\n    animation-delay: var(--delay);\r\n}\r\n\r\n@keyframes border-beam-anim {\r\n    to {\r\n        offset-distance: 100%;\r\n    }\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "marquee",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidMarquee.tsx",
+      "content": "import clsx from 'clsx';\r\nimport { motion } from 'framer-motion';\r\nimport './AcidMarquee.css';\r\n\r\nexport interface AcidMarqueeProps {\r\n    text: string;\r\n    speed?: number;\r\n    direction?: 'left' | 'right';\r\n    className?: string;\r\n    color?: 'lime' | 'pink' | 'cyan' | 'purple';\r\n}\r\n\r\nexport const AcidMarquee = ({ text, speed = 20, direction = 'left', className, color = 'lime' }: AcidMarqueeProps) => {\r\n    return (\r\n        <div className={clsx('ac-marquee-container', `ac-marquee-${color}`, className)}>\r\n            <motion.div\r\n                className=\"ac-marquee-content\"\r\n                animate={{ x: direction === 'left' ? ['0%', '-50%'] : ['-50%', '0%'] }}\r\n                transition={{ repeat: Infinity, ease: 'linear', duration: speed }}\r\n            >\r\n                <span className=\"ac-marquee-text\">{text}</span>\r\n                <span className=\"ac-marquee-text\">{text}</span>\r\n                <span className=\"ac-marquee-text\">{text}</span>\r\n                <span className=\"ac-marquee-text\">{text}</span>\r\n            </motion.div>\r\n        </div>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidMarquee.css",
+      "content": ".ac-marquee-container {\r\n    overflow: hidden;\r\n    white-space: nowrap;\r\n    width: 100vw;\r\n    margin-left: calc(-50vw + 50%);\r\n    position: relative;\r\n    display: flex;\r\n    align-items: center;\r\n    border-top: 4px solid;\r\n    border-bottom: 4px solid;\r\n    background-color: var(--ac-bg);\r\n    padding: 1rem 0;\r\n    transform: rotate(-2deg) scale(1.05);\r\n    z-index: 10;\r\n    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);\r\n}\r\n\r\n.ac-marquee-content {\r\n    display: inline-flex;\r\n    will-change: transform;\r\n}\r\n\r\n.ac-marquee-text {\r\n    font-family: var(--font-inter);\r\n    font-weight: 900;\r\n    font-size: 4rem;\r\n    line-height: 1;\r\n    text-transform: uppercase;\r\n    padding: 0 2rem;\r\n    letter-spacing: -0.05em;\r\n    -webkit-text-stroke: 2px currentColor;\r\n    color: transparent;\r\n    transition: all 0.3s ease;\r\n}\r\n\r\n.ac-marquee-text:hover {\r\n    color: currentColor;\r\n}\r\n\r\n/* Colors */\r\n.ac-marquee-lime {\r\n    border-color: var(--ac-lime);\r\n    color: var(--ac-lime);\r\n}\r\n\r\n.ac-marquee-pink {\r\n    border-color: var(--ac-pink);\r\n    color: var(--ac-pink);\r\n}\r\n\r\n.ac-marquee-cyan {\r\n    border-color: var(--ac-cyan);\r\n    color: var(--ac-cyan);\r\n}\r\n\r\n.ac-marquee-purple {\r\n    border-color: var(--ac-purple);\r\n    color: var(--ac-purple);\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

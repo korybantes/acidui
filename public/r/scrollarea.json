@@ -1,0 +1,22 @@
+{
+  "name": "scrollarea",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidScrollArea.tsx",
+      "content": "import React from 'react';\r\nimport clsx from 'clsx';\r\nimport './AcidScrollArea.css';\r\n\r\nexport interface AcidScrollAreaProps extends React.HTMLAttributes<HTMLDivElement> {\r\n    maxHeight?: string | number;\r\n}\r\n\r\nexport const AcidScrollArea = ({ children, className, maxHeight = '300px', ...props }: AcidScrollAreaProps) => {\r\n    return (\r\n        <div\r\n            className={clsx('ac-scroll-area', className)}\r\n            style={{ maxHeight }}\r\n            {...props}\r\n        >\r\n            <div className=\"ac-scroll-content\">\r\n                {children}\r\n            </div>\r\n        </div>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidScrollArea.css",
+      "content": ".ac-scroll-area {\r\n    overflow-y: auto;\r\n    overflow-x: hidden;\r\n    position: relative;\r\n    border: 1px solid var(--ac-border-muted);\r\n    background: rgba(0, 0, 0, 0.2);\r\n}\r\n\r\n/* Custom Scrollbar */\r\n.ac-scroll-area::-webkit-scrollbar {\r\n    width: 6px;\r\n}\r\n\r\n.ac-scroll-area::-webkit-scrollbar-track {\r\n    background: transparent;\r\n}\r\n\r\n.ac-scroll-area::-webkit-scrollbar-thumb {\r\n    background: var(--ac-border-muted);\r\n}\r\n\r\n.ac-scroll-area::-webkit-scrollbar-thumb:hover {\r\n    background: var(--ac-brand);\r\n}\r\n\r\n.ac-scroll-content {\r\n    padding: 1rem;\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

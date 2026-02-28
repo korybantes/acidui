@@ -1,0 +1,22 @@
+{
+  "name": "navigationmenu",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidNavigationMenu.tsx",
+      "content": "import clsx from 'clsx';\r\nimport './AcidNavigationMenu.css';\r\n\r\nexport interface NavItem {\r\n    label: string;\r\n    href: string;\r\n    active?: boolean;\r\n}\r\n\r\nexport interface AcidNavigationMenuProps {\r\n    items: NavItem[];\r\n    className?: string;\r\n    orientation?: 'horizontal' | 'vertical';\r\n}\r\n\r\nexport const AcidNavigationMenu = ({\r\n    items,\r\n    className,\r\n    orientation = 'horizontal'\r\n}: AcidNavigationMenuProps) => {\r\n    return (\r\n        <nav className={clsx('ac-nav-menu', `ac-nav-${orientation}`, className)}>\r\n            <ul className=\"ac-nav-list\">\r\n                {items.map((item, index) => (\r\n                    <li key={index} className=\"ac-nav-item\">\r\n                        <a\r\n                            href={item.href}\r\n                            className={clsx('ac-nav-link', item.active && 'ac-active')}\r\n                        >\r\n                            <span className=\"ac-nav-label\">{item.label}</span>\r\n                            {item.active && <div className=\"ac-nav-indicator\" />}\r\n                        </a>\r\n                    </li>\r\n                ))}\r\n            </ul>\r\n        </nav>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidNavigationMenu.css",
+      "content": ".ac-nav-menu {\r\n    width: fit-content;\r\n}\r\n\r\n.ac-nav-list {\r\n    display: flex;\r\n    list-style: none;\r\n    padding: 0;\r\n    margin: 0;\r\n}\r\n\r\n.ac-nav-horizontal .ac-nav-list {\r\n    flex-direction: row;\r\n    gap: 2rem;\r\n}\r\n\r\n.ac-nav-vertical .ac-nav-list {\r\n    flex-direction: column;\r\n    gap: 0.5rem;\r\n}\r\n\r\n.ac-nav-link {\r\n    display: flex;\r\n    flex-direction: column;\r\n    text-decoration: none;\r\n    font-family: var(--font-mono);\r\n    font-size: 0.9rem;\r\n    color: var(--ac-text-secondary);\r\n    transition: color 0.2s;\r\n    position: relative;\r\n    padding: 0.5rem 0;\r\n}\r\n\r\n.ac-nav-link:hover {\r\n    color: var(--ac-text-primary);\r\n}\r\n\r\n.ac-nav-link.ac-active {\r\n    color: var(--ac-brand);\r\n}\r\n\r\n.ac-nav-indicator {\r\n    height: 2px;\r\n    background: var(--ac-brand);\r\n    width: 100%;\r\n    margin-top: 4px;\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

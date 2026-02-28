@@ -8,6 +8,7 @@ export interface AcidAvatarProps {
     size?: 'sm' | 'md' | 'lg' | 'xl';
     shape?: 'square' | 'circle' | 'industrial';
     className?: string;
+    style?: React.CSSProperties;
 }
 
 export const AcidAvatar = ({
@@ -15,10 +16,14 @@ export const AcidAvatar = ({
     fallback = '?',
     size = 'md',
     shape = 'industrial',
-    className
+    className,
+    style
 }: AcidAvatarProps) => {
     return (
-        <div className={clsx('ac-avatar', `ac-avatar-${size}`, `ac-avatar-${shape}`, className)}>
+        <div
+            className={clsx('ac-avatar', `ac-avatar-${size}`, `ac-avatar-${shape}`, className)}
+            style={style}
+        >
             {src ? (
                 <img src={src} alt="Avatar" className="ac-avatar-img" />
             ) : (

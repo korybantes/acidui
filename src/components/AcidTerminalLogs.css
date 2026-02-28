@@ -1,0 +1,41 @@
+.ac-terminal-logs {
+    background: #000;
+    border: 1px solid #333;
+    padding: 1rem;
+    height: 250px;
+    overflow-y: auto;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: #0f0;
+    /* Default green, but can be customized */
+}
+
+.ac-terminal-log-line {
+    margin-bottom: 0.25rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.ac-terminal-time {
+    color: #555;
+}
+
+.ac-terminal-text {
+    word-break: break-all;
+}
+
+.ac-terminal-cursor {
+    display: inline-block;
+    width: 0.6rem;
+    height: 1rem;
+    background: #0f0;
+    vertical-align: middle;
+    animation: ac-terminal-blink 1s step-end infinite;
+    margin-top: 0.25rem;
+}
+
+@keyframes ac-terminal-blink {
+    50% {
+        opacity: 0;
+    }
+}

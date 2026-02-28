@@ -86,13 +86,48 @@ import { AcidTopStickyBar } from '../components/AcidTopStickyBar';
 import { AcidTrustedUsers } from '../components/AcidTrustedUsers';
 import { AcidRippleLoader } from '../components/AcidRippleLoader';
 import { AcidDynamicNavbar } from '../components/AcidDynamicNavbar';
+import { AcidCircuitGrid } from '../components/AcidCircuitGrid';
+import { AcidProgressMatrix } from '../components/AcidProgressMatrix';
+import { AcidCautionTape } from '../components/AcidCautionTape';
+import { AcidKnob } from '../components/AcidKnob';
+import { AcidTerminalLogs } from '../components/AcidTerminalLogs';
+import { AcidKeypad } from '../components/AcidKeypad';
+import { AcidLCDDisplay } from '../components/AcidLCDDisplay';
+import { AcidSchematic } from '../components/AcidSchematic';
+import { AcidMetadata } from '../components/AcidMetadata';
+import { AcidScanline } from '../components/AcidScanline';
+import { AcidRigidHeader } from '../components/AcidRigidHeader';
+import { AcidPrintStreamScroll } from '../components/AcidPrintStreamScroll';
+import { AcidCubeGrid } from '../components/AcidCubeGrid';
+import { AcidMagicBento } from '../components/AcidMagicBento';
+import { AcidCardNav } from '../components/AcidCardNav';
+import { AcidStaggeredMenu } from '../components/AcidStaggeredMenu';
+import { AcidMasonry } from '../components/AcidMasonry';
+import { AcidStepper, AcidStep } from '../components/AcidStepper';
+import { AcidMegaMenu } from '../components/AcidMegaMenu';
 import clsx from 'clsx';
 
 import { sidebarData } from '../data/sidebar';
 import { componentSnippets } from '../data/snippets';
-import { Shield, ChevronRight, ChevronUp, ChevronDown, RefreshCw, Github, Terminal, MessageSquare, Code, Layout, Settings, Sun, Moon, Search as SearchIcon, Activity, X, Table, Zap, Link, BarChart3, Layers, PanelRight, MousePointer2, Bell, Monitor, Grid, Wand2, GripVertical } from 'lucide-react';
+import { Shield, ChevronRight, ChevronDown, RefreshCw, Github, Terminal, MessageSquare, Code, Layout, Settings, Search as SearchIcon, Activity, X, Table, Zap, Link, BarChart3, Layers, PanelRight, MousePointer2, Bell, Monitor, Grid, Wand2, GripVertical, Copy, Globe, Menu } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Docs.css';
+
+const rawTsxComponents = import.meta.glob('../components/Acid*.tsx', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
+const rawCssComponents = import.meta.glob('../components/Acid*.css', { query: '?raw', import: 'default', eager: true }) as Record<string, string>;
+
+const getComponentSource = (id: string, type: 'js' | 'css') => {
+    if (id === 'introduction' || !id) return '';
+    const name = 'Acid' + id.split('-').map(part => part.charAt(0).toUpperCase() + part.slice(1)).join('');
+
+    if (type === 'js') {
+        const path = `../components/${name}.tsx`;
+        return rawTsxComponents[path] || '';
+    } else {
+        const path = `../components/${name}.css`;
+        return rawCssComponents[path] || '';
+    }
+};
 
 const SheetDemo = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -286,8 +321,11 @@ const CarouselDemo = () => {
 export function Docs() {
     const [activeTab, setActiveTab] = useState('preview');
     const [searchQuery, setSearchQuery] = useState('');
-    const [isDarkMode, setIsDarkMode] = useState(true);
-    const [showDocs, setShowDocs] = useState(true);
+    const [isCopyMenuOpen, setIsCopyMenuOpen] = useState(false);
+    const [installTab, setInstallTab] = useState('cli');
+    const [pkgManager, setPkgManager] = useState('npm');
+    const [codeSubTab, setCodeSubTab] = useState('js');
+    const { toast } = useToast();
 
     // Get component from URL hash or default to Introduction
     const [currentComponent, setCurrentComponent] = useState(() => {
@@ -307,10 +345,6 @@ export function Docs() {
         window.addEventListener('hashchange', handleHashChange);
         return () => window.removeEventListener('hashchange', handleHashChange);
     }, []);
-
-    useEffect(() => {
-        document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
-    }, [isDarkMode]);
 
     // Filter components based on search
     const filteredSidebar = useMemo(() => {
@@ -399,6 +433,62 @@ export function Docs() {
                             <li><strong>Test Thoroughly:</strong> Always test on multiple devices to ensure a consistent industrial experience.</li>
                         </ul>
                     </section>
+
+                    <section className="docs-grid-section">
+                        <div className="docs-grid-header">
+                            <h3 className="content-h3">COMPONENT_INVENTORY</h3>
+                            <div className="header-line"></div>
+                        </div>
+                        <div className="docs-inventory-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '1rem', marginTop: '2rem' }}>
+                            {sidebarData.filter(cat => cat.title !== 'GETTING_STARTED').map((cat) => (
+                                <div key={cat.title} style={{ padding: '1.5rem', border: '1px solid var(--ac-border-muted)', background: 'var(--ac-bg-secondary)' }}>
+                                    <h4 style={{ fontSize: '0.65rem', color: 'var(--ac-brand)', marginBottom: '1rem', letterSpacing: '0.1em' }}>{cat.title}</h4>
+                                    <ul style={{ listStyle: 'none', padding: 0, margin: 0, fontSize: '0.75rem', display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
+                                        {cat.items.map(item => {
+                                            const id = item.name.toLowerCase().replace(/\s+/g, '-');
+                                            return (
+                                                <li key={item.name} style={{ fontFamily: 'var(--font-mono)' }}>
+                                                    <a
+                                                        href={`#${id}`}
+                                                        style={{ color: 'inherit', textDecoration: 'none', opacity: 0.6, transition: 'all 0.2s' }}
+                                                        onMouseEnter={(e) => { e.currentTarget.style.opacity = '1'; e.currentTarget.style.color = 'var(--ac-brand)'; }}
+                                                        onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.6'; e.currentTarget.style.color = 'inherit'; }}
+                                                    >
+                                                        _ {item.name.toUpperCase().replace(/\s+/g, '_')}
+                                                    </a>
+                                                </li>
+                                            );
+                                        })}
+                                    </ul>
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+
+                    <section className="docs-grid-section">
+                        <div className="docs-grid-header">
+                            <h3 className="content-h3">NPM_PUBLISH_PROTOCOL</h3>
+                            <div className="header-line"></div>
+                        </div>
+                        <div style={{ padding: '2rem', border: '1px solid var(--ac-border-muted)', background: 'rgba(0,0,0,0.2)', marginTop: '2rem' }}>
+                            <p className="content-p" style={{ fontSize: '0.8rem', opacity: 0.8 }}> To update the <code className="text-brand">acidui-core</code> package on NPMJS, follow the verified deployment sequence: </p>
+                            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1.5rem' }}>
+                                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                                    <AcidBadge variant="outline">STEP_01</AcidBadge>
+                                    <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)' }}>npm run build</span>
+                                </div>
+                                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                                    <AcidBadge variant="outline">STEP_02</AcidBadge>
+                                    <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)' }}>npm version patch (or minor/major)</span>
+                                </div>
+                                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                                    <AcidBadge variant="outline">STEP_03</AcidBadge>
+                                    <span style={{ fontSize: '0.75rem', fontFamily: 'var(--font-mono)' }}>npm publish</span>
+                                </div>
+                            </div>
+                            <p className="content-p" style={{ fontSize: '0.75rem', opacity: 0.5, marginTop: '1.5rem', fontStyle: 'italic' }}> **Note:** Ensure you are authenticated in the CLI via <code style={{ color: 'var(--ac-brand)' }}>npm login</code> before initiating the sequence. </p>
+                        </div>
+                    </section>
                 </div>
             ),
             code: '// npx acidui-core init',
@@ -412,13 +502,34 @@ export function Docs() {
             longDesc: 'A glassmorphic, floating navigation bar with fluid indicator animations and responsive mobile states.',
             icon: <Monitor size={32} />,
             preview: (
-                <div style={{ height: '300px', position: 'relative', background: 'var(--ac-bg-secondary)', borderRadius: '12px', border: '1px dashed var(--ac-border)', overflow: 'hidden' }}>
-                    <div style={{ transform: 'scale(0.8)', transformOrigin: 'top center' }}>
+                <div
+                    style={{ height: '320px', position: 'relative', background: 'var(--ac-bg-secondary)', border: '1px dashed var(--ac-border-muted)', borderRadius: '0', overflow: 'hidden', cursor: 'pointer' }}
+                    onClick={() => {
+                        window.dispatchEvent(new CustomEvent('ac-switch-navbar', { detail: 'dynamic' }));
+                        toast("DYNAMIC_NAVBAR_ACTIVE", "info");
+                    }}
+                >
+                    <div className="preview-indicator" style={{ position: 'absolute', top: '10px', right: '10px', fontSize: '0.6rem', color: 'var(--ac-brand)', fontWeight: 800, letterSpacing: '0.1em' }}>
+                        CLICK_TO_ACTIVATE_GLOBAL
+                    </div>
+                    <div style={{ transform: 'scale(0.85)', transformOrigin: 'top center', marginTop: '20px' }}>
                         <AcidDynamicNavbar className="relative-nav" />
                     </div>
-                    <div style={{ padding: '80px 20px', textAlign: 'center' }}>
-                        <h4 style={{ opacity: 0.5 }}>PAGE_PREVIEW_AREA</h4>
-                        <p style={{ fontSize: '0.8rem', opacity: 0.3, marginTop: '1rem' }}>Navbar stays fixed/relative based on configuration.</p>
+                    <div style={{ padding: '60px 20px', textAlign: 'center' }}>
+                        <h4 style={{ opacity: 0.5, letterSpacing: '0.2em', fontSize: '0.7rem' }}>PAGE_PREVIEW_AREA</h4>
+                        <p style={{ fontSize: '0.7rem', opacity: 0.3, marginTop: '1rem', fontStyle: 'italic' }}>Interactive pill-style navigation with magnetic indicator.</p>
+                        <AcidButton
+                            variant="outline"
+                            size="sm"
+                            style={{ marginTop: '2rem' }}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                window.dispatchEvent(new CustomEvent('ac-switch-navbar', { detail: 'default' }));
+                                toast("DEFAULT_NAVBAR_RESTORED", "info");
+                            }}
+                        >
+                            RESTORE_DEFAULT_NAVBAR
+                        </AcidButton>
                     </div>
                 </div>
             ),
@@ -576,15 +687,20 @@ export function Docs() {
             icon: <Shield size={32} />,
             compact: true,
             preview: (
-                <div style={{ display: 'flex', gap: '2rem', justifyContent: 'center' }}>
-                    <AcidAvatar shape="industrial" size="xl" fallback="AO" />
-                    <AcidAvatar shape="circle" size="lg" fallback="SYS" />
+                <div style={{ display: 'flex', gap: '1.5rem', justifyContent: 'center', alignItems: 'flex-end', padding: '1rem' }}>
+                    <AcidAvatar shape="industrial" size="sm" fallback="XS" />
+                    <AcidAvatar shape="circle" size="md" fallback="MD" />
+                    <AcidAvatar shape="industrial" size="lg" fallback="LG" />
+                    <AcidAvatar shape="circle" size="xl" fallback="XL" />
+                    <AcidAvatar shape="industrial" size="xl" fallback="OPERATOR" style={{ width: 80, height: 80 }} />
                 </div>
             ),
             code: `<AcidAvatar shape="industrial" size="xl" fallback="AO" />`,
             cli: 'npx acidui-core add avatar',
             props: [
-                { name: 'shape', type: '"industrial" | "circle"', default: 'circle', desc: 'Outer boundary geometry.' },
+                { name: 'src', type: 'string', desc: 'Optional image source URL.' },
+                { name: 'fallback', type: 'string', default: '?', desc: 'Text fallback if image fails.' },
+                { name: 'shape', type: '"industrial" | "circle" | "square"', default: 'industrial', desc: 'Outer boundary geometry.' },
                 { name: 'size', type: '"sm" | "md" | "lg" | "xl"', default: 'md', desc: 'Scale factor.' }
             ],
             importSnippet: `import { AcidAvatar } from "@/components/acidui/avatar"`,
@@ -748,13 +864,22 @@ export function Docs() {
             icon: <Layout size={32} />,
             compact: true,
             preview: (
-                <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                    <AcidSkeleton shape="industrial" width={50} height={50} />
-                    <div style={{ flex: 1 }}>
-                        <div style={{ marginBottom: '8px' }}>
-                            <AcidSkeleton width="70%" height="0.8rem" />
+                <div style={{ width: '100%', maxWidth: '400px', padding: '1.5rem', border: '1px solid var(--ac-border-muted)', background: 'rgba(255,255,255,0.02)' }}>
+                    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', marginBottom: '1.5rem' }}>
+                        <AcidSkeleton shape="industrial" width={50} height={50} />
+                        <div style={{ flex: 1 }}>
+                            <div style={{ marginBottom: '8px' }}>
+                                <AcidSkeleton width="80%" height="0.8rem" />
+                            </div>
+                            <AcidSkeleton width="50%" height="0.6rem" />
                         </div>
-                        <AcidSkeleton width="40%" height="0.6rem" />
+                    </div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.8rem' }}>
+                        <AcidSkeleton width="100%" height="3rem" />
+                        <div style={{ display: 'flex', gap: '0.5rem' }}>
+                            <AcidSkeleton width="100px" height="2rem" />
+                            <AcidSkeleton width="100px" height="2rem" />
+                        </div>
                     </div>
                 </div>
             ),
@@ -917,7 +1042,7 @@ function LoginForm() {
             icon: <Shield size={32} />,
             compact: true,
             preview: <AcidInputOtp length={6} />,
-            cli: 'npx acidui add input-otp',
+            cli: 'npx acidui-core add input-otp',
             props: [
                 { name: 'length', type: 'number', default: '6', desc: 'Length of passcode.' },
                 { name: 'mask', type: 'boolean', desc: 'Conceal numeric entry.' }
@@ -934,7 +1059,7 @@ function LoginForm() {
                     <AcidInput label="SYSTEM_ID" placeholder="Enter identifier..." />
                 </div>
             ),
-            cli: 'npx acidui add input',
+            cli: 'npx acidui-core add input',
             props: [
                 { name: 'label', type: 'string', desc: 'Technical identifier.' },
                 { name: 'variant', type: '"outline" | "filled"', default: 'outline', desc: 'Visual skin.' }
@@ -953,7 +1078,7 @@ function LoginForm() {
                     <AcidLabel color="brand">LINK_SYNC</AcidLabel>
                 </div>
             ),
-            cli: 'npx acidui add label',
+            cli: 'npx acidui-core add label',
         },
         'command': {
             name: 'COMMAND',
@@ -962,7 +1087,7 @@ function LoginForm() {
             icon: <SearchIcon size={32} />,
             compact: true,
             preview: <CommandDemo />,
-            cli: 'npx acidui add command',
+            cli: 'npx acidui-core add command',
         },
         'radio-group': {
             name: 'RADIO_GROUP',
@@ -979,7 +1104,7 @@ function LoginForm() {
                     defaultValue="udp"
                 />
             ),
-            cli: 'npx acidui add radio-group',
+            cli: 'npx acidui-core add radio-group',
             props: [
                 { name: 'options', type: 'AcidRadioOption[]', desc: 'Selection entries.' },
                 { name: 'orientation', type: '"vertical" | "horizontal"', desc: 'Stack direction.' }
@@ -1002,7 +1127,7 @@ function LoginForm() {
                     />
                 </div>
             ),
-            cli: 'npx acidui add select',
+            cli: 'npx acidui-core add select',
         },
         'slider': {
             name: 'SLIDER',
@@ -1015,7 +1140,7 @@ function LoginForm() {
                     <AcidSlider label="VOLTAGE" min={0} max={100} defaultValue={44} />
                 </div>
             ),
-            cli: 'npx acidui add slider',
+            cli: 'npx acidui-core add slider',
         },
         'switch': {
             name: 'SWITCH',
@@ -1028,7 +1153,7 @@ function LoginForm() {
                     <AcidSwitch label="LIVE_MODE" defaultChecked />
                 </div>
             ),
-            cli: 'npx acidui add switch',
+            cli: 'npx acidui-core add switch',
         },
         'textarea': {
             name: 'TEXTAREA',
@@ -1041,7 +1166,7 @@ function LoginForm() {
                     <AcidTextarea label="LOG_DUMP" placeholder="Paste buffer content..." />
                 </div>
             ),
-            cli: 'npx acidui add textarea',
+            cli: 'npx acidui-core add textarea',
         },
         'toggle': {
             name: 'TOGGLE',
@@ -1055,7 +1180,7 @@ function LoginForm() {
                     <AcidToggle variant="outline">DEBUG</AcidToggle>
                 </div>
             ),
-            cli: 'npx acidui add toggle',
+            cli: 'npx acidui-core add toggle',
         },
         'toggle-group': {
             name: 'TOGGLE_GROUP',
@@ -1075,7 +1200,7 @@ function LoginForm() {
                     />
                 </div>
             ),
-            cli: 'npx acidui add toggle-group',
+            cli: 'npx acidui-core add toggle-group',
         },
         'accordion': {
             name: 'ACCORDION',
@@ -1092,7 +1217,7 @@ function LoginForm() {
                 </div>
             ),
             code: `<AcidAccordion items={[]} />`,
-            cli: 'npx acidui add accordion',
+            cli: 'npx acidui-core add accordion',
         },
         'divider': {
             name: 'DIVIDER',
@@ -1106,7 +1231,7 @@ function LoginForm() {
                 </div>
             ),
             code: `<AcidDivider label="Label" align="right" />`,
-            cli: 'npx acidui add divider',
+            cli: 'npx acidui-core add divider',
         },
         'tabs': {
             name: 'TABS',
@@ -1127,7 +1252,7 @@ function LoginForm() {
                     </div>
                 </div>
             ),
-            cli: 'npx acidui add tabs',
+            cli: 'npx acidui-core add tabs',
             usage: [
                 {
                     label: 'USER_PROFILE',
@@ -1178,7 +1303,7 @@ function LoginForm() {
                     </div>
                 </div>
             ),
-            cli: 'npx acidui add border-beam',
+            cli: 'npx acidui-core add border-beam',
             props: [
                 { name: 'size', type: 'number', default: '150', desc: 'Beam traversal scale.' },
                 { name: 'duration', type: 'number', default: '8', desc: 'Animation cycle speed.' },
@@ -1196,7 +1321,7 @@ function LoginForm() {
                     <AcidConfettiButton variant="primary">DEPLOY_CELEBRATION</AcidConfettiButton>
                 </div>
             ),
-            cli: 'npx acidui add confetti-button',
+            cli: 'npx acidui-core add confetti-button',
         },
         'gradient-button': {
             name: 'GRADIENT_BUTTON',
@@ -1210,7 +1335,7 @@ function LoginForm() {
                     <AcidGradientButton gradientType="purple" size="xl">Extra Large</AcidGradientButton>
                 </div>
             ),
-            cli: 'npx acidui add gradient-button',
+            cli: 'npx acidui-core add gradient-button',
             usage: [
                 {
                     label: 'VARIANTS',
@@ -1235,7 +1360,11 @@ function LoginForm() {
                     <AcidRippleButton rippleColor="rgba(255,255,255,0.4)">INIT_RIPPLE_PULSE</AcidRippleButton>
                 </div>
             ),
-            cli: 'npx acidui add ripple-button',
+            cli: 'npx acidui-core add ripple-button',
+            props: [
+                { name: 'rippleColor', type: 'string', default: 'rgba(255,255,255,0.3)', desc: 'Color of the kinetic pulse.' },
+                { name: 'duration', type: 'number', default: '600', desc: 'Duration of the pulse animation in ms.' }
+            ]
         },
         'shine-button': {
             name: 'SHINE_BUTTON',
@@ -1247,7 +1376,11 @@ function LoginForm() {
                     <AcidShineButton>SHINE_MODULE_SYNC</AcidShineButton>
                 </div>
             ),
-            cli: 'npx acidui add shine-button',
+            cli: 'npx acidui-core add shine-button',
+            props: [
+                { name: 'shineColor', type: 'string', default: 'rgba(255,255,255,0.5)', desc: 'Color of the specular sweep.' },
+                { name: 'duration', type: 'number', default: '1000', desc: 'Time for the highlight to traverse the surface.' }
+            ]
         },
         'trial-button': {
             name: 'TRIAL_BUTTON',
@@ -1259,7 +1392,7 @@ function LoginForm() {
                     <AcidTrialButton>START_FREE_TRIAL</AcidTrialButton>
                 </div>
             ),
-            cli: 'npx acidui add trial-button',
+            cli: 'npx acidui-core add trial-button',
         },
         'timeline': {
             name: 'TIMELINE',
@@ -1277,7 +1410,11 @@ function LoginForm() {
                 </div>
             ),
             code: `<AcidTimeline items={[]} />`,
-            cli: 'npx acidui add timeline',
+            cli: 'npx acidui-core add timeline',
+            props: [
+                { name: 'data', type: 'TimelineItem[]', desc: 'Array of event nodes with title/content.' },
+                { name: 'activeId', type: 'string', desc: 'Highlight a specific temporal node.' }
+            ]
         },
         'meter': {
             name: 'METER',
@@ -1294,7 +1431,7 @@ function LoginForm() {
                 </div>
             ),
             code: `<AcidMeter value={75} label="Label" orientation="horizontal" />`,
-            cli: 'npx acidui add meter',
+            cli: 'npx acidui-core add meter',
         },
         'step-list': {
             name: 'STEP_LIST',
@@ -1312,7 +1449,11 @@ function LoginForm() {
                 </div>
             ),
             code: `<AcidStepList steps={[]} activeId="1" />`,
-            cli: 'npx acidui add steplist',
+            cli: 'npx acidui-core add steplist',
+            props: [
+                { name: 'steps', type: 'Step[]', desc: 'Sequence of operational steps.' },
+                { name: 'activeId', type: 'string', desc: 'Current execution node ID.' }
+            ]
         },
         'grid-box': {
             name: 'GRID_BOX',
@@ -1324,7 +1465,11 @@ function LoginForm() {
                 </AcidGridBox>
             ),
             code: `<AcidGridBox>Children</AcidGridBox>`,
-            cli: 'npx acidui add gridbox',
+            cli: 'npx acidui-core add gridbox',
+            props: [
+                { name: 'children', type: 'React.ReactNode', desc: 'Content to be framed by the tectonic grid.' },
+                { name: 'gridSize', type: 'number', default: '40', desc: 'Scale of the geometric grid units.' }
+            ]
         },
         'solid-card': {
             name: 'SOLID_CARD',
@@ -1338,7 +1483,12 @@ function LoginForm() {
                 </div>
             ),
             code: `<AcidSolidCard title="Label" value="Data" />`,
-            cli: 'npx acidui add solidcard',
+            cli: 'npx acidui-core add solidcard',
+            props: [
+                { name: 'title', type: 'string', desc: 'Primary identifying string.' },
+                { name: 'label', type: 'string', desc: 'Secondary technical tag.' },
+                { name: 'variant', type: '"default" | "brand" | "outline"', default: 'default', desc: 'Visual theme variant.' }
+            ]
         },
         'layout': {
             name: 'LAYOUT',
@@ -1366,7 +1516,7 @@ function LoginForm() {
                     </AcidLayout>
                 </div>
             ),
-            cli: 'npx acidui add layout',
+            cli: 'npx acidui-core add layout',
         },
         'aspect-ratio': {
             name: 'ASPECT_RATIO',
@@ -1383,7 +1533,7 @@ function LoginForm() {
                     </AcidAspectRatio>
                 </div>
             ),
-            cli: 'npx acidui add aspect-ratio',
+            cli: 'npx acidui-core add aspect-ratio',
             props: [{ name: 'ratio', type: 'number', default: '16/9', desc: 'Width to height ratio.' }]
         },
         'resizable': {
@@ -1399,7 +1549,11 @@ function LoginForm() {
                     </AcidResizable>
                 </div>
             ),
-            cli: 'npx acidui add resizable',
+            cli: 'npx acidui-core add resizable',
+            props: [
+                { name: 'direction', type: '"horizontal" | "vertical"', default: 'horizontal', desc: 'Axis of interactive scaling.' },
+                { name: 'defaultSize', type: 'number', default: '50', desc: 'Initial split percentage.' }
+            ]
         },
         'scroll-area': {
             name: 'SCROLL_AREA',
@@ -1421,7 +1575,7 @@ function LoginForm() {
                     </AcidScrollArea>
                 </div>
             ),
-            cli: 'npx acidui add scroll-area',
+            cli: 'npx acidui-core add scroll-area',
             props: [{ name: 'maxHeight', type: 'string | number', default: '300px', desc: 'Maximum vertical scale.' }]
         },
         'separator': {
@@ -1444,7 +1598,11 @@ function LoginForm() {
                     </div>
                 </div>
             ),
-            cli: 'npx acidui add separator',
+            cli: 'npx acidui-core add separator',
+            props: [
+                { name: 'orientation', type: '"horizontal" | "vertical"', default: 'horizontal', desc: 'Primary axis of separation.' },
+                { name: 'decorative', type: 'boolean', default: 'true', desc: 'Internal flag for accessibility.' }
+            ]
         },
         'sidebar': {
             name: 'SIDEBAR',
@@ -1459,7 +1617,11 @@ function LoginForm() {
                     ]} />
                 </div>
             ),
-            cli: 'npx acidui add sidebar',
+            cli: 'npx acidui-core add sidebar',
+            props: [
+                { name: 'categories', type: 'Category[]', desc: 'Hierarchical navigation data structured by module category.' },
+                { name: 'collapsible', type: 'boolean', default: 'true', desc: 'Enable structural compression of categories.' }
+            ]
         },
         'breadcrumb': {
             name: 'BREADCRUMB',
@@ -1474,7 +1636,11 @@ function LoginForm() {
                     { label: 'BREADCRUMB', current: true }
                 ]} />
             ),
-            cli: 'npx acidui add breadcrumb',
+            cli: 'npx acidui-core add breadcrumb',
+            props: [
+                { name: 'items', type: 'BreadcrumbItem[]', desc: 'Sequential path items with labels and destination links.' },
+                { name: 'separator', type: 'React.ReactNode', desc: 'Custom delimiter between path nodes.' }
+            ]
         },
         'navigation-menu': {
             name: 'NAVIGATION_MENU',
@@ -1489,7 +1655,80 @@ function LoginForm() {
                     { label: 'AUDIT', href: '#' }
                 ]} />
             ),
-            cli: 'npx acidui add navigation-menu',
+            cli: 'npx acidui-core add navigation-menu',
+            props: [
+                { name: 'items', type: 'NavItem[]', desc: 'Primary navigation links.' },
+                { name: 'orientation', type: '"horizontal" | "vertical"', default: 'horizontal', desc: 'Layout axis.' }
+            ]
+        },
+        'card-nav': {
+            name: 'CARD_NAV',
+            desc: 'Technical grid-based navigation blocks.',
+            longDesc: 'High-contrast 1px tiles that expand on hover to reveal descriptive metadata and destination vectors.',
+            icon: <Globe size={32} />,
+            preview: (
+                <div style={{ width: '100%' }}>
+                    <AcidCardNav items={[
+                        { id: '1', label: 'NETWORK_SCAN', desc: 'Identify remote nodes.' },
+                        { id: '2', label: 'SYSTEM_AUDIT', desc: 'Verify local integrity.' },
+                        { id: '3', label: 'DATA_LINKS', desc: 'Manage external streams.' },
+                    ]} columns={3} />
+                </div>
+            ),
+            cli: 'npx acidui-core add card-nav',
+            props: [
+                { name: 'items', type: 'CardItem[]', desc: 'Collection of navigation tiles.' },
+                { name: 'columns', type: 'number', default: '3', desc: 'Grid column count.' }
+            ]
+        },
+        'staggered-menu': {
+            name: 'STAGGERED_MENU',
+            desc: 'Linear mechanical menu arrival.',
+            longDesc: 'High-impact vertical typography items that arrive with a spring-loaded mechanical delay and expand on interaction.',
+            icon: <Menu size={32} />,
+            preview: (
+                <div style={{ width: '100%', padding: '2rem' }}>
+                    <AcidStaggeredMenu items={[
+                        { id: '1', label: 'HOME' },
+                        { id: '2', label: 'PROFILES' },
+                        { id: '3', label: 'DEVICES' },
+                    ]} />
+                </div>
+            ),
+            cli: 'npx acidui-core add staggered-menu',
+            props: [
+                { name: 'items', type: 'MenuItem[]', desc: 'Array of menu items with mechanical arrival.' },
+                { name: 'staggerTime', type: 'number', default: '0.1', desc: 'Delay between consecutive item reveals.' }
+            ]
+        },
+        'stepper': {
+            name: 'STEPPER',
+            desc: 'Linear mechanical flow sequencer.',
+            longDesc: 'A spring-animated step container designed for multi-stage configuration sequences and industrial setup flows.',
+            icon: <MessageSquare size={32} />,
+            preview: (
+                <div style={{ width: '100%', maxWidth: '500px' }}>
+                    <AcidStepper>
+                        <AcidStep>
+                            <AcidLabel color="brand">STEP_01: SYSTEM_INIT</AcidLabel>
+                            <p style={{ marginTop: '10px', fontSize: '0.9rem', opacity: 0.7 }}>Preparing kernel modules for interface deployment...</p>
+                        </AcidStep>
+                        <AcidStep>
+                            <AcidLabel color="brand">STEP_02: COMM_LINK</AcidLabel>
+                            <p style={{ marginTop: '10px', fontSize: '0.9rem', opacity: 0.7 }}>Establishing secure handshake with remote nodes.</p>
+                        </AcidStep>
+                        <AcidStep>
+                            <AcidLabel color="brand">STEP_03: READY</AcidLabel>
+                            <p style={{ marginTop: '10px', fontSize: '0.9rem', opacity: 0.7 }}>All systems nominal. Ready for operator input.</p>
+                        </AcidStep>
+                    </AcidStepper>
+                </div>
+            ),
+            cli: 'npx acidui-core add stepper',
+            props: [
+                { name: 'activeStep', type: 'number', default: '0', desc: 'Index of the current active sequence node.' },
+                { name: 'orientation', type: '"horizontal" | "vertical"', default: 'vertical', desc: 'Sequence flow axis.' }
+            ]
         },
         'navbar': {
             name: 'NAVBAR',
@@ -1501,7 +1740,7 @@ function LoginForm() {
                     <AcidNavbar />
                 </div>
             ),
-            cli: 'npx acidui add navbar',
+            cli: 'npx acidui-core add navbar',
         },
         'pagination': {
             name: 'PAGINATION',
@@ -1512,7 +1751,138 @@ function LoginForm() {
             preview: (
                 <AcidPagination currentPage={1} totalPages={10} />
             ),
-            cli: 'npx acidui add pagination',
+            cli: 'npx acidui-core add pagination',
+            props: [
+                { name: 'currentPage', type: 'number', desc: 'Active buffer index.' },
+                { name: 'totalPages', type: 'number', desc: 'Total coordinate nodes in buffer.' },
+                { name: 'onPageChange', type: '(page: number) => void', desc: 'Execution callback on node switch.' }
+            ]
+        },
+        'cube-grid': {
+            name: 'CUBE_GRID',
+            desc: 'Rigid 3D perspective wireframes.',
+            longDesc: 'A matrix of rotating isometric wireframe cubes designed for use as background technical textures or high-density loading visuals.',
+            icon: <Activity size={32} />,
+            preview: (
+                <div style={{ width: '100%', padding: '2rem', background: '#000' }}>
+                    <AcidCubeGrid rows={2} cols={4} spacing={60} />
+                </div>
+            ),
+            cli: 'npx acidui-core add cube-grid',
+            props: [
+                { name: 'rows', type: 'number', default: '3', desc: 'Vertical cube count.' },
+                { name: 'cols', type: 'number', default: '3', desc: 'Horizontal cube count.' },
+                { name: 'speed', type: 'number', default: '1', desc: 'Rotation velocity factor.' }
+            ]
+        },
+        'magic-bento': {
+            name: 'MAGIC_BENTO',
+            desc: 'Kinetic industrial grid modules.',
+            longDesc: 'A high-performance bento grid featuring spring-loaded magnetism, particle emissions on hover, and dynamic border-glow synchronization.',
+            icon: <Grid size={32} />,
+            preview: (
+                <div style={{ width: '100%' }}>
+                    <AcidMagicBento items={[
+                        { id: '1', title: 'CORE_SYNC', description: 'Monitor high-frequency terminal data streams.', label: 'TELEMETRY' },
+                        { id: '2', title: 'AUDIT_LOG', description: 'Verified security traces.', label: 'SECURITY' },
+                        { id: '3', title: 'NODE_MAP', description: 'Global cluster topology.', label: 'NETWORK' },
+                        { id: '4', title: 'PROTOCOLS', description: 'Active system rulesets.', label: 'SYSTEM' },
+                        { id: '5', title: 'BUFFERS', description: 'Memory allocation metrics.', label: 'HARDWARE' },
+                        { id: '6', title: 'UPTIME', description: 'Continuous uptime tracking.', label: 'METRICS' },
+                    ]} />
+                </div>
+            ),
+            cli: 'npx acidui-core add magic-bento',
+        },
+        'masonry': {
+            name: 'MASONRY',
+            desc: 'Kinetic data tile assembly.',
+            longDesc: 'A high-performance masonry grid using GSAP to flow tiles into place. Features grayscale-to-focus transitions and industrial overlays.',
+            icon: <Grid size={32} />,
+            preview: (
+                <div style={{ width: '100%' }}>
+                    <AcidMasonry items={[
+                        { id: '1', img: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80', height: 400 },
+                        { id: '2', img: 'https://images.unsplash.com/photo-1731533622011-155f51dfe8bf?q=80&w=1332&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D', height: 600 },
+                        { id: '3', img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80', height: 450 },
+                        { id: '4', img: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80', height: 500 },
+                        { id: '5', img: 'https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?auto=format&fit=crop&w=800&q=80', height: 550 },
+                        { id: '6', img: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80', height: 400 },
+                        { id: '7', img: 'https://images.unsplash.com/photo-1558494949-ef010cbdcc48?auto=format&fit=crop&w=800&q=80', height: 600 },
+                        { id: '8', img: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80', height: 450 },
+                        { id: '9', img: 'https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=800&q=80', height: 500 },
+                        { id: '10', img: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80', height: 550 },
+                    ]} />
+                </div>
+            ),
+            cli: 'npx acidui-core add masonry',
+            props: [
+                { name: 'items', type: 'MasonryItem[]', desc: 'Array of items with img and height.' },
+                { name: 'ease', type: 'string', default: 'power3.out', desc: 'GSAP ease function.' },
+                { name: 'duration', type: 'number', default: '0.6', desc: 'Animation duration.' },
+                { name: 'stagger', type: 'number', default: '0.05', desc: 'Delay between items.' },
+                { name: 'animateFrom', type: '"top" | "bottom" | "left" | "right" | "center" | "random"', default: 'bottom', desc: 'Initial entry vector.' },
+                { name: 'scaleOnHover', type: 'boolean', default: 'true', desc: 'Enable hover magnification.' },
+                { name: 'hoverScale', type: 'number', default: '0.98', desc: 'Scale factor on hover.' },
+                { name: 'blurToFocus', type: 'boolean', default: 'true', desc: 'Initial blur transition.' }
+            ]
+        },
+        'mega-menu': {
+            name: 'MEGA_MENU',
+            desc: 'Multi-column technical navigation.',
+            longDesc: 'A high-impact mega menu component for deep hierarchical system navigation. Features glassmorphism, animated scanlines, and industrial metadata.',
+            icon: <Menu size={32} />,
+            preview: (
+                <div style={{
+                    padding: '2rem',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    border: '1px dashed var(--ac-border-muted)',
+                    borderRadius: '0',
+                    minHeight: '600px',
+                    background: 'radial-gradient(circle at center, rgba(var(--ac-brand-rgb), 0.05), transparent 80%)',
+                    overflow: 'visible',
+                    position: 'relative'
+                }}>
+                    <div style={{ marginBottom: '22rem' }}>
+                        <AcidMegaMenu
+                            trigger="OPEN_SYSTEM_NODES"
+                            browseAllHref="/docs"
+                            sidebarItems={[
+                                { id: 's1', label: 'Docs', description: 'Technical documentation.', icon: <Terminal size={16} /> },
+                                { id: 's2', label: 'Library', description: 'Visual patterns.', icon: <Activity size={16} /> }
+                            ]}
+                            sections={[
+                                {
+                                    title: 'CORE_COMPONENTS',
+                                    items: [
+                                        { id: '1', label: 'Buttons', description: 'Interaction units.', icon: <Zap size={14} /> },
+                                        { id: '2', label: 'Inputs', description: 'Data collectors.', icon: <Terminal size={14} /> },
+                                    ]
+                                },
+                                {
+                                    title: 'RESOURCES',
+                                    items: [
+                                        { id: '7', label: 'Blocks', description: 'Ready patterns.', icon: <Layout size={14} /> },
+                                        { id: '8', label: 'Icons', description: 'Symbol set.', icon: <Shield size={14} /> },
+                                    ]
+                                }
+                            ]}
+                        />
+                    </div>
+                    <div style={{ position: 'absolute', bottom: '2rem', fontSize: '0.7rem', color: 'var(--ac-brand)', fontFamily: 'var(--font-mono)', opacity: 0.5 }}>
+                        [ HOVER_TRIGGER_TO_VIEW_HIERARCHY ]
+                    </div>
+                </div>
+            ),
+            cli: 'npx acidui-core add mega-menu',
+            props: [
+                { name: 'trigger', type: 'string', desc: 'The text label for the trigger button.' },
+                { name: 'sections', type: 'MegaMenuSection[]', desc: 'Array of sections containing menu items.' },
+                { name: 'className', type: 'string', desc: 'Custom container styles.' }
+            ]
         },
         'table': {
             name: 'TABLE',
@@ -1533,7 +1903,12 @@ function LoginForm() {
                     ]}
                 />
             ),
-            cli: 'npx acidui add table',
+            cli: 'npx acidui-core add table',
+            props: [
+                { name: 'columns', type: 'Column[]', desc: 'Array of column definitions with headers and accessors.' },
+                { name: 'data', type: 'any[]', desc: 'The data buffer to be rendered in the table nodes.' },
+                { name: 'striped', type: 'boolean', default: 'false', desc: 'Enable alternating row high-contrast backgrounds.' }
+            ]
         },
         'marquee': {
             name: 'MARQUEE',
@@ -1546,7 +1921,12 @@ function LoginForm() {
                     <AcidMarquee text="SYSTEM_HEARTBEAT_NOMINAL // CORE_SYNC_ACTIVE // ALL_NODES_STANDBY" speed={15} color="pink" />
                 </div>
             ),
-            cli: 'npx acidui add marquee',
+            cli: 'npx acidui-core add marquee',
+            props: [
+                { name: 'text', type: 'string', desc: 'The telemetry string to be scrolled.' },
+                { name: 'speed', type: 'number', default: '20', desc: 'Velocity of the horizontal scroll.' },
+                { name: 'color', type: 'string', desc: 'Visual theme of the text stream.' }
+            ]
         },
         'glass-folder': {
             name: 'GLASS_FOLDER',
@@ -1560,7 +1940,11 @@ function LoginForm() {
                     <AcidGlassFolder icon={<Shield size={16} />} title="SEC_AUTH" />
                 </div>
             ),
-            cli: 'npx acidui add glass-folder',
+            cli: 'npx acidui-core add glass-folder',
+            props: [
+                { name: 'title', type: 'string', desc: 'File or cluster identification label.' },
+                { name: 'icon', type: 'React.ReactNode', desc: 'Technical icon for file type identification.' }
+            ]
         },
         'icon-box': {
             name: 'ICON_BOX',
@@ -1573,7 +1957,11 @@ function LoginForm() {
                     <div style={{ fontSize: '0.8rem', opacity: 0.6 }}>SHELL_INIT_v2</div>
                 </AcidIconBox>
             ),
-            cli: 'npx acidui add icon-box',
+            cli: 'npx acidui-core add icon-box',
+            props: [
+                { name: 'icon', type: 'React.ReactNode', desc: 'The central identifier icon.' },
+                { name: 'children', type: 'React.ReactNode', desc: 'Metadata or alphanumeric labels.' }
+            ]
         },
         'link': {
             name: 'LINK',
@@ -1584,7 +1972,11 @@ function LoginForm() {
             preview: (
                 <AcidLink href="#">ACCESS_SUB_ROUTINE</AcidLink>
             ),
-            cli: 'npx acidui add link',
+            cli: 'npx acidui-core add link',
+            props: [
+                { name: 'href', type: 'string', desc: 'Destination vector for network traversal.' },
+                { name: 'underline', type: 'boolean', default: 'true', desc: 'Visual anchor for link persistence.' }
+            ]
         },
         'aurora-text': {
             name: 'AURORA_TEXT',
@@ -1597,7 +1989,11 @@ function LoginForm() {
                     AURORA_PROTOCOL
                 </AcidAuroraText>
             ),
-            cli: 'npx acidui add aurora-text',
+            cli: 'npx acidui-core add aurora-text',
+            props: [
+                { name: 'intensity', type: '"low" | "medium" | "high"', default: 'medium', desc: 'Chromatic frequency amplitude.' },
+                { name: 'colors', type: 'string[]', desc: 'Custom gradient palette array.' }
+            ]
         },
         'scroll-reveal': {
             name: 'SCROLL_REVEAL',
@@ -1614,7 +2010,11 @@ function LoginForm() {
                     </AcidScrollReveal>
                 </div>
             ),
-            cli: 'npx acidui add scroll-reveal',
+            cli: 'npx acidui-core add scroll-reveal',
+            props: [
+                { name: 'threshold', type: 'number', default: '0.1', desc: 'Viewport intersection ratio for activation.' },
+                { name: 'direction', type: '"up" | "down" | "left" | "right"', default: 'up', desc: 'Initial kinetic vector.' }
+            ]
         },
         'shiny-text': {
             name: 'SHINY_TEXT',
@@ -1627,7 +2027,11 @@ function LoginForm() {
                     SPECULAR_REFRACTION
                 </AcidShinyText>
             ),
-            cli: 'npx acidui add shiny-text',
+            cli: 'npx acidui-core add shiny-text',
+            props: [
+                { name: 'speed', type: 'number', default: '2', desc: 'Frequency of the light sweep.' },
+                { name: 'shineColor', type: 'string', desc: 'Color of the specular highlight.' }
+            ]
         },
         'text-marquee': {
             name: 'TEXT_MARQUEE',
@@ -1637,7 +2041,11 @@ function LoginForm() {
             preview: (
                 <AcidTextMarquee text="SYSTEM_HEARTBEAT_NOMINAL // SYNC_ACTIVE // ALL_NODES_STANDBY" speed={15} />
             ),
-            cli: 'npx acidui add text-marquee',
+            cli: 'npx acidui-core add text-marquee',
+            props: [
+                { name: 'text', type: 'string', desc: 'Telemetry string to be looped.' },
+                { name: 'speed', type: 'number', default: '20', desc: 'Velocity of horizontal translation.' }
+            ]
         },
         'typewriter-input': {
             name: 'TYPEWRITER_INPUT',
@@ -1651,7 +2059,11 @@ function LoginForm() {
                     style={{ maxWidth: '400px' }}
                 />
             ),
-            cli: 'npx acidui add typewriter-input',
+            cli: 'npx acidui-core add typewriter-input',
+            props: [
+                { name: 'label', type: 'string', desc: 'Primary alphanumeric identifier for the input field.' },
+                { name: 'speed', type: 'number', default: '50', desc: 'Character revelation velocity.' }
+            ]
         },
         'typing-text': {
             name: 'TYPING_TEXT',
@@ -1666,7 +2078,11 @@ function LoginForm() {
                     className="font-mono text-brand"
                 />
             ),
-            cli: 'npx acidui add typing-text',
+            cli: 'npx acidui-core add typing-text',
+            props: [
+                { name: 'text', type: 'string', desc: 'String to be procedurally generated.' },
+                { name: 'speed', type: 'number', default: '50', desc: 'Typing frequency in ms.' }
+            ]
         },
         'video-text': {
             name: 'VIDEO_TEXT',
@@ -1681,7 +2097,11 @@ function LoginForm() {
                     />
                 </div>
             ),
-            cli: 'npx acidui add video-text',
+            cli: 'npx acidui-core add video-text',
+            props: [
+                { name: 'text', type: 'string', desc: 'The typography string to be masked.' },
+                { name: 'videoSrc', type: 'string', desc: 'The video asset identifier for the texture.' }
+            ]
         },
         'chart': {
             name: 'CHART',
@@ -1703,7 +2123,12 @@ function LoginForm() {
                     />
                 </div>
             ),
-            cli: 'npx acidui add chart',
+            cli: 'npx acidui-core add chart',
+            props: [
+                { name: 'type', type: '"line" | "bar" | "area" | "pie" | "radar"', desc: 'Geometric data representation model.' },
+                { name: 'data', type: 'DataNode[]', desc: 'Array of telemetry coordinates.' },
+                { name: 'title', type: 'string', desc: 'Title of the data visualization node.' }
+            ],
             usage: [
                 {
                     label: 'BAR_CHART_UNIT',
@@ -1797,7 +2222,11 @@ function LoginForm() {
                     </AcidCollapsible>
                 </div>
             ),
-            cli: 'npx acidui add collapsible',
+            cli: 'npx acidui-core add collapsible',
+            props: [
+                { name: 'title', type: 'string', desc: 'Label of the structural segment.' },
+                { name: 'defaultOpen', type: 'boolean', default: 'false', desc: 'Initial visibility state.' }
+            ]
         },
         'context-menu': {
             name: 'CONTEXT_MENU',
@@ -1818,7 +2247,11 @@ function LoginForm() {
                     </AcidContextMenu>
                 </div>
             ),
-            cli: 'npx acidui add context-menu',
+            cli: 'npx acidui-core add context-menu',
+            props: [
+                { name: 'items', type: 'ContextItem[]', desc: 'Array of interceptive action descriptors.' },
+                { name: 'children', type: 'React.ReactNode', desc: 'Interactable region for context capture.' }
+            ]
         },
         'sheet': {
             name: 'SHEET',
@@ -1833,7 +2266,12 @@ function LoginForm() {
                     <SheetDemo />
                 </div>
             ),
-            cli: 'npx acidui add sheet',
+            cli: 'npx acidui-core add sheet',
+            props: [
+                { name: 'open', type: 'boolean', desc: 'Control visibility of the sheet.' },
+                { name: 'onOpenChange', type: '(open: boolean) => void', desc: 'Callback when visibility changes.' },
+                { name: 'side', type: '"top" | "bottom" | "left" | "right"', default: 'right', desc: 'Side of the screen where the sheet appears.' }
+            ]
         },
         'drawer': {
             name: 'DRAWER',
@@ -1848,7 +2286,11 @@ function LoginForm() {
                     <DrawerDemo />
                 </div>
             ),
-            cli: 'npx acidui add drawer',
+            cli: 'npx acidui-core add drawer',
+            props: [
+                { name: 'open', type: 'boolean', desc: 'Toggle the drawer viewport.' },
+                { name: 'onOpenChange', type: '(open: boolean) => void', desc: 'Interaction callback for state management.' }
+            ]
         },
         'bento-grid': {
             name: 'BENTO_GRID',
@@ -1871,7 +2313,11 @@ function LoginForm() {
                     </AcidBentoItem>
                 </AcidBentoGrid>
             ),
-            cli: 'npx acidui add bento-grid',
+            cli: 'npx acidui-core add bento-grid',
+            props: [
+                { name: 'cols', type: 'number', default: '4', desc: 'Grid column capacity.' },
+                { name: 'gap', type: 'string', default: '1rem', desc: 'Geometric spacing between modules.' }
+            ]
         },
         'dock': {
             name: 'DOCK',
@@ -1888,7 +2334,12 @@ function LoginForm() {
                     ]} />
                 </div>
             ),
-            cli: 'npx acidui add dock',
+            cli: 'npx acidui-core add dock',
+            props: [
+                { name: 'items', type: 'DockItem[]', desc: 'Collection of executable node triggers.' },
+                { name: 'magnification', type: 'number', default: '60', desc: 'Maximum kinetic scaling factor.' },
+                { name: 'distance', type: 'number', default: '140', desc: 'Magnetic influence radius.' }
+            ]
         },
         'animated-notification': {
             name: 'ANIMATED_NOTIFICATION',
@@ -1896,7 +2347,12 @@ function LoginForm() {
             longDesc: 'High-contrast notification modules designed for high-density information relay with timed progress indicators.',
             icon: <Bell size={32} />,
             preview: <NotificationDemo />,
-            cli: 'npx acidui add animated-notification',
+            cli: 'npx acidui-core add animated-notification',
+            props: [
+                { name: 'title', type: 'string', desc: 'Alert subject.' },
+                { name: 'message', type: 'string', desc: 'Telemetry payload.' },
+                { name: 'duration', type: 'number', default: '5000', desc: 'Auto-dismissal timer.' }
+            ]
         },
         'magic-card': {
             name: 'MAGIC_CARD',
@@ -1919,7 +2375,11 @@ function LoginForm() {
                     </AcidMagicCard>
                 </div>
             ),
-            cli: 'npx acidui add magic-card',
+            cli: 'npx acidui-core add magic-card',
+            props: [
+                { name: 'glowColor', type: 'string', desc: 'Radial gradient chromatic value.' },
+                { name: 'borderWidth', type: 'number', default: '1', desc: 'Rigid boundary thickness.' }
+            ]
         },
         'electro-border': {
             name: 'ELECTRO_BORDER',
@@ -1942,7 +2402,11 @@ function LoginForm() {
                     </AcidElectroBorder>
                 </div>
             ),
-            cli: 'npx acidui add electro-border',
+            cli: 'npx acidui-core add electro-border',
+            props: [
+                { name: 'color', type: 'string', desc: 'Current stream chromatic value.' },
+                { name: 'speed', type: 'number', default: '2', desc: 'Electron flow velocity.' }
+            ]
         },
         'drag-order-list': {
             name: 'DRAG_ORDER_LIST',
@@ -1959,7 +2423,11 @@ function LoginForm() {
                     ]} />
                 </div>
             ),
-            cli: 'npx acidui add drag-order-list',
+            cli: 'npx acidui-core add drag-order-list',
+            props: [
+                { name: 'items', type: 'DragItem[]', desc: 'Array of reorderable nodes.' },
+                { name: 'onReorder', type: '(items: any[]) => void', desc: 'Callback on sequence modification.' }
+            ]
         },
         'top-loader': {
             name: 'TOP_LOADER',
@@ -1967,7 +2435,7 @@ function LoginForm() {
             longDesc: 'A viewport-level progress indicator that provides high-visibility feedback during long-running system operations and navigation transitions.',
             icon: <RefreshCw size={32} />,
             preview: <TopLoaderDemo />,
-            cli: 'npx acidui add top-loader',
+            cli: 'npx acidui-core add top-loader',
         },
         'magic-loader': {
             name: 'MAGIC_LOADER',
@@ -1979,7 +2447,7 @@ function LoginForm() {
                     <AcidMagicLoader />
                 </div>
             ),
-            cli: 'npx acidui add magic-loader',
+            cli: 'npx acidui-core add magic-loader',
         },
         'stack-list': {
             name: 'STACK_LIST',
@@ -1999,7 +2467,11 @@ function LoginForm() {
                     />
                 </div>
             ),
-            cli: 'npx acidui add stack-list',
+            cli: 'npx acidui-core add stack-list',
+            props: [
+                { name: 'items', type: 'StackItem[]', desc: 'Key-value telemetry nodes.' },
+                { name: 'title', type: 'string', desc: 'Primary stack identifier.' }
+            ]
         },
         'scroll-list': {
             name: 'SCROLL_LIST',
@@ -2017,7 +2489,11 @@ function LoginForm() {
                     ]}
                 />
             ),
-            cli: 'npx acidui add scroll-list',
+            cli: 'npx acidui-core add scroll-list',
+            props: [
+                { name: 'items', type: 'ScrollItem[]', desc: 'Sequential log entries.' },
+                { name: 'animationSpeed', type: 'number', default: '0.4', desc: 'Kinetic reveal duration.' }
+            ]
         },
         'scroll-stack': {
             name: 'SCROLL_STACK',
@@ -2042,7 +2518,7 @@ function LoginForm() {
                     </AcidScrollStack>
                 </div>
             ),
-            cli: 'npx acidui add scroll-stack',
+            cli: 'npx acidui-core add scroll-stack',
         },
         'top-sticky-bar': {
             name: 'TOP_STICKY_BAR',
@@ -2055,7 +2531,11 @@ function LoginForm() {
                     <div style={{ padding: '1rem' }}>Main content continues here...</div>
                 </div>
             ),
-            cli: 'npx acidui add top-sticky-bar',
+            cli: 'npx acidui-core add top-sticky-bar',
+            props: [
+                { name: 'message', type: 'string', desc: 'Alert payload.' },
+                { name: 'type', type: '"info" | "warning" | "error" | "success"', default: 'info', desc: 'Alert priority level.' }
+            ]
         },
         'trusted-users': {
             name: 'TRUSTED_USERS',
@@ -2070,7 +2550,11 @@ function LoginForm() {
                     { id: '4', name: 'OSCORP', logo: <RefreshCw size={32} /> },
                 ]} />
             ),
-            cli: 'npx acidui add trusted-users',
+            cli: 'npx acidui-core add trusted-users',
+            props: [
+                { name: 'users', type: 'User[]', desc: 'Array of partner nodes with logos.' },
+                { name: 'columns', type: 'number', default: '4', desc: 'Tactile grid width.' }
+            ]
         },
         'ripple-loader': {
             name: 'RIPPLE_LOADER',
@@ -2082,7 +2566,70 @@ function LoginForm() {
                     <AcidRippleLoader />
                 </div>
             ),
-            cli: 'npx acidui add ripple-loader',
+            cli: 'npx acidui-core add ripple-loader',
+        },
+        'metadata': {
+            name: 'METADATA',
+            desc: 'High-contrast technical identification labels.',
+            longDesc: 'Printstream-inspired identifier with integrated barcodes and serial tracking, perfect for tagging system nodes and interface corners.',
+            icon: <Terminal size={32} />,
+            compact: true,
+            preview: (
+                <div style={{ display: 'flex', gap: '2rem', flexWrap: 'wrap', justifyContent: 'center' }}>
+                    <AcidMetadata label="CORE_NODE_ALPHA" version="v2.4.1" serial="SN-992-B-XYZ" />
+                    <AcidMetadata label="ENV_METRICS" version="v1.0.0" serial="SN-102-M" />
+                </div>
+            ),
+            cli: 'npx acidui-core add metadata',
+            props: [
+                { name: 'label', type: 'string', desc: 'Primary alphanumeric identifier.' },
+                { name: 'version', type: 'string', desc: 'System build identifier.' },
+                { name: 'serial', type: 'string', desc: 'Unique hardware identifier or barcode link.' }
+            ]
+        },
+        'scanline': {
+            name: 'SCANLINE',
+            desc: 'Dynamic viewport telemetry overlay.',
+            longDesc: 'A subtle, high-speed animated scanline that mimics old-school technical monitors and printed displays.',
+            icon: <Activity size={32} />,
+            preview: (
+                <div style={{ position: 'relative', width: '100%', height: '300px', background: '#09090b', border: '1px solid #27272a', overflow: 'hidden' }}>
+                    <AcidScanline speed={3} opacity={0.2} />
+                    <div style={{ padding: '2rem', textAlign: 'center' }}>
+                        <AcidLabel color="brand">MONITORING_ACTIVE</AcidLabel>
+                        <p style={{ opacity: 0.5, marginTop: '2rem' }}>Digital buffer sweep initiated...</p>
+                    </div>
+                </div>
+            ),
+            cli: 'npx acidui-core add scanline',
+        },
+        'rigid-header': {
+            name: 'RIGID_HEADER',
+            desc: 'Stark, high-impact Printstream typography header.',
+            longDesc: 'A powerful typographical unit with rigid borders and monospaced subtitles, ideal for section headers and high-contrast system alerts.',
+            icon: <Activity size={32} />,
+            preview: (
+                <div style={{ width: '100%', padding: '2rem' }}>
+                    <AcidRigidHeader title="PRINT_STREAM_v01" subtitle="ACIDUI_TECHNICAL_SPECIFICATION" />
+                </div>
+            ),
+            cli: 'npx acidui-core add rigid-header',
+            props: [
+                { name: 'title', type: 'string', desc: 'Primary high-impact title.' },
+                { name: 'subtitle', type: 'string', desc: 'Technical secondary label.' }
+            ]
+        },
+        'printstream-scroll': {
+            name: 'PRINTSTREAM_SCROLL',
+            desc: 'GSAP-powered infinite Printstream text scroll.',
+            longDesc: 'A high-performance rolling text banner utilizing GSAP for perfectly smooth infinite loops. Features high-contrast industrial typography and geometric elements.',
+            icon: <Activity size={32} />,
+            preview: (
+                <div style={{ width: '100%', padding: '2rem' }}>
+                    <AcidPrintStreamScroll text="PRINTSTREAM_SYNCHRONIZED_ACTIVE // ERROR_NONE_OK" speed={150} />
+                </div>
+            ),
+            cli: 'npx acidui-core add printstream-scroll',
         },
         'count-up': {
             name: 'COUNT_UP',
@@ -2096,7 +2643,7 @@ function LoginForm() {
                     <AcidCountUp end={99} suffix="ms" label="API_LATENCY" />
                 </div>
             ),
-            cli: 'npx acidui add count-up',
+            cli: 'npx acidui-core add count-up',
         },
         'terminal-card': {
             name: 'TERMINAL_CARD',
@@ -2112,7 +2659,147 @@ function LoginForm() {
                     <div style={{ paddingLeft: '1rem' }}>&gt; Connection secure. Welcome, Operator.</div>
                 </AcidTerminalCard>
             ),
-            cli: 'npx acidui add terminal-card',
+            cli: 'npx acidui-core add terminal-card',
+            props: [
+                { name: 'title', type: 'string', desc: 'Shell terminal window title.' },
+                { name: 'children', type: 'React.ReactNode', desc: 'Log streams or command content.' }
+            ]
+        },
+        'caution-tape': {
+            name: 'CAUTION_TAPE',
+            desc: 'Stark-contrast hazard banners.',
+            longDesc: 'A rotating, high-visibility caution banner or divider for designating restricted system zones or critical operational warnings.',
+            icon: <MessageSquare size={32} />,
+            compact: true,
+            preview: (
+                <div style={{ width: '100%', minHeight: '100px', display: 'flex', alignItems: 'center' }}>
+                    <AcidCautionTape text="RESTRICTED_ACCESS_AUTHORIZED_ONLY" />
+                </div>
+            ),
+            cli: 'npx acidui-core add caution-tape',
+        },
+        'progress-matrix': {
+            name: 'PROGRESS_MATRIX',
+            desc: 'Multi-block LED status tracker.',
+            longDesc: 'A discrete, block-based progress indicator that replicates industrial LED arrays for tracking iterative system operations.',
+            icon: <Activity size={32} />,
+            compact: true,
+            preview: (
+                <div style={{ width: '100%', maxWidth: '400px' }}>
+                    <AcidProgressMatrix value={65} columns={20} />
+                </div>
+            ),
+            cli: 'npx acidui-core add progress-matrix',
+            props: [
+                { name: 'value', type: 'number', desc: 'Current progress percentage (0-100).' },
+                { name: 'columns', type: 'number', default: '10', desc: 'Total LED block nodes.' }
+            ]
+        },
+        'keypad': {
+            name: 'KEYPAD',
+            desc: 'Rigid machinery access control.',
+            longDesc: 'A dedicated numeric-entry console for secure system authentication or manual hardware parameter input.',
+            icon: <Terminal size={32} />,
+            preview: (
+                <AcidKeypad onSubmit={(v) => console.log(`SUBMITTED_ACCESS_CODE: ${v}`)} />
+            ),
+            cli: 'npx acidui-core add keypad',
+        },
+        'knob': {
+            name: 'KNOB',
+            desc: 'Tactile rotary parameter control.',
+            longDesc: 'A high-precision dial interface for adjusting continuous system variables like frequency, power, or volume.',
+            icon: <Settings size={32} />,
+            compact: true,
+            preview: (
+                <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
+                    <AcidKnob size={80} onChange={(v) => console.log('ROTATION_VALUE:', v)} />
+                    <div style={{ fontSize: '0.8rem', opacity: 0.5 }}>DRAG_TO_ADJUST_SIGNAL</div>
+                </div>
+            ),
+            cli: 'npx acidui-core add knob',
+            props: [
+                { name: 'size', type: 'number', default: '100', desc: 'Diameter of the rotary unit.' },
+                { name: 'onChange', type: '(value: number) => void', desc: 'Rotation delta callback.' }
+            ]
+        },
+        'circuit-grid': {
+            name: 'CIRCUIT_GRID',
+            desc: 'Structural schematic background wrappers.',
+            longDesc: 'A technical container that projects a rigid coordinate grid or circuit mesh behind your interface elements.',
+            icon: <Grid size={32} />,
+            preview: (
+                <AcidCircuitGrid style={{ height: '300px', width: '100%' }}>
+                    <div style={{ padding: '2rem' }}>
+                        <AcidLabel color="brand">MODULE_ALPHA_OVERLAY</AcidLabel>
+                        <p style={{ marginTop: '1rem', opacity: 0.8 }}>Technical data projected onto grid coordinate system.</p>
+                    </div>
+                </AcidCircuitGrid>
+            ),
+            cli: 'npx acidui-core add circuit-grid',
+        },
+        'schematic': {
+            name: 'SCHEMATIC',
+            desc: 'Interactive hardware wire traces.',
+            longDesc: 'A background utility that renders 90-degree vector pipe-traces or wiring diagrams behind system nodes.',
+            icon: <Layers size={32} />,
+            preview: (
+                <AcidSchematic style={{ height: '300px', width: '100%' }}>
+                    <div style={{ padding: '2rem' }}>
+                        <AcidBadge variant="brand">NODE_STATUS_LINKED</AcidBadge>
+                        <ul style={{ marginTop: '1rem', listStyle: 'none', padding: 0 }}>
+                            <li style={{ fontSize: '0.8rem', opacity: 0.6 }}>LINK_01: NOMINAL</li>
+                            <li style={{ fontSize: '0.8rem', opacity: 0.6 }}>LINK_02: STANDBY</li>
+                        </ul>
+                    </div>
+                </AcidSchematic>
+            ),
+            cli: 'npx acidui-core add schematic',
+        },
+        'lcd-display': {
+            name: 'LCD_DISPLAY',
+            desc: 'Retro-technical diagnostic readouts.',
+            longDesc: 'Emulates legacy monochrome or liquid-crystal hardware displays for high-contrast diagnostic telemetry.',
+            icon: <Activity size={32} />,
+            compact: true,
+            preview: (
+                <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+                    <AcidLCDDisplay value="144.8" label="CORE_TEMP" color="green" />
+                    <AcidLCDDisplay value="4298" label="NET_TRAFFIC" color="blue" />
+                </div>
+            ),
+            cli: 'npx acidui-core add lcd-display',
+            props: [
+                { name: 'value', type: 'string | number', desc: 'The diagnostic numeric readout.' },
+                { name: 'label', type: 'string', desc: 'Technical identifier for the data.' },
+                { name: 'color', type: '"green" | "blue" | "red" | "amber"', default: 'green', desc: 'LED chromatic frequency.' }
+            ]
+        },
+        'terminal-logs': {
+            name: 'TERMINAL_LOGS',
+            desc: 'Procedural diagnostic log streams.',
+            longDesc: 'A specialized terminal console wrapper that streams log arrays with integrated temporal tracking and cursor activity.',
+            icon: <Terminal size={32} />,
+            preview: (
+                <div style={{ width: '100%' }}>
+                    <AcidTerminalLogs
+                        logs={[
+                            'Booting core system...',
+                            'Loading network protocols...',
+                            'Verifying security credentials...',
+                            'Connecting to node Alpha-9...',
+                            'Connection secure.',
+                            'System standing by for operator command.'
+                        ]}
+                        speedMs={1000}
+                    />
+                </div>
+            ),
+            cli: 'npx acidui-core add terminal-logs',
+            props: [
+                { name: 'logs', type: 'string[]', desc: 'Array of telemetry log strings.' },
+                { name: 'speedMs', type: 'number', default: '500', desc: 'Procedural reveal velocity per line.' }
+            ]
         },
     };
 
@@ -2125,6 +2812,21 @@ function LoginForm() {
     const nextItem = currentIndex < allItems.length - 1 ? allItems[currentIndex + 1] : null;
 
     const getHash = (name: string) => `#${name.toLowerCase().replace(/\s+/g, '-')}`;
+
+    const handleCopyPrompt = () => {
+        const sourceCode = getComponentSource(currentComponent, 'js') || componentSnippets[currentComponent] || config.code || '';
+        const prompt = `Please act as a Senior Frontend React Engineer. Analyze and help me use the following industrial UI component named ${config.name}.\n\nSource Code:\n${sourceCode}\n\nUsage Requirements:\nHelp me integrate this into my application with appropriate props and styling.`;
+        navigator.clipboard.writeText(prompt);
+        toast("Prompt copied to clipboard!", "success");
+        setIsCopyMenuOpen(false);
+    };
+
+    const handleCopySource = () => {
+        const source = getComponentSource(currentComponent, 'js') || componentSnippets[currentComponent] || config.code || '';
+        navigator.clipboard.writeText(source);
+        toast("Source code copied to clipboard!", "success");
+        setIsCopyMenuOpen(false);
+    };
 
     return (
         <div className="docs-container">
@@ -2161,41 +2863,52 @@ function LoginForm() {
                     </div>
                 </header>
 
-                <div className="docs-action-bar">
-                    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-                        <div className="action-tabs">
-                            {['preview', 'code', 'cli'].map(tab => (
-                                <button
-                                    key={tab}
-                                    className={clsx('action-tab', activeTab === tab && 'active')}
-                                    onClick={() => setActiveTab(tab)}
-                                >
-                                    {tab === 'preview' ? <SearchIcon size={14} /> : tab === 'code' ? <Code size={14} /> : '>_'} {tab.toUpperCase()}
-                                </button>
-                            ))}
-                        </div>
-                        <button
-                            className="docs-control-btn"
-                            style={{ width: 'auto', padding: '0 1rem', display: 'flex', gap: '8px', fontSize: '0.8rem', fontFamily: 'var(--font-mono)' }}
-                            onClick={() => setShowDocs(!showDocs)}
-                        >
-                            {showDocs ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
-                            {showDocs ? 'HIDE_DOCUMENTATION' : 'SHOW_DOCUMENTATION'}
-                        </button>
-                    </div>
-                    <div className="action-right">
-                        <button className="theme-toggle" onClick={() => setIsDarkMode(!isDarkMode)} style={{ border: '1px solid var(--ac-border-muted)', background: 'transparent', padding: '8px', cursor: 'pointer', display: 'flex' }}>
-                            {isDarkMode ? <Sun size={18} /> : <Moon size={18} />}
-                        </button>
-                        <div className="github-pill">
+                <div className="docs-action-bar" style={{ justifyContent: 'flex-end', marginBottom: '2rem' }}>
+                    <div className="action-right" style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                        <div className="github-pill" style={{ cursor: 'pointer', background: 'var(--ac-bg-secondary)' }} onClick={() => window.open('https://github.com/factory-ai/acidui', '_blank')}>
                             <Github size={14} />
-                            <span>v1.0.0</span>
+                            <span>Star on GitHub</span>
+                            <span style={{ color: '#fbbf24', marginLeft: '4px' }}>⭐ 533</span>
+                        </div>
+                        <div className="copy-menu-wrapper">
+                            <button className="copy-dropdown" onClick={() => setIsCopyMenuOpen(!isCopyMenuOpen)}>
+                                <Copy size={16} />
+                                <span>Copy</span>
+                                <ChevronDown size={14} />
+                            </button>
+                            {isCopyMenuOpen && (
+                                <div className="copy-menu">
+                                    <button className="copy-menu-item" onClick={handleCopySource}>
+                                        <Code size={16} /> Copy Source Code
+                                    </button>
+                                    <button className="copy-menu-item" onClick={handleCopyPrompt}>
+                                        <Wand2 size={16} /> Advanced AI Prompt
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
 
-                <div className={clsx('docs-showcase-container', config.compact && 'compact')}>
-                    <div className="showcase-content">
+                <div style={{ display: 'flex', gap: '8px', marginBottom: '1rem' }}>
+                    <button
+                        className={clsx('action-tab', activeTab === 'preview' && 'active')}
+                        onClick={() => setActiveTab('preview')}
+                        style={{ background: activeTab === 'preview' ? 'var(--ac-bg-secondary)' : 'transparent', color: activeTab === 'preview' ? 'var(--ac-text-primary)' : 'var(--ac-text-secondary)', border: '1px solid var(--ac-border-muted)' }}
+                    >
+                        <SearchIcon size={14} /> Preview
+                    </button>
+                    <button
+                        className={clsx('action-tab', activeTab === 'code' && 'active')}
+                        onClick={() => setActiveTab('code')}
+                        style={{ background: activeTab === 'code' ? 'var(--ac-bg-secondary)' : 'transparent', color: activeTab === 'code' ? 'var(--ac-text-primary)' : 'var(--ac-text-secondary)', border: '1px solid var(--ac-border-muted)' }}
+                    >
+                        <Code size={14} /> Code
+                    </button>
+                </div>
+
+                <div className={clsx('docs-showcase-container', config.compact && 'compact')} style={{ marginBottom: '0' }}>
+                    <div className="showcase-content" style={activeTab === 'code' ? { padding: '1rem', minHeight: 'auto', background: '#09090b' } : {}}>
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={`${currentComponent}-${activeTab}`}
@@ -2205,132 +2918,183 @@ function LoginForm() {
                                 transition={{ duration: 0.2, ease: "circOut" }}
                                 style={{ width: '100%', display: 'flex', justifyContent: 'center' }}
                             >
-                                {activeTab === 'preview' ? config.preview :
+                                {activeTab === 'preview' ? (
+                                    <div className="preview-wrapper" style={{ width: '100%', position: 'relative' }}>
+                                        <div className="preview-theme-container" style={{
+                                            width: '100%',
+                                            height: '100%',
+                                            borderRadius: '8px',
+                                            display: 'flex',
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                            transition: 'background 0.3s ease'
+                                        }}>
+                                            {config.preview}
+                                        </div>
+                                    </div>
+                                ) :
                                     activeTab === 'code' ? (
-                                        <div className="code-view" style={{ width: '100%' }}>
+                                        <div className="code-view" style={{ width: '100%', borderRadius: '12px' }}>
+                                            <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
+                                                <button onClick={() => setCodeSubTab('js')} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: codeSubTab === 'js' ? '#18181b' : 'transparent', color: '#fff', border: '1px solid #27272a', padding: '0.4rem 0.8rem', borderRadius: '4px', fontSize: '0.8rem', cursor: 'pointer' }}>
+                                                    <span style={{ color: '#facc15' }}>JS</span> JavaScript
+                                                </button>
+                                                <button onClick={() => setCodeSubTab('css')} style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', background: codeSubTab === 'css' ? '#18181b' : 'transparent', color: '#fff', border: '1px solid #27272a', padding: '0.4rem 0.8rem', borderRadius: '4px', fontSize: '0.8rem', cursor: 'pointer' }}>
+                                                    <span style={{ color: '#38bdf8' }}>CSS</span> CSS
+                                                </button>
+                                            </div>
                                             <AcidCodeDisplay
-                                                title={`${config.name}.tsx`}
-                                                code={componentSnippets[currentComponent] || config.code || ''}
+                                                title={`${config.name}.${codeSubTab === 'js' ? 'tsx' : 'css'}`}
+                                                code={codeSubTab === 'js' ? (getComponentSource(currentComponent, 'js') || componentSnippets[currentComponent] || config.code || '') : (getComponentSource(currentComponent, 'css') || '/* Component does not have localized CSS styles */')}
                                             />
                                         </div>
-                                    ) : (
-                                        <div className="cli-view" style={{ width: '100%' }}>
-                                            <AcidCodeBlock code={config.cli || ''} />
-                                        </div>
-                                    )}
+                                    ) : null}
                             </motion.div>
                         </AnimatePresence>
                     </div>
                 </div>
 
-                {/* Content Sections */}
-                {showDocs && (
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="docs-sections"
-                    >
-                        {/* Import Section */}
-                        {config.importSnippet && (
-                            <section className="docs-doc-section">
-                                <h2 className="section-title">HOW_TO_IMPORT</h2>
-                                <p className="docs-section-desc">Add this import to your component file</p>
-                                <AcidCodeBlock code={config.importSnippet} />
-                            </section>
-                        )}
+                {config.cli && currentComponent !== 'introduction' && (
+                    <section className="docs-install-section" style={{ marginTop: '3rem' }}>
+                        <h2 className="section-title" style={{ fontSize: '1.5rem', marginBottom: '1.5rem' }}>Install</h2>
 
-                        {/* Description Section */}
-                        <section className="docs-desc-section">
-                            <h2 className="section-title">DESCRIPTION</h2>
-                            <div className="docs-desc-text">
-                                {config.longDesc || config.desc}
+                        <div style={{ display: 'flex', gap: '0.5rem', marginBottom: '1rem' }}>
+                            <button onClick={() => setInstallTab('cli')} style={{ background: installTab === 'cli' ? 'var(--ac-surface)' : 'transparent', color: installTab === 'cli' ? 'var(--ac-text-primary)' : 'var(--ac-text-muted)', border: '1px solid var(--ac-border-muted)', padding: '0.4rem 1.2rem', borderRadius: '99px', fontSize: '0.85rem', cursor: 'pointer' }}>CLI</button>
+                            <button onClick={() => setInstallTab('manual')} style={{ background: installTab === 'manual' ? 'var(--ac-surface)' : 'transparent', color: installTab === 'manual' ? 'var(--ac-text-primary)' : 'var(--ac-text-muted)', border: installTab === 'manual' ? '1px solid var(--ac-border-muted)' : '1px solid transparent', padding: '0.4rem 1.2rem', borderRadius: '99px', fontSize: '0.85rem', cursor: 'pointer' }}>Manual</button>
+                        </div>
+
+                        {installTab === 'cli' ? (
+                            <div style={{ background: '#09090b', border: '1px solid #27272a', borderRadius: '12px', padding: '1.5rem', marginTop: '1rem' }}>
+                                <div style={{ display: 'flex', gap: '1.5rem', borderBottom: '1px solid #27272a', paddingBottom: '0.8rem', marginBottom: '1.5rem' }}>
+                                    {['npm', 'pnpm', 'yarn', 'bun'].map(mgr => (
+                                        <span key={mgr} onClick={() => setPkgManager(mgr)} style={{ color: pkgManager === mgr ? '#fff' : 'var(--ac-text-muted)', fontSize: '0.9rem', cursor: 'pointer', textDecoration: pkgManager === mgr ? 'underline' : 'none', textUnderlineOffset: '12px', textDecorationThickness: '2px', textDecorationColor: pkgManager === mgr ? '#fff' : 'transparent' }}>{mgr}</span>
+                                    ))}
+                                </div>
+                                <AcidCodeBlock code={config.cli.replace('npx', pkgManager === 'npm' ? 'npx' : pkgManager === 'yarn' ? 'yarn dlx' : pkgManager === 'pnpm' ? 'pnpm dlx' : 'bunx')} />
+                            </div>
+                        ) : (
+                            <div style={{ background: '#09090b', border: '1px solid #27272a', borderRadius: '12px', padding: '1rem', marginTop: '1rem' }}>
+                                <AcidCodeBlock code="// Manual installation instructions:\n// Copy the component code and necessary types to your local components directory." />
+                            </div>
+                        )}
+                    </section>
+                )}
+
+                {(config.usageSnippet || config.code) && currentComponent !== 'introduction' && (
+                    <section className="docs-usage-section" style={{ marginTop: '3rem', marginBottom: '4rem' }}>
+                        <h2 className="section-title" style={{ fontSize: '1.5rem', marginBottom: '1.5rem' }}>Usage</h2>
+                        <div style={{ background: '#09090b', border: '1px solid #27272a', borderRadius: '12px', padding: '1rem' }}>
+                            <AcidCodeDisplay title={`${config.name}Example.tsx`} code={config.usageSnippet || config.code || ''} />
+                        </div>
+                    </section>
+                )}
+
+                {/* Content Sections */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="docs-sections"
+                >
+                    {/* Import Section */}
+                    {config.importSnippet && (
+                        <section className="docs-doc-section">
+                            <h2 className="section-title">HOW_TO_IMPORT</h2>
+                            <p className="docs-section-desc">Add this import to your component file</p>
+                            <AcidCodeBlock code={config.importSnippet} />
+                        </section>
+                    )}
+
+                    {/* Description Section */}
+                    <section className="docs-desc-section">
+                        <h2 className="section-title">DESCRIPTION</h2>
+                        <div className="docs-desc-text">
+                            {config.longDesc || config.desc}
+                        </div>
+                    </section>
+
+                    {/* Props Table */}
+                    <section className="docs-doc-section">
+                        <h2 className="section-title">PROPS_CONFIGURATION</h2>
+                        <p className="docs-section-desc">Properties and options for customizing this component</p>
+                        <div className="docs-table-wrapper">
+                            <table className="docs-table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Default</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {(config.props || []).map((prop, i) => (
+                                        <tr key={i}>
+                                            <td className="prop-name">{prop.name}</td>
+                                            <td className="prop-type">{prop.type}</td>
+                                            <td className="prop-default">{prop.default || '-'}</td>
+                                            <td className="prop-desc">{prop.desc}</td>
+                                        </tr>
+                                    ))}
+                                    {(!config.props || config.props.length === 0) && (
+                                        <tr>
+                                            <td colSpan={4} style={{ textAlign: 'center', opacity: 0.5 }}>NO_PROPS_REQUIRED</td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    {/* Basic Usage Section */}
+                    {config.usageSnippet && (
+                        <section className="docs-doc-section">
+                            <h2 className="section-title">BASIC_USAGE</h2>
+                            <p className="docs-section-desc">Here’s a simple example of how to use this component</p>
+                            <AcidCodeDisplay code={config.usageSnippet} title="Example.tsx" />
+                        </section>
+                    )}
+
+                    {/* Usage Examples (Grid) */}
+                    {config.usage && (
+                        <section className="docs-usage-section">
+                            <h2 className="section-title">VISUAL_EXAMPLES</h2>
+                            <div className="usage-grid">
+                                {config.usage.map((use, i) => (
+                                    <div key={i} className="usage-card">
+                                        <span className="usage-label">{use.label}</span>
+                                        <div className="usage-content">{use.demo}</div>
+                                    </div>
+                                ))}
                             </div>
                         </section>
+                    )}
 
-                        {/* Props Table */}
+                    {/* Variants Section */}
+                    {config.variants && (
                         <section className="docs-doc-section">
-                            <h2 className="section-title">PROPS_CONFIGURATION</h2>
-                            <p className="docs-section-desc">Properties and options for customizing this component</p>
+                            <h2 className="section-title">VARIANTS</h2>
+                            <p className="docs-section-desc">Different visual and behavioral variants of the component</p>
                             <div className="docs-table-wrapper">
                                 <table className="docs-table">
                                     <thead>
                                         <tr>
                                             <th>Name</th>
-                                            <th>Type</th>
-                                            <th>Default</th>
                                             <th>Description</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {(config.props || []).map((prop, i) => (
+                                        {config.variants.map((variant, i) => (
                                             <tr key={i}>
-                                                <td className="prop-name">{prop.name}</td>
-                                                <td className="prop-type">{prop.type}</td>
-                                                <td className="prop-default">{prop.default || '-'}</td>
-                                                <td className="prop-desc">{prop.desc}</td>
+                                                <td className="prop-name">{variant.name}</td>
+                                                <td className="prop-type">{variant.desc}</td>
                                             </tr>
                                         ))}
-                                        {(!config.props || config.props.length === 0) && (
-                                            <tr>
-                                                <td colSpan={4} style={{ textAlign: 'center', opacity: 0.5 }}>NO_PROPS_REQUIRED</td>
-                                            </tr>
-                                        )}
                                     </tbody>
                                 </table>
                             </div>
                         </section>
-
-                        {/* Basic Usage Section */}
-                        {config.usageSnippet && (
-                            <section className="docs-doc-section">
-                                <h2 className="section-title">BASIC_USAGE</h2>
-                                <p className="docs-section-desc">Here’s a simple example of how to use this component</p>
-                                <AcidCodeDisplay code={config.usageSnippet} title="Example.tsx" />
-                            </section>
-                        )}
-
-                        {/* Usage Examples (Grid) */}
-                        {config.usage && (
-                            <section className="docs-usage-section">
-                                <h2 className="section-title">VISUAL_EXAMPLES</h2>
-                                <div className="usage-grid">
-                                    {config.usage.map((use, i) => (
-                                        <div key={i} className="usage-card">
-                                            <span className="usage-label">{use.label}</span>
-                                            <div className="usage-content">{use.demo}</div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </section>
-                        )}
-
-                        {/* Variants Section */}
-                        {config.variants && (
-                            <section className="docs-doc-section">
-                                <h2 className="section-title">VARIANTS</h2>
-                                <p className="docs-section-desc">Different visual and behavioral variants of the component</p>
-                                <div className="docs-table-wrapper">
-                                    <table className="docs-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Description</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {config.variants.map((variant, i) => (
-                                                <tr key={i}>
-                                                    <td className="prop-name">{variant.name}</td>
-                                                    <td className="prop-type">{variant.desc}</td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </section>
-                        )}
-                    </motion.div>
-                )}
+                    )}
+                </motion.div>
 
                 {/* Pagination */}
                 <nav className="docs-pagination">

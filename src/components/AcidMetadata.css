@@ -1,0 +1,74 @@
+.ac-metadata {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    background: #000;
+    color: #fff;
+    border: 1px solid #27272a;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    min-width: 300px;
+    position: relative;
+    overflow: hidden;
+}
+
+.ac-metadata-left,
+.ac-metadata-right {
+    display: flex;
+    flex-direction: column;
+}
+
+.ac-metadata-label {
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.ac-metadata-version {
+    font-size: 0.6rem;
+    opacity: 0.5;
+    margin-top: 2px;
+}
+
+.ac-metadata-serial {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-align: right;
+    letter-spacing: 0.5px;
+}
+
+.ac-metadata-barcode {
+    height: 12px;
+    width: 60px;
+    margin-top: 4px;
+    background: repeating-linear-gradient(90deg,
+            #fff,
+            #fff 1px,
+            transparent 1px,
+            transparent 3px);
+    opacity: 0.3;
+}
+
+/* Printstream-specific accents */
+.ac-metadata::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: #fff;
+}
+
+.ac-metadata::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    right: 2px;
+    width: 4px;
+    height: 4px;
+    background: #fff;
+    border-radius: 1px;
+}

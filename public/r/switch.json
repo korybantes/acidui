@@ -1,0 +1,22 @@
+{
+  "name": "switch",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidSwitch.tsx",
+      "content": "import { useState } from 'react';\r\nimport { motion } from 'framer-motion';\r\nimport clsx from 'clsx';\r\nimport './AcidSwitch.css';\r\n\r\nexport interface AcidSwitchProps {\r\n    checked?: boolean;\r\n    defaultChecked?: boolean;\r\n    onChange?: (checked: boolean) => void;\r\n    label?: string;\r\n    className?: string;\r\n    disabled?: boolean;\r\n}\r\n\r\nexport const AcidSwitch = ({\r\n    checked,\r\n    defaultChecked = false,\r\n    onChange,\r\n    label,\r\n    className,\r\n    disabled = false\r\n}: AcidSwitchProps) => {\r\n    const [internalChecked, setInternalChecked] = useState(defaultChecked);\r\n    const isChecked = checked !== undefined ? checked : internalChecked;\r\n\r\n    const handleToggle = () => {\r\n        if (disabled) return;\r\n        const next = !isChecked;\r\n        setInternalChecked(next);\r\n        onChange?.(next);\r\n    };\r\n\r\n    return (\r\n        <label className={clsx('ac-switch-container', className, disabled && 'ac-switch-disabled')}>\r\n            {label && <span className=\"ac-switch-label\">{label}</span>}\r\n            <div\r\n                className={clsx('ac-switch-root', isChecked && 'ac-switch-checked')}\r\n                onClick={handleToggle}\r\n            >\r\n                <motion.div\r\n                    className=\"ac-switch-thumb\"\r\n                    animate={{ x: isChecked ? 20 : 0 }}\r\n                    transition={{ type: 'spring', stiffness: 500, damping: 30 }}\r\n                />\r\n            </div>\r\n        </label>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidSwitch.css",
+      "content": ".ac-switch-container {\r\n    display: inline-flex;\r\n    align-items: center;\r\n    gap: 0.75rem;\r\n    cursor: pointer;\r\n    user-select: none;\r\n}\r\n\r\n.ac-switch-label {\r\n    font-family: var(--font-mono);\r\n    font-size: 0.8rem;\r\n    color: var(--ac-text-primary);\r\n    text-transform: uppercase;\r\n    letter-spacing: 0.05em;\r\n}\r\n\r\n.ac-switch-root {\r\n    width: 44px;\r\n    height: 24px;\r\n    background: var(--ac-surface);\r\n    border: 1px solid var(--ac-border-muted);\r\n    border-radius: var(--ac-radius-full);\r\n    padding: 3px;\r\n    transition: all 0.2s ease;\r\n    position: relative;\r\n}\r\n\r\n.ac-switch-checked {\r\n    background: var(--ac-brand);\r\n    border-color: var(--ac-brand);\r\n}\r\n\r\n.ac-switch-thumb {\r\n    width: 16px;\r\n    height: 16px;\r\n    background: var(--ac-text-primary);\r\n    border-radius: 50%;\r\n    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);\r\n}\r\n\r\n.ac-switch-disabled {\r\n    opacity: 0.5;\r\n    cursor: not-allowed;\r\n}\r\n\r\n[data-theme='light'] .ac-switch-checked {\r\n    background: var(--ac-brand);\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "typewriterinput",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidTypewriterInput.tsx",
+      "content": "import React, { useState, useEffect } from 'react';\r\nimport clsx from 'clsx';\r\nimport './AcidTypewriterInput.css';\r\n\r\nexport interface AcidTypewriterInputProps extends React.InputHTMLAttributes<HTMLInputElement> {\r\n    label: string;\r\n    typingSpeed?: number;\r\n}\r\n\r\nexport const AcidTypewriterInput = ({ label, typingSpeed = 100, className, ...props }: AcidTypewriterInputProps) => {\r\n    const [displayText, setDisplayText] = useState('');\r\n\r\n    useEffect(() => {\r\n        let i = 0;\r\n        const interval = setInterval(() => {\r\n            setDisplayText(label.slice(0, i + 1));\r\n            i++;\r\n            if (i >= label.length) clearInterval(interval);\r\n        }, typingSpeed);\r\n        return () => clearInterval(interval);\r\n    }, [label, typingSpeed]);\r\n\r\n    return (\r\n        <div className={clsx('ac-typewriter-input-wrap', className)}>\r\n            <label className=\"ac-typewriter-label\">\r\n                {displayText}<span className=\"ac-cursor\">_</span>\r\n            </label>\r\n            <input className=\"ac-typewriter-field\" {...props} />\r\n        </div>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidTypewriterInput.css",
+      "content": ".ac-typewriter-input-wrap {\r\n    display: flex;\r\n    flex-direction: column;\r\n    gap: 0.5rem;\r\n    width: 100%;\r\n}\r\n\r\n.ac-typewriter-label {\r\n    font-family: var(--font-mono);\r\n    font-size: 0.8rem;\r\n    color: var(--ac-brand);\r\n    letter-spacing: 0.1em;\r\n}\r\n\r\n.ac-cursor {\r\n    animation: cursor-blink 1s step-end infinite;\r\n}\r\n\r\n.ac-typewriter-field {\r\n    background: #000;\r\n    border: 1px solid var(--ac-border-muted);\r\n    padding: 0.75rem 1rem;\r\n    color: white;\r\n    font-family: var(--font-mono);\r\n    outline: none;\r\n    transition: border-color 0.2s;\r\n}\r\n\r\n.ac-typewriter-field:focus {\r\n    border-color: var(--ac-brand);\r\n}\r\n\r\n@keyframes cursor-blink {\r\n    50% {\r\n        opacity: 0;\r\n    }\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

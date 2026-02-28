@@ -1,0 +1,22 @@
+{
+  "name": "gradientbutton",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidGradientButton.tsx",
+      "content": "import React from 'react';\r\nimport clsx from 'clsx';\r\nimport './AcidGradientButton.css';\r\n\r\nexport interface AcidGradientButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {\r\n    variant?: 'default' | 'outline' | 'ghost';\r\n    size?: 'sm' | 'md' | 'lg' | 'xl';\r\n    animationSpeed?: 'fast' | 'normal' | 'slow';\r\n    gradientType?: 'orange' | 'cool' | 'purple';\r\n}\r\n\r\nexport const AcidGradientButton = ({\r\n    children,\r\n    className,\r\n    variant = 'default',\r\n    size = 'md',\r\n    animationSpeed = 'normal',\r\n    gradientType = 'orange',\r\n    ...props\r\n}: AcidGradientButtonProps) => {\r\n    return (\r\n        <button\r\n            className={clsx(\r\n                'ac-gradient-btn',\r\n                `ac-btn-${variant}`,\r\n                `ac-btn-${size}`,\r\n                `ac-anim-${animationSpeed}`,\r\n                `ac-grad-${gradientType}`,\r\n                className\r\n            )}\r\n            {...props}\r\n        >\r\n            <span className=\"ac-btn-content\">{children}</span>\r\n            <div className=\"ac-btn-gradient-overlay\" />\r\n        </button>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidGradientButton.css",
+      "content": ".ac-gradient-btn {\r\n    position: relative;\r\n    border: none;\r\n    border-radius: 9999px;\r\n    cursor: pointer;\r\n    overflow: hidden;\r\n    color: #fff;\r\n    font-family: var(--font-mono);\r\n    font-weight: 600;\r\n    transition: transform 0.2s;\r\n    background: #000;\r\n}\r\n\r\n.ac-gradient-btn:active {\r\n    transform: scale(0.96);\r\n}\r\n\r\n.ac-btn-sm {\r\n    padding: 0.5rem 1rem;\r\n    font-size: 0.75rem;\r\n}\r\n\r\n.ac-btn-md {\r\n    padding: 0.75rem 1.75rem;\r\n    font-size: 0.875rem;\r\n}\r\n\r\n.ac-btn-lg {\r\n    padding: 1rem 2.5rem;\r\n    font-size: 1rem;\r\n}\r\n\r\n.ac-btn-xl {\r\n    padding: 1.25rem 3.5rem;\r\n    font-size: 1.25rem;\r\n}\r\n\r\n.ac-btn-gradient-overlay {\r\n    position: absolute;\r\n    inset: -50%;\r\n    background: conic-gradient(transparent,\r\n            var(--grad-color-1),\r\n            var(--grad-color-2),\r\n            transparent);\r\n    animation: rotate var(--anim-duration) linear infinite;\r\n    z-index: 1;\r\n}\r\n\r\n.ac-btn-content {\r\n    position: relative;\r\n    z-index: 2;\r\n    background: #000;\r\n    width: 100%;\r\n    height: 100%;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    border-radius: inherit;\r\n    margin: 2px;\r\n}\r\n\r\n/* Gradients */\r\n.ac-grad-orange {\r\n    --grad-color-1: #f97316;\r\n    --grad-color-2: #ec4899;\r\n}\r\n\r\n.ac-grad-cool {\r\n    --grad-color-1: #3b82f6;\r\n    --grad-color-2: #22c55e;\r\n}\r\n\r\n.ac-grad-purple {\r\n    --grad-color-1: #8b5cf6;\r\n    --grad-color-2: #ec4899;\r\n}\r\n\r\n/* Speeds */\r\n.ac-anim-fast {\r\n    --anim-duration: 0.5s;\r\n}\r\n\r\n.ac-anim-normal {\r\n    --anim-duration: 2s;\r\n}\r\n\r\n.ac-anim-slow {\r\n    --anim-duration: 5s;\r\n}\r\n\r\n@keyframes rotate {\r\n    from {\r\n        transform: rotate(0deg);\r\n    }\r\n\r\n    to {\r\n        transform: rotate(360deg);\r\n    }\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

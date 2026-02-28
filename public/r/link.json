@@ -1,0 +1,22 @@
+{
+  "name": "link",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidLink.tsx",
+      "content": "import React from 'react';\r\nimport clsx from 'clsx';\r\nimport { ArrowRight } from 'lucide-react';\r\nimport './AcidLink.css';\r\n\r\nexport interface AcidLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {\r\n    children: React.ReactNode;\r\n}\r\n\r\nexport const AcidLink = React.forwardRef<HTMLAnchorElement, AcidLinkProps>(\r\n    ({ className, children, ...props }, ref) => {\r\n        return (\r\n            <a className={clsx('ac-link', className)} ref={ref} {...props}>\r\n                <span className=\"ac-link-text\">{children}</span>\r\n                <ArrowRight size={14} className=\"ac-link-arrow\" />\r\n            </a>\r\n        );\r\n    }\r\n);\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidLink.css",
+      "content": ".ac-link {\r\n    display: inline-flex;\r\n    align-items: center;\r\n    gap: 0.5rem;\r\n    font-family: var(--font-mono);\r\n    font-size: 0.8rem;\r\n    font-weight: 700;\r\n    color: var(--ac-text-primary);\r\n    text-decoration: none;\r\n    text-transform: uppercase;\r\n    letter-spacing: 0.05em;\r\n    transition: color 0.2s ease;\r\n    cursor: pointer;\r\n}\r\n\r\n.ac-link:hover {\r\n    color: var(--ac-brand);\r\n}\r\n\r\n.ac-link-arrow {\r\n    transition: transform 0.2s ease;\r\n}\r\n\r\n.ac-link:hover .ac-link-arrow {\r\n    transform: translateX(4px);\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

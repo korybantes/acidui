@@ -1,0 +1,22 @@
+{
+  "name": "checkbox",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidCheckbox.tsx",
+      "content": "import { useState } from 'react';\r\nimport { motion } from 'framer-motion';\r\nimport { Check } from 'lucide-react';\r\nimport clsx from 'clsx';\r\nimport './AcidCheckbox.css';\r\n\r\nexport interface AcidCheckboxProps {\r\n    checked?: boolean;\r\n    defaultChecked?: boolean;\r\n    onChange?: (checked: boolean) => void;\r\n    label?: string;\r\n    description?: string;\r\n    disabled?: boolean;\r\n    className?: string;\r\n}\r\n\r\nexport const AcidCheckbox = ({\r\n    checked,\r\n    defaultChecked = false,\r\n    onChange,\r\n    label,\r\n    description,\r\n    disabled = false,\r\n    className\r\n}: AcidCheckboxProps) => {\r\n    const [internalChecked, setInternalChecked] = useState(defaultChecked);\r\n    const isChecked = checked !== undefined ? checked : internalChecked;\r\n\r\n    const handleToggle = () => {\r\n        if (disabled) return;\r\n        const next = !isChecked;\r\n        setInternalChecked(next);\r\n        onChange?.(next);\r\n    };\r\n\r\n    return (\r\n        <label className={clsx('ac-checkbox-container', className, disabled && 'ac-checkbox-disabled')}>\r\n            <div\r\n                className={clsx('ac-checkbox-box', isChecked && 'ac-checkbox-checked')}\r\n                onClick={handleToggle}\r\n            >\r\n                <motion.div\r\n                    initial={false}\r\n                    animate={{ scale: isChecked ? 1 : 0, opacity: isChecked ? 1 : 0 }}\r\n                    transition={{ type: 'spring', stiffness: 500, damping: 30 }}\r\n                >\r\n                    <Check size={14} strokeWidth={3} className=\"ac-checkbox-icon\" />\r\n                </motion.div>\r\n            </div>\r\n            {(label || description) && (\r\n                <div className=\"ac-checkbox-text\">\r\n                    {label && <span className=\"ac-checkbox-label\">{label}</span>}\r\n                    {description && <span className=\"ac-checkbox-description\">{description}</span>}\r\n                </div>\r\n            )}\r\n        </label>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidCheckbox.css",
+      "content": ".ac-checkbox-container {\r\n    display: inline-flex;\r\n    align-items: flex-start;\r\n    gap: 0.75rem;\r\n    cursor: pointer;\r\n    user-select: none;\r\n}\r\n\r\n.ac-checkbox-box {\r\n    width: 20px;\r\n    height: 20px;\r\n    background: var(--ac-surface);\r\n    border: 1px solid var(--ac-border-muted);\r\n    border-radius: 4px;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    transition: all 0.2s ease;\r\n    flex-shrink: 0;\r\n    margin-top: 2px;\r\n}\r\n\r\n.ac-checkbox-box:hover:not(.ac-checkbox-disabled .ac-checkbox-box) {\r\n    border-color: var(--ac-border-bright);\r\n    background: var(--ac-surface-hover);\r\n}\r\n\r\n.ac-checkbox-checked {\r\n    background: var(--ac-brand);\r\n    border-color: var(--ac-brand);\r\n}\r\n\r\n.ac-checkbox-icon {\r\n    color: #fff;\r\n}\r\n\r\n.ac-checkbox-text {\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\n.ac-checkbox-label {\r\n    font-family: var(--font-mono);\r\n    font-size: 0.85rem;\r\n    font-weight: 500;\r\n    color: var(--ac-text-primary);\r\n}\r\n\r\n.ac-checkbox-description {\r\n    font-family: var(--font-mono);\r\n    font-size: 0.75rem;\r\n    color: var(--ac-text-muted);\r\n    margin-top: 2px;\r\n}\r\n\r\n.ac-checkbox-disabled {\r\n    opacity: 0.5;\r\n    cursor: not-allowed;\r\n}\r\n\r\n[data-theme='light'] .ac-checkbox-box {\r\n    background: #f0f0f0;\r\n    border-color: #ccc;\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

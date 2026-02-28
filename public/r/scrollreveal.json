@@ -1,0 +1,17 @@
+{
+  "name": "scrollreveal",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidScrollReveal.tsx",
+      "content": "import React, { useRef } from 'react';\r\nimport { motion, useScroll, useTransform } from 'framer-motion';\r\nimport clsx from 'clsx';\r\n\r\nexport interface AcidScrollRevealProps {\r\n    children: React.ReactNode;\r\n    className?: string;\r\n}\r\n\r\nexport const AcidScrollReveal = ({ children, className }: AcidScrollRevealProps) => {\r\n    const ref = useRef<HTMLDivElement>(null);\r\n    const { scrollYProgress } = useScroll({\r\n        target: ref,\r\n        offset: [\"start end\", \"end start\"]\r\n    });\r\n\r\n    const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);\r\n    const y = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [40, 0, 0, -40]);\r\n\r\n    return (\r\n        <motion.div\r\n            ref={ref}\r\n            style={{ opacity, y }}\r\n            className={clsx('ac-scroll-reveal', className)}\r\n        >\r\n            {children}\r\n        </motion.div>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+.ac-progress-matrix {
+    display: flex;
+    gap: 4px;
+    padding: 6px;
+    background-color: var(--ac-bg-secondary);
+    border: 1px solid var(--ac-border-muted);
+    border-radius: 4px;
+    align-items: stretch;
+    height: 32px;
+}
+
+.ac-progress-matrix-block {
+    flex: 1;
+    background-color: var(--ac-surface);
+    border: 1px solid var(--ac-border-muted);
+    transition: background-color 0s, border-color 0s;
+}
+
+.ac-progress-matrix-active {
+    background-color: var(--ac-brand);
+    border-color: var(--ac-brand);
+    box-shadow: 0 0 8px rgba(0, 255, 102, 0.4);
+    /* Assuming green brand */
+}

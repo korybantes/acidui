@@ -1,0 +1,22 @@
+{
+  "name": "shinytext",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidShinyText.tsx",
+      "content": "import clsx from 'clsx';\r\nimport './AcidShinyText.css';\r\n\r\nexport interface AcidShinyTextProps {\r\n    children: string;\r\n    className?: string;\r\n    style?: React.CSSProperties;\r\n    speed?: number;\r\n}\r\n\r\nexport const AcidShinyText = ({ children, className, style, speed = 2 }: AcidShinyTextProps) => {\r\n    return (\r\n        <span\r\n            className={clsx('ac-shiny-text', className)}\r\n            style={{ ...style, '--shiny-duration': `${speed}s` } as React.CSSProperties}\r\n        >\r\n            {children}\r\n        </span>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidShinyText.css",
+      "content": ".ac-shiny-text {\r\n    color: rgba(255, 255, 255, 0.45);\r\n    background: linear-gradient(120deg,\r\n            rgba(255, 255, 255, 0) 40%,\r\n            rgba(255, 255, 255, 0.8) 50%,\r\n            rgba(255, 255, 255, 0) 60%);\r\n    background-size: 200% 100%;\r\n    -webkit-background-clip: text;\r\n    background-clip: text;\r\n    display: inline-block;\r\n    animation: shiny-scan var(--shiny-duration, 2s) linear infinite;\r\n}\r\n\r\n@keyframes shiny-scan {\r\n    0% {\r\n        background-position: 100% 0;\r\n    }\r\n\r\n    100% {\r\n        background-position: -100% 0;\r\n    }\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

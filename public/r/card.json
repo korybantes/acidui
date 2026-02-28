@@ -1,0 +1,22 @@
+{
+  "name": "card",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidCard.tsx",
+      "content": "import React from 'react';\r\nimport { motion, type HTMLMotionProps } from 'framer-motion';\r\nimport clsx from 'clsx';\r\nimport './AcidCard.css';\r\n\r\nexport interface AcidCardProps extends HTMLMotionProps<\"div\"> {\r\n    variant?: 'flat' | 'outline' | 'dashed';\r\n}\r\n\r\nexport const AcidCard = React.forwardRef<HTMLDivElement, AcidCardProps>(\r\n    ({ className, variant = 'outline', children, ...props }, ref) => {\r\n        return (\r\n            <motion.div\r\n                ref={ref}\r\n                initial={{ opacity: 0, y: 10 }}\r\n                whileInView={{ opacity: 1, y: 0 }}\r\n                viewport={{ once: true }}\r\n                transition={{ duration: 0.3, ease: 'easeOut' }}\r\n                className={clsx('ac-card', `ac-card-${variant}`, className)}\r\n                {...props}\r\n            >\r\n                {children}\r\n            </motion.div>\r\n        );\r\n    }\r\n);\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidCard.css",
+      "content": ".ac-card {\r\n    border-radius: var(--ac-radius-sm);\r\n    padding: 1.5rem;\r\n    overflow: hidden;\r\n    position: relative;\r\n    transition: border-color 0.2s ease, background 0.2s ease;\r\n    background: var(--ac-surface);\r\n}\r\n\r\n/* Base Hover */\r\n.ac-card:hover {\r\n    border-color: var(--ac-text-muted);\r\n}\r\n\r\n/* Flat variant */\r\n.ac-card-flat {\r\n    border: 1px solid transparent;\r\n}\r\n\r\n.ac-card-flat:hover {\r\n    background: var(--ac-surface-hover);\r\n}\r\n\r\n/* Outline variant */\r\n.ac-card-outline {\r\n    border: 1px solid var(--ac-border-muted);\r\n}\r\n\r\n.ac-card-outline:hover {\r\n    border-color: var(--ac-text-secondary);\r\n}\r\n\r\n/* Dashed variant */\r\n.ac-card-dashed {\r\n    border: 1px dashed var(--ac-border-bright);\r\n    background: transparent;\r\n}\r\n\r\n.ac-card-dashed:hover {\r\n    border-color: var(--ac-text-primary);\r\n    background: var(--ac-surface);\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

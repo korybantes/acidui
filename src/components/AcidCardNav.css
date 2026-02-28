@@ -1,0 +1,93 @@
+.ac-card-nav {
+    display: grid;
+    gap: 1rem;
+    width: 100%;
+}
+
+.ac-card-nav-item {
+    position: relative;
+    padding: 1.5rem;
+    background: #000;
+    border: 1px solid #27272a;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 200px;
+    text-decoration: none;
+    color: #fff;
+    overflow: hidden;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.ac-card-nav-item:hover {
+    background: #09090b;
+    border-color: #fff;
+}
+
+.ac-card-nav-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ac-card-nav-index {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    opacity: 0.3;
+}
+
+.ac-card-nav-icon {
+    opacity: 0.5;
+    transition: opacity 0.2s ease;
+}
+
+.ac-card-nav-item:hover .ac-card-nav-icon {
+    opacity: 1;
+}
+
+.ac-card-nav-body {
+    margin-top: 2rem;
+}
+
+.ac-card-nav-title {
+    font-size: 1.25rem;
+    font-weight: 850;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+}
+
+.ac-card-nav-desc {
+    font-size: 0.8rem;
+    opacity: 0.5;
+    margin-top: 0.5rem;
+    line-height: 1.4;
+}
+
+.ac-card-nav-footer {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px dashed rgba(255, 255, 255, 0.1);
+    padding-top: 1rem;
+}
+
+.ac-ps-meta {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+}
+
+.ac-card-nav-border {
+    position: absolute;
+    bottom: -1px;
+    left: -1px;
+    width: 0%;
+    height: 3px;
+    background: #fff;
+    transition: width 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.ac-card-nav-item:hover .ac-card-nav-border {
+    width: 100.5%;
+}

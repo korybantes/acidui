@@ -1,0 +1,22 @@
+{
+  "name": "input",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidInput.tsx",
+      "content": "import React from 'react';\r\nimport clsx from 'clsx';\r\nimport './AcidInput.css';\r\n\r\nexport interface AcidInputProps extends React.InputHTMLAttributes<HTMLInputElement> {\r\n    label?: string;\r\n    variant?: 'outline' | 'filled' | 'terminal';\r\n}\r\n\r\nexport const AcidInput = React.forwardRef<HTMLInputElement, AcidInputProps>(\r\n    ({ className, label, variant = 'outline', placeholder, ...props }, ref) => {\r\n        return (\r\n            <div className={clsx('ac-input-container', className)}>\r\n                {label && <label className=\"ac-input-label\">{label}</label>}\r\n                <div className=\"ac-input-wrapper\">\r\n                    {variant === 'terminal' && <span className=\"ac-input-prefix\">{'>'}</span>}\r\n                    <input\r\n                        ref={ref}\r\n                        className={clsx('ac-input-field', `ac-input-${variant}`)}\r\n                        placeholder={placeholder || \" \"}\r\n                        {...props}\r\n                    />\r\n                </div>\r\n            </div>\r\n        );\r\n    }\r\n);\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidInput.css",
+      "content": ".ac-input-container {\r\n    display: flex;\r\n    flex-direction: column;\r\n    gap: 0.5rem;\r\n    width: 100%;\r\n}\r\n\r\n.ac-input-label {\r\n    font-size: 0.85rem;\r\n    font-weight: 500;\r\n    text-transform: none;\r\n    color: var(--ac-text-secondary);\r\n    transition: color 0.2s;\r\n}\r\n\r\n.ac-input-wrapper {\r\n    position: relative;\r\n    display: flex;\r\n    align-items: center;\r\n}\r\n\r\n.ac-input-prefix {\r\n    position: absolute;\r\n    left: 0.75rem;\r\n    color: var(--ac-text-secondary);\r\n    font-family: var(--font-mono);\r\n    pointer-events: none;\r\n}\r\n\r\n.ac-input-field {\r\n    width: 100%;\r\n    padding: 0.75rem 1rem;\r\n    background-color: var(--ac-surface);\r\n    border: 1px solid var(--ac-border-muted);\r\n    border-radius: 0;\r\n    color: var(--ac-text-primary);\r\n    font-family: var(--font-mono);\r\n    font-size: 0.875rem;\r\n    outline: none;\r\n    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);\r\n    clip-path: polygon(0 0,\r\n            calc(100% - 8px) 0,\r\n            100% 8px,\r\n            100% 100%,\r\n            8px 100%,\r\n            0 calc(100% - 8px));\r\n}\r\n\r\n.ac-input-field:focus {\r\n    border-color: var(--ac-brand);\r\n    background-color: var(--ac-surface-hover);\r\n}\r\n\r\n.ac-input-field::placeholder {\r\n    color: var(--ac-text-muted);\r\n}\r\n\r\n/* Variants */\r\n.ac-input-outline {\r\n    background-color: transparent;\r\n}\r\n\r\n.ac-input-filled {\r\n    background-color: var(--ac-surface);\r\n    border-color: transparent;\r\n}\r\n\r\n.ac-input-filled:focus {\r\n    background-color: var(--ac-surface-hover);\r\n    border-color: var(--ac-text-primary);\r\n}\r\n\r\n.ac-input-terminal {\r\n    padding-left: 2rem;\r\n    background-color: var(--ac-bg);\r\n    border-color: var(--ac-border-muted);\r\n}\r\n\r\n.ac-textarea-field {\r\n    min-height: 120px;\r\n    resize: vertical;\r\n    line-height: 1.6;\r\n}\r\n\r\n.ac-input-helper {\r\n    font-size: 0.75rem;\r\n    font-family: var(--font-mono);\r\n    color: var(--ac-text-muted);\r\n    margin-top: 0.25rem;\r\n    display: block;\r\n}\r\n\r\n.ac-input-helper.error {\r\n    color: var(--ac-brand);\r\n}\r\n\r\n.ac-input-error {\r\n    border-color: var(--ac-brand) !important;\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

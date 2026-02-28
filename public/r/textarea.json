@@ -1,0 +1,17 @@
+{
+  "name": "textarea",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidTextarea.tsx",
+      "content": "import React from 'react';\r\nimport clsx from 'clsx';\r\nimport './AcidInput.css';\r\n\r\nexport interface AcidTextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {\r\n    label?: string;\r\n    error?: string;\r\n    helperText?: string;\r\n}\r\n\r\nexport const AcidTextarea = React.forwardRef<HTMLTextAreaElement, AcidTextareaProps>(\r\n    ({ label, error, helperText, className, ...props }, ref) => {\r\n        return (\r\n            <div className={clsx('ac-input-wrapper', className)}>\r\n                {label && <label className=\"ac-input-label\">{label}</label>}\r\n                <textarea\r\n                    ref={ref}\r\n                    className={clsx(\r\n                        'ac-input-field ac-textarea-field',\r\n                        error && 'ac-input-error'\r\n                    )}\r\n                    {...props}\r\n                />\r\n                {(error || helperText) && (\r\n                    <span className={clsx('ac-input-helper', error && 'error')}>\r\n                        {error || helperText}\r\n                    </span>\r\n                )}\r\n            </div>\r\n        );\r\n    }\r\n);\r\n",
+      "type": "registry:ui"
+    }
+  ]
+}

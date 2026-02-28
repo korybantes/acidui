@@ -1,0 +1,22 @@
+{
+  "name": "layout",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidLayout.tsx",
+      "content": "import React from 'react';\r\nimport clsx from 'clsx';\r\nimport './AcidLayout.css';\r\n\r\nexport interface AcidLayoutProps extends React.HTMLAttributes<HTMLDivElement> {\r\n    variant?: 'default' | 'industrial';\r\n}\r\n\r\nexport const AcidLayout = ({ variant = 'default', className, children, ...props }: AcidLayoutProps) => {\r\n    return (\r\n        <div className={clsx('ac-layout', `ac-layout-${variant}`, className)} {...props}>\r\n            {children}\r\n        </div>\r\n    );\r\n};\r\n\r\nexport interface AcidPanelProps extends React.HTMLAttributes<HTMLDivElement> {\r\n    title?: string;\r\n}\r\n\r\nexport const AcidPanel = ({ className, children, title, ...props }: AcidPanelProps) => {\r\n    return (\r\n        <div className={clsx('ac-panel', className)} {...props}>\r\n            {title && (\r\n                <div className=\"ac-panel-header\">\r\n                    <span className=\"ac-panel-dot\" />\r\n                    <span className=\"ac-panel-title\">{title}</span>\r\n                </div>\r\n            )}\r\n            <div className=\"ac-panel-content\">\r\n                {children}\r\n            </div>\r\n        </div>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidLayout.css",
+      "content": ".ac-layout {\r\n    display: flex;\r\n    flex-direction: column;\r\n    min-height: 100vh;\r\n    background: var(--ac-bg);\r\n}\r\n\r\n.ac-panel {\r\n    border: 1px solid var(--ac-border-muted);\r\n    background: rgba(0, 0, 0, 0.2);\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n\r\n.ac-panel-header {\r\n    padding: 0.5rem 1rem;\r\n    border-bottom: 1px solid var(--ac-border-muted);\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 0.75rem;\r\n    background: var(--ac-surface);\r\n}\r\n\r\n.ac-panel-dot {\r\n    width: 6px;\r\n    height: 6px;\r\n    background: var(--ac-brand);\r\n    border-radius: 50%;\r\n}\r\n\r\n.ac-panel-title {\r\n    font-family: var(--font-mono);\r\n    font-size: 0.75rem;\r\n    letter-spacing: 0.05em;\r\n    color: var(--ac-text-primary);\r\n    text-transform: uppercase;\r\n}\r\n\r\n.ac-panel-content {\r\n    flex: 1;\r\n    padding: 1.5rem;\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "videotext",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidVideoText.tsx",
+      "content": "\r\nimport clsx from 'clsx';\r\nimport './AcidVideoText.css';\r\n\r\nexport interface AcidVideoTextProps {\r\n    text: string;\r\n    videoSrc: string;\r\n    className?: string;\r\n}\r\n\r\nexport const AcidVideoText = ({ text, videoSrc, className }: AcidVideoTextProps) => {\r\n    return (\r\n        <div className={clsx('ac-video-text-container', className)}>\r\n            <video\r\n                src={videoSrc}\r\n                autoPlay\r\n                muted\r\n                loop\r\n                playsInline\r\n                className=\"ac-video-text-bg\"\r\n            />\r\n            <h1 className=\"ac-video-text-mask\">{text}</h1>\r\n        </div>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidVideoText.css",
+      "content": ".ac-video-text-container {\r\n    position: relative;\r\n    width: 100%;\r\n    height: 300px;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    background: #000;\r\n    overflow: hidden;\r\n}\r\n\r\n.ac-video-text-bg {\r\n    position: absolute;\r\n    width: 100%;\r\n    height: 100%;\r\n    object-fit: cover;\r\n    z-index: 1;\r\n}\r\n\r\n.ac-video-text-mask {\r\n    position: relative;\r\n    z-index: 2;\r\n    font-size: 8rem;\r\n    font-weight: 900;\r\n    margin: 0;\r\n    text-transform: uppercase;\r\n    color: #000;\r\n    background: #fff;\r\n    mix-blend-mode: screen;\r\n    width: 100%;\r\n    height: 100%;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

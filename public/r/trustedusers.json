@@ -1,0 +1,22 @@
+{
+  "name": "trustedusers",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidTrustedUsers.tsx",
+      "content": "import React from 'react';\r\nimport { motion } from 'framer-motion';\r\nimport clsx from 'clsx';\r\nimport './AcidTrustedUsers.css';\r\n\r\nexport interface TrustedUser {\r\n    id: string;\r\n    logo: React.ReactNode;\r\n    name: string;\r\n}\r\n\r\nexport interface AcidTrustedUsersProps {\r\n    users: TrustedUser[];\r\n    title?: string;\r\n    className?: string;\r\n}\r\n\r\nexport const AcidTrustedUsers = ({\r\n    users,\r\n    title = \"TRUSTED_NODES\",\r\n    className\r\n}: AcidTrustedUsersProps) => {\r\n    return (\r\n        <div className={clsx('ac-trusted-container', className)}>\r\n            <div className=\"ac-trusted-header\">\r\n                <div className=\"ac-trusted-line\" />\r\n                <span className=\"ac-trusted-title\">{title}</span>\r\n                <div className=\"ac-trusted-line\" />\r\n            </div>\r\n            <div className=\"ac-trusted-grid\">\r\n                {users.map((user) => (\r\n                    <motion.div\r\n                        key={user.id}\r\n                        whileHover={{ scale: 1.05, filter: 'grayscale(0%)' }}\r\n                        className=\"ac-trusted-item\"\r\n                    >\r\n                        <div className=\"ac-trusted-logo\">\r\n                            {user.logo}\r\n                        </div>\r\n                        <span className=\"ac-trusted-name\">{user.name}</span>\r\n                    </motion.div>\r\n                ))}\r\n            </div>\r\n        </div>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidTrustedUsers.css",
+      "content": ".ac-trusted-container {\r\n    width: 100%;\r\n    padding: 3rem 0;\r\n}\r\n\r\n.ac-trusted-header {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 20px;\r\n    margin-bottom: 3rem;\r\n}\r\n\r\n.ac-trusted-line {\r\n    flex: 1;\r\n    height: 1px;\r\n    background: var(--ac-border-muted);\r\n}\r\n\r\n.ac-trusted-title {\r\n    font-size: 0.65rem;\r\n    font-family: var(--font-mono);\r\n    color: var(--ac-text-muted);\r\n    letter-spacing: 0.2em;\r\n    white-space: nowrap;\r\n}\r\n\r\n.ac-trusted-grid {\r\n    display: grid;\r\n    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));\r\n    gap: 2rem;\r\n    align-items: center;\r\n}\r\n\r\n.ac-trusted-item {\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    gap: 12px;\r\n    filter: grayscale(100%);\r\n    opacity: 0.6;\r\n    transition: all 0.3s;\r\n    cursor: default;\r\n}\r\n\r\n.ac-trusted-item:hover {\r\n    opacity: 1;\r\n}\r\n\r\n.ac-trusted-logo {\r\n    font-size: 2rem;\r\n    color: var(--ac-text-primary);\r\n}\r\n\r\n.ac-trusted-name {\r\n    font-size: 0.6rem;\r\n    font-family: var(--font-mono);\r\n    color: var(--ac-text-muted);\r\n    text-transform: uppercase;\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

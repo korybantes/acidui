@@ -1,0 +1,22 @@
+{
+  "name": "ripplebutton",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidRippleButton.tsx",
+      "content": "import React, { useState, useLayoutEffect } from 'react';\r\nimport clsx from 'clsx';\r\nimport './AcidRippleButton.css';\r\n\r\nexport interface AcidRippleButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {\r\n    rippleColor?: string;\r\n    duration?: number;\r\n}\r\n\r\nexport const AcidRippleButton = ({\r\n    children,\r\n    className,\r\n    rippleColor = 'rgba(255, 255, 255, 0.3)',\r\n    duration = 600,\r\n    onClick,\r\n    ...props\r\n}: AcidRippleButtonProps) => {\r\n    const [ripples, setRipples] = useState<{ x: number; y: number; size: number; id: number }[]>([]);\r\n\r\n    const createRipple = (event: React.MouseEvent<HTMLButtonElement>) => {\r\n        const button = event.currentTarget;\r\n        const rect = button.getBoundingClientRect();\r\n        const size = Math.max(rect.width, rect.height);\r\n        const x = event.clientX - rect.left - size / 2;\r\n        const y = event.clientY - rect.top - size / 2;\r\n\r\n        const newRipple = { x, y, size, id: Date.now() };\r\n        setRipples((prev) => [...prev, newRipple]);\r\n\r\n        if (onClick) onClick(event);\r\n    };\r\n\r\n    useLayoutEffect(() => {\r\n        if (ripples.length > 0) {\r\n            const timer = setTimeout(() => {\r\n                setRipples((prev) => prev.slice(1));\r\n            }, duration);\r\n            return () => clearTimeout(timer);\r\n        }\r\n    }, [ripples, duration]);\r\n\r\n    return (\r\n        <button className={clsx('ac-ripple-btn', className)} onClick={createRipple} {...props}>\r\n            <span className=\"ac-btn-label\">{children}</span>\r\n            {ripples.map((ripple) => (\r\n                <span\r\n                    key={ripple.id}\r\n                    className=\"ac-ripple\"\r\n                    style={{\r\n                        top: ripple.y,\r\n                        left: ripple.x,\r\n                        width: ripple.size,\r\n                        height: ripple.size,\r\n                        backgroundColor: rippleColor,\r\n                        animationDuration: `${duration}ms`,\r\n                    }}\r\n                />\r\n            ))}\r\n        </button>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidRippleButton.css",
+      "content": ".ac-ripple-btn {\r\n    position: relative;\r\n    overflow: hidden;\r\n    padding: 0.75rem 1.5rem;\r\n    background: var(--ac-brand);\r\n    color: #000;\r\n    border: none;\r\n    font-family: var(--font-mono);\r\n    font-weight: 700;\r\n    cursor: pointer;\r\n    border-radius: 4px;\r\n    transition: background 0.2s;\r\n}\r\n\r\n.ac-btn-label {\r\n    position: relative;\r\n    z-index: 2;\r\n}\r\n\r\n.ac-ripple {\r\n    position: absolute;\r\n    border-radius: 50%;\r\n    transform: scale(0);\r\n    animation: ripple-anim linear forwards;\r\n    pointer-events: none;\r\n    z-index: 1;\r\n}\r\n\r\n@keyframes ripple-anim {\r\n    to {\r\n        transform: scale(4);\r\n        opacity: 0;\r\n    }\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

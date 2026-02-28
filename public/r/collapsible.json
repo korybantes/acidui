@@ -1,0 +1,22 @@
+{
+  "name": "collapsible",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidCollapsible.tsx",
+      "content": "import React, { useState } from 'react';\r\nimport { motion, AnimatePresence } from 'framer-motion';\r\nimport { ChevronDown } from 'lucide-react';\r\nimport clsx from 'clsx';\r\nimport './AcidCollapsible.css';\r\n\r\nexport interface AcidCollapsibleProps {\r\n    title: string;\r\n    children: React.ReactNode;\r\n    defaultOpen?: boolean;\r\n    className?: string;\r\n    showIcon?: boolean;\r\n}\r\n\r\nexport const AcidCollapsible = ({\r\n    title,\r\n    children,\r\n    defaultOpen = false,\r\n    className,\r\n    showIcon = true\r\n}: AcidCollapsibleProps) => {\r\n    const [isOpen, setIsOpen] = useState(defaultOpen);\r\n\r\n    return (\r\n        <div className={clsx('ac-collapsible', isOpen && 'ac-collapsible-open', className)}>\r\n            <button\r\n                className=\"ac-collapsible-trigger\"\r\n                onClick={() => setIsOpen(!isOpen)}\r\n                aria-expanded={isOpen}\r\n            >\r\n                <span className=\"ac-collapsible-title\">{title}</span>\r\n                {showIcon && (\r\n                    <ChevronDown\r\n                        size={16}\r\n                        className={clsx('ac-collapsible-icon', isOpen && 'ac-collapsible-icon-active')}\r\n                    />\r\n                )}\r\n            </button>\r\n            <AnimatePresence initial={false}>\r\n                {isOpen && (\r\n                    <motion.div\r\n                        initial={{ height: 0, opacity: 0 }}\r\n                        animate={{ height: 'auto', opacity: 1 }}\r\n                        exit={{ height: 0, opacity: 0 }}\r\n                        transition={{ duration: 0.2, ease: 'easeInOut' }}\r\n                        className=\"ac-collapsible-content-wrapper\"\r\n                    >\r\n                        <div className=\"ac-collapsible-content\">\r\n                            {children}\r\n                        </div>\r\n                    </motion.div>\r\n                )}\r\n            </AnimatePresence>\r\n        </div>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidCollapsible.css",
+      "content": ".ac-collapsible {\r\n    width: 100%;\r\n    border: 1px solid var(--ac-border-muted);\r\n    background: rgba(255, 255, 255, 0.02);\r\n    overflow: hidden;\r\n    transition: border-color 0.2s;\r\n}\r\n\r\n.ac-collapsible:hover {\r\n    border-color: var(--ac-border-active);\r\n}\r\n\r\n.ac-collapsible-open {\r\n    border-color: var(--ac-brand);\r\n}\r\n\r\n.ac-collapsible-trigger {\r\n    width: 100%;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: space-between;\r\n    padding: 0.75rem 1rem;\r\n    background: transparent;\r\n    border: none;\r\n    color: var(--ac-text);\r\n    cursor: pointer;\r\n    font-family: var(--font-mono);\r\n    font-size: 0.75rem;\r\n    font-weight: 700;\r\n    letter-spacing: 0.05em;\r\n    text-align: left;\r\n}\r\n\r\n.ac-collapsible-icon {\r\n    transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);\r\n    color: var(--ac-text-muted);\r\n}\r\n\r\n.ac-collapsible-icon-active {\r\n    transform: rotate(180deg);\r\n    color: var(--ac-brand);\r\n}\r\n\r\n.ac-collapsible-content-wrapper {\r\n    overflow: hidden;\r\n}\r\n\r\n.ac-collapsible-content {\r\n    padding: 1rem;\r\n    border-top: 1px solid var(--ac-border-muted);\r\n    font-size: 0.85rem;\r\n    line-height: 1.6;\r\n    color: var(--ac-text-muted);\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

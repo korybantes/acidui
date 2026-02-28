@@ -1,0 +1,22 @@
+{
+  "name": "divider",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidDivider.tsx",
+      "content": "import clsx from 'clsx';\r\nimport './AcidDivider.css';\r\n\r\nexport interface AcidDividerProps {\r\n    orientation?: 'horizontal' | 'vertical';\r\n    label?: string;\r\n    align?: 'left' | 'center' | 'right';\r\n    className?: string;\r\n}\r\n\r\nexport const AcidDivider = ({\r\n    orientation = 'horizontal',\r\n    label,\r\n    align = 'center',\r\n    className\r\n}: AcidDividerProps) => {\r\n    return (\r\n        <div className={clsx(\r\n            'ac-divider',\r\n            `ac-divider-${orientation}`,\r\n            label && 'ac-divider-has-label',\r\n            label && `ac-divider-align-${align}`,\r\n            className\r\n        )}>\r\n            {label && <span className=\"ac-divider-label\">{label}</span>}\r\n        </div>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidDivider.css",
+      "content": ".ac-divider {\r\n    background: var(--ac-border-muted);\r\n    position: relative;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n.ac-divider-horizontal {\r\n    width: 100%;\r\n    height: 1px;\r\n    margin: 1.5rem 0;\r\n}\r\n\r\n.ac-divider-vertical {\r\n    width: 1px;\r\n    height: 100%;\r\n    margin: 0 1.5rem;\r\n}\r\n\r\n.ac-divider-label {\r\n    position: absolute;\r\n    padding: 0 0.75rem;\r\n    background: var(--ac-bg);\r\n    color: var(--ac-text-muted);\r\n    font-family: var(--font-mono);\r\n    font-size: 0.65rem;\r\n    letter-spacing: 0.1em;\r\n    text-transform: uppercase;\r\n    z-index: 1;\r\n}\r\n\r\n.ac-divider-has-label.ac-divider-horizontal::after {\r\n    content: '';\r\n    position: absolute;\r\n    width: 100%;\r\n    height: 1px;\r\n    background: var(--ac-border-muted);\r\n}\r\n\r\n/* No label background if on a surface */\r\n[data-theme='light'] .ac-divider-label {\r\n    background: white;\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

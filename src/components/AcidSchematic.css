@@ -1,0 +1,33 @@
+.ac-schematic {
+    position: relative;
+    width: 100%;
+    min-height: 200px;
+    background: #09090b;
+    border: 1px solid #27272a;
+}
+
+.ac-schematic-svg-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.ac-schematic-trace {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: ac-schematic-draw 3s ease forwards;
+}
+
+.ac-schematic-content {
+    position: relative;
+    z-index: 1;
+    padding: 2rem;
+}
+
+@keyframes ac-schematic-draw {
+    to {
+        stroke-dashoffset: 0;
+    }
+}

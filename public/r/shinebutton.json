@@ -1,0 +1,22 @@
+{
+  "name": "shinebutton",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidShineButton.tsx",
+      "content": "import React from 'react';\r\nimport clsx from 'clsx';\r\nimport './AcidShineButton.css';\r\n\r\nexport interface AcidShineButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {\r\n    shineColor?: string;\r\n}\r\n\r\nexport const AcidShineButton = ({\r\n    children,\r\n    className,\r\n    shineColor = 'rgba(255, 255, 255, 0.4)',\r\n    ...props\r\n}: AcidShineButtonProps) => {\r\n    return (\r\n        <button className={clsx('ac-shine-btn', className)} {...props}>\r\n            <span className=\"ac-btn-text\">{children}</span>\r\n            <div\r\n                className=\"ac-shine-overlay\"\r\n                style={{ '--shine-color': shineColor } as React.CSSProperties}\r\n            />\r\n        </button>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidShineButton.css",
+      "content": ".ac-shine-btn {\r\n    position: relative;\r\n    overflow: hidden;\r\n    padding: 0.75rem 2rem;\r\n    background: #111;\r\n    color: var(--ac-brand);\r\n    border: 1px solid var(--ac-brand);\r\n    font-family: var(--font-mono);\r\n    font-weight: 700;\r\n    cursor: pointer;\r\n    border-radius: 4px;\r\n    transition: all 0.2s;\r\n}\r\n\r\n.ac-shine-btn:hover {\r\n    background: var(--ac-brand);\r\n    color: #000;\r\n}\r\n\r\n.ac-shine-overlay {\r\n    position: absolute;\r\n    top: 0;\r\n    left: -100%;\r\n    width: 50%;\r\n    height: 100%;\r\n    background: linear-gradient(to right,\r\n            transparent,\r\n            var(--shine-color),\r\n            transparent);\r\n    transform: skewX(-25deg);\r\n    transition: left 0.5s;\r\n}\r\n\r\n.ac-shine-btn:hover .ac-shine-overlay {\r\n    left: 200%;\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

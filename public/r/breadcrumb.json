@@ -1,0 +1,22 @@
+{
+  "name": "breadcrumb",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidBreadcrumb.tsx",
+      "content": "import { ChevronRight } from 'lucide-react';\r\nimport clsx from 'clsx';\r\nimport './AcidBreadcrumb.css';\r\n\r\nexport interface BreadcrumbItem {\r\n    label: string;\r\n    href?: string;\r\n    current?: boolean;\r\n}\r\n\r\nexport interface AcidBreadcrumbProps {\r\n    items: BreadcrumbItem[];\r\n    className?: string;\r\n}\r\n\r\nexport const AcidBreadcrumb = ({ items, className }: AcidBreadcrumbProps) => {\r\n    return (\r\n        <nav className={clsx('ac-breadcrumb', className)} aria-label=\"Breadcrumb\">\r\n            <ol className=\"ac-breadcrumb-list\">\r\n                {items.map((item, index) => (\r\n                    <li key={index} className=\"ac-breadcrumb-item\">\r\n                        {index > 0 && <ChevronRight className=\"ac-breadcrumb-separator\" size={14} />}\r\n                        <a\r\n                            href={item.href || '#'}\r\n                            className={clsx('ac-breadcrumb-link', item.current && 'ac-breadcrumb-current')}\r\n                            aria-current={item.current ? 'page' : undefined}\r\n                        >\r\n                            {item.label}\r\n                        </a>\r\n                    </li>\r\n                ))}\r\n            </ol>\r\n        </nav>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidBreadcrumb.css",
+      "content": ".ac-breadcrumb-list {\r\n    display: flex;\r\n    align-items: center;\r\n    list-style: none;\r\n    padding: 0;\r\n    margin: 0;\r\n    gap: 0.5rem;\r\n}\r\n\r\n.ac-breadcrumb-item {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 0.5rem;\r\n}\r\n\r\n.ac-breadcrumb-separator {\r\n    color: var(--ac-text-muted);\r\n}\r\n\r\n.ac-breadcrumb-link {\r\n    font-family: var(--font-mono);\r\n    font-size: 0.8rem;\r\n    color: var(--ac-text-secondary);\r\n    text-decoration: none;\r\n    transition: color 0.2s;\r\n}\r\n\r\n.ac-breadcrumb-link:hover {\r\n    color: var(--ac-brand);\r\n}\r\n\r\n.ac-breadcrumb-link.ac-breadcrumb-current {\r\n    color: var(--ac-text-primary);\r\n    font-weight: 600;\r\n    pointer-events: none;\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

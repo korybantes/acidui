@@ -1,0 +1,17 @@
+{
+  "name": "confettibutton",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidConfettiButton.tsx",
+      "content": "import React from 'react';\r\nimport confetti from 'canvas-confetti';\r\nimport { AcidButton } from './AcidButton';\r\nimport type { AcidButtonProps } from './AcidButton';\r\n\r\nexport interface AcidConfettiButtonProps extends AcidButtonProps {\r\n    confettiOptions?: confetti.Options;\r\n}\r\n\r\nexport const AcidConfettiButton = ({\r\n    children,\r\n    confettiOptions,\r\n    onClick,\r\n    ...props\r\n}: AcidConfettiButtonProps) => {\r\n    const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {\r\n        const rect = e.currentTarget.getBoundingClientRect();\r\n        const x = (rect.left + rect.width / 2) / window.innerWidth;\r\n        const y = (rect.top + rect.height / 2) / window.innerHeight;\r\n\r\n        confetti({\r\n            ...confettiOptions,\r\n            origin: { x, y },\r\n            particleCount: 100,\r\n            spread: 70,\r\n            colors: ['#00ff00', '#ec4899', '#3b82f6'] // Industrial palette\r\n        });\r\n\r\n        if (onClick) onClick(e);\r\n    };\r\n\r\n    return (\r\n        <AcidButton onClick={handleClick} {...props}>\r\n            {children}\r\n        </AcidButton>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    }
+  ]
+}

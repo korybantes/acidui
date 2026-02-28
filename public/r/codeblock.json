@@ -1,0 +1,22 @@
+{
+  "name": "codeblock",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidCodeBlock.tsx",
+      "content": "import React from 'react';\r\nimport clsx from 'clsx';\r\nimport { Copy, Check } from 'lucide-react';\r\nimport { AcidTooltip } from './AcidTooltip';\r\nimport './AcidCodeBlock.css';\r\n\r\nexport interface AcidCodeBlockProps extends React.HTMLAttributes<HTMLDivElement> {\r\n    code: string;\r\n    prefix?: string;\r\n}\r\n\r\nexport const AcidCodeBlock = React.forwardRef<HTMLDivElement, AcidCodeBlockProps>(\r\n    ({ className, code, prefix = '>', ...props }, ref) => {\r\n        const [copied, setCopied] = React.useState(false);\r\n\r\n        const handleCopy = () => {\r\n            navigator.clipboard.writeText(code);\r\n            setCopied(true);\r\n            setTimeout(() => setCopied(false), 2000);\r\n        };\r\n\r\n        return (\r\n            <div className={clsx('ac-codeblock-wrapper', className)} ref={ref} {...props}>\r\n                <div className=\"ac-codeblock-inner\">\r\n                    <span className=\"ac-codeblock-prefix\">{prefix}</span>\r\n                    <code className=\"ac-codeblock-text\">{code}</code>\r\n                    <AcidTooltip content={copied ? \"Copied!\" : \"Copy code\"} position=\"top\">\r\n                        <button className=\"ac-codeblock-copy\" aria-label=\"Copy code\" onClick={handleCopy}>\r\n                            {copied ? <Check size={16} color=\"#22c55e\" /> : <Copy size={16} />}\r\n                        </button>\r\n                    </AcidTooltip>\r\n                </div>\r\n            </div>\r\n        );\r\n    }\r\n);\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidCodeBlock.css",
+      "content": ".ac-codeblock-wrapper {\r\n    background: var(--ac-bg);\r\n    border: 1px solid var(--ac-border-muted);\r\n    padding: 0.75rem;\r\n    border-radius: var(--ac-radius-md);\r\n    /* Using 4px border radius specifically for this nested input box look from the screenshot */\r\n    border-radius: 4px;\r\n}\r\n\r\n.ac-codeblock-inner {\r\n    display: flex;\r\n    align-items: center;\r\n    background: transparent;\r\n    border: 1px solid var(--ac-border-muted);\r\n    border-radius: 4px;\r\n    padding: 0.75rem 1rem;\r\n}\r\n\r\n.ac-codeblock-prefix {\r\n    color: var(--ac-brand);\r\n    font-family: var(--font-mono);\r\n    font-weight: 700;\r\n    margin-right: 0.75rem;\r\n    user-select: none;\r\n}\r\n\r\n.ac-codeblock-text {\r\n    flex-grow: 1;\r\n    font-family: var(--font-mono);\r\n    font-size: 0.875rem;\r\n    color: var(--ac-text-primary);\r\n    white-space: nowrap;\r\n    overflow: hidden;\r\n    text-overflow: ellipsis;\r\n}\r\n\r\n.ac-codeblock-copy {\r\n    background: transparent;\r\n    border: none;\r\n    cursor: pointer;\r\n    color: var(--ac-text-secondary);\r\n    padding: 0;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n    transition: color 0.2s;\r\n}\r\n\r\n.ac-codeblock-copy:hover {\r\n    color: var(--ac-text-primary);\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "glassfolder",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidGlassFolder.tsx",
+      "content": "import React from 'react';\r\nimport clsx from 'clsx';\r\nimport './AcidGlassFolder.css';\r\n\r\nexport interface AcidGlassFolderProps {\r\n    icon?: React.ReactNode;\r\n    title?: string;\r\n    className?: string;\r\n}\r\n\r\nexport const AcidGlassFolder = ({ icon, title, className }: AcidGlassFolderProps) => {\r\n    return (\r\n        <div className={clsx('ac-glass-folder-group', className)}>\r\n            <div className=\"ac-glass-folder-container\">\r\n                {/* Top tab back */}\r\n                <div className=\"ac-folder-back-tab\"></div>\r\n\r\n                {/* Back folder body */}\r\n                <div className=\"ac-folder-back-body\"></div>\r\n\r\n                {/* Folder layers (Inner paper look) */}\r\n                <div className=\"ac-folder-layer ac-layer-1\"></div>\r\n                <div className=\"ac-folder-layer ac-layer-2\"></div>\r\n                <div className=\"ac-folder-layer ac-layer-3\"></div>\r\n\r\n                {/* Front folder layer with icon */}\r\n                <div className=\"ac-folder-front\">\r\n                    <div className=\"ac-folder-icon\">{icon}</div>\r\n                </div>\r\n            </div>\r\n            {title && <span className=\"ac-folder-label\">{title}</span>}\r\n        </div>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidGlassFolder.css",
+      "content": ".ac-glass-folder-group {\r\n    display: flex;\r\n    flex-direction: column;\r\n    align-items: center;\r\n    gap: 1.5rem;\r\n    perspective: 1500px;\r\n}\r\n\r\n.ac-glass-folder-container {\r\n    position: relative;\r\n    width: 180px;\r\n    height: 120px;\r\n    cursor: pointer;\r\n    transition: transform 0.3s ease;\r\n}\r\n\r\n.ac-glass-folder-container:hover {\r\n    transform: translateY(-5px);\r\n}\r\n\r\n/* Back Tab */\r\n.ac-folder-back-tab {\r\n    position: absolute;\r\n    top: -12px;\r\n    left: 0;\r\n    width: 60px;\r\n    height: 20px;\r\n    background: rgba(244, 67, 54, 0.15);\r\n    /* Brand tint */\r\n    backdrop-filter: blur(8px);\r\n    -webkit-backdrop-filter: blur(8px);\r\n    border: 1px solid rgba(255, 255, 255, 0.1);\r\n    border-bottom: none;\r\n    border-radius: 4px 4px 0 0;\r\n}\r\n\r\n/* Back Body */\r\n.ac-folder-back-body {\r\n    position: absolute;\r\n    inset: 0;\r\n    background: rgba(255, 255, 255, 0.03);\r\n    backdrop-filter: blur(8px);\r\n    border: 1px solid rgba(255, 255, 255, 0.1);\r\n    border-radius: 0 8px 8px 8px;\r\n}\r\n\r\n/* Middle Layers */\r\n.ac-folder-layer {\r\n    position: absolute;\r\n    inset: 4px;\r\n    background: rgba(255, 255, 255, 0.05);\r\n    border-radius: 4px;\r\n    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);\r\n    transform-origin: bottom;\r\n}\r\n\r\n.ac-glass-folder-container:hover .ac-layer-1 {\r\n    transform: rotateX(-15deg);\r\n}\r\n\r\n.ac-glass-folder-container:hover .ac-layer-2 {\r\n    transform: rotateX(-25deg);\r\n}\r\n\r\n.ac-glass-folder-container:hover .ac-layer-3 {\r\n    transform: rotateX(-35deg);\r\n}\r\n\r\n/* Front Cover */\r\n.ac-folder-front {\r\n    position: absolute;\r\n    bottom: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 90%;\r\n    background: rgba(244, 67, 54, 0.1);\r\n    /* Branded glass */\r\n    backdrop-filter: blur(12px);\r\n    -webkit-backdrop-filter: blur(12px);\r\n    border: 1px solid rgba(255, 255, 255, 0.2);\r\n    border-radius: 4px;\r\n    transform-origin: bottom;\r\n    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;\r\n    display: flex;\r\n    align-items: center;\r\n    justify-content: center;\r\n}\r\n\r\n.ac-glass-folder-container:hover .ac-folder-front {\r\n    transform: rotateX(-45deg);\r\n    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);\r\n}\r\n\r\n.ac-folder-icon {\r\n    color: var(--ac-text-primary);\r\n    opacity: 0.8;\r\n    transition: transform 0.4s ease;\r\n}\r\n\r\n.ac-glass-folder-container:hover .ac-folder-icon {\r\n    transform: scale(1.1) translateY(-5px);\r\n}\r\n\r\n.ac-folder-label {\r\n    font-family: var(--font-mono);\r\n    font-size: 0.75rem;\r\n    font-weight: 700;\r\n    color: var(--ac-text-secondary);\r\n    text-transform: uppercase;\r\n    letter-spacing: 0.1em;\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

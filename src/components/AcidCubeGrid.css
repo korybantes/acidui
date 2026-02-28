@@ -1,0 +1,75 @@
+.ac-cube-grid-container {
+    perspective: 1000px;
+    width: 100%;
+    overflow: hidden;
+    background: #000;
+    /* Contrast */
+    border: 1px solid var(--ac-border-muted);
+}
+
+.ac-cube-grid {
+    display: grid;
+    place-items: center;
+}
+
+.ac-cube-scene {
+    width: 40px;
+    height: 40px;
+    perspective: 600px;
+}
+
+.ac-cube {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+}
+
+.ac-cube-face {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--ac-brand);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.824);
+}
+
+/* 3D Transform Positions */
+.ac-cube-front {
+    transform: rotateY(0deg) translateZ(20px);
+}
+
+.ac-cube-right {
+    transform: rotateY(90deg) translateZ(20px);
+}
+
+.ac-cube-back {
+    transform: rotateY(180deg) translateZ(20px);
+}
+
+.ac-cube-left {
+    transform: rotateY(-90deg) translateZ(20px);
+}
+
+.ac-cube-top {
+    transform: rotateX(90deg) translateZ(20px);
+}
+
+.ac-cube-bottom {
+    transform: rotateX(-90deg) translateZ(20px);
+}
+
+/* Tech-deco corner accents */
+.ac-cube-face::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: var(--ac-brand);
+    top: 2px;
+    left: 2px;
+    border-radius: 50%;
+}

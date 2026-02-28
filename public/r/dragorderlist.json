@@ -1,0 +1,22 @@
+{
+  "name": "dragorderlist",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidDragOrderList.tsx",
+      "content": "import React, { useState } from 'react';\r\nimport { Reorder } from 'framer-motion';\r\nimport { GripVertical } from 'lucide-react';\r\nimport clsx from 'clsx';\r\nimport './AcidDragOrderList.css';\r\n\r\nexport interface AcidDragOrderItem {\r\n    id: string;\r\n    content: React.ReactNode;\r\n}\r\n\r\nexport interface AcidDragOrderListProps {\r\n    items: AcidDragOrderItem[];\r\n    onChange?: (items: AcidDragOrderItem[]) => void;\r\n    className?: string;\r\n}\r\n\r\nexport const AcidDragOrderList = ({\r\n    items: initialItems,\r\n    onChange,\r\n    className\r\n}: AcidDragOrderListProps) => {\r\n    const [items, setItems] = useState(initialItems);\r\n\r\n    const handleReorder = (newOrder: AcidDragOrderItem[]) => {\r\n        setItems(newOrder);\r\n        onChange?.(newOrder);\r\n    };\r\n\r\n    return (\r\n        <Reorder.Group\r\n            axis=\"y\"\r\n            values={items}\r\n            onReorder={handleReorder}\r\n            className={clsx('ac-drag-list', className)}\r\n        >\r\n            {items.map((item) => (\r\n                <Reorder.Item\r\n                    key={item.id}\r\n                    value={item}\r\n                    className=\"ac-drag-item\"\r\n                    whileDrag={{\r\n                        scale: 1.02,\r\n                        boxShadow: '0 10px 30px rgba(0,0,0,0.5)',\r\n                        borderColor: 'var(--ac-brand)'\r\n                    }}\r\n                >\r\n                    <div className=\"ac-drag-handle\">\r\n                        <GripVertical size={16} />\r\n                    </div>\r\n                    <div className=\"ac-drag-content\">\r\n                        {item.content}\r\n                    </div>\r\n                </Reorder.Item>\r\n            ))}\r\n        </Reorder.Group>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidDragOrderList.css",
+      "content": ".ac-drag-list {\r\n    display: flex;\r\n    flex-direction: column;\r\n    gap: 8px;\r\n    list-style: none;\r\n    padding: 0;\r\n    margin: 0;\r\n    width: 100%;\r\n}\r\n\r\n.ac-drag-item {\r\n    display: flex;\r\n    align-items: center;\r\n    gap: 12px;\r\n    background: var(--ac-surface);\r\n    border: 1px solid var(--ac-border-muted);\r\n    padding: 12px;\r\n    border-radius: 8px;\r\n    cursor: grab;\r\n    user-select: none;\r\n    position: relative;\r\n    z-index: 1;\r\n}\r\n\r\n.ac-drag-item:active {\r\n    cursor: grabbing;\r\n}\r\n\r\n.ac-drag-handle {\r\n    color: var(--ac-text-muted);\r\n    display: flex;\r\n    align-items: center;\r\n    transition: color 0.15s;\r\n}\r\n\r\n.ac-drag-item:hover .ac-drag-handle {\r\n    color: var(--ac-brand);\r\n}\r\n\r\n.ac-drag-content {\r\n    flex: 1;\r\n    font-size: 0.875rem;\r\n    color: var(--ac-text-primary);\r\n    font-family: var(--font-mono);\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

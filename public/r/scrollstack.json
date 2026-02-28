@@ -1,0 +1,22 @@
+{
+  "name": "scrollstack",
+  "type": "registry:ui",
+  "dependencies": [
+    "clsx",
+    "lucide-react",
+    "framer-motion",
+    "tailwind-merge"
+  ],
+  "files": [
+    {
+      "path": "AcidScrollStack.tsx",
+      "content": "import { motion, useScroll, useTransform } from 'framer-motion';\r\nimport React, { useRef } from 'react';\r\nimport clsx from 'clsx';\r\nimport './AcidScrollStack.css';\r\n\r\nexport interface AcidScrollStackProps {\r\n    children: React.ReactNode[];\r\n    className?: string;\r\n}\r\n\r\nexport const AcidScrollStack = ({\r\n    children,\r\n    className\r\n}: AcidScrollStackProps) => {\r\n    return (\r\n        <div className={clsx('ac-scroll-stack', className)}>\r\n            {children.map((child, index) => (\r\n                <StackItem key={index} index={index}>\r\n                    {child}\r\n                </StackItem>\r\n            ))}\r\n        </div>\r\n    );\r\n};\r\n\r\nconst StackItem = ({ children, index }: { children: React.ReactNode, index: number }) => {\r\n    const ref = useRef<HTMLDivElement>(null);\r\n    const { scrollYProgress } = useScroll({\r\n        target: ref,\r\n        offset: [\"start end\", \"start start\"]\r\n    });\r\n\r\n    const scale = useTransform(scrollYProgress, [0, 1], [0.95, 1]);\r\n    const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);\r\n\r\n    return (\r\n        <motion.div\r\n            ref={ref}\r\n            style={{\r\n                scale,\r\n                opacity,\r\n                position: 'sticky',\r\n                top: `${40 + index * 20}px`,\r\n                zIndex: index\r\n            }}\r\n            className=\"ac-stack-item-wrapper\"\r\n        >\r\n            <div className=\"ac-stack-card\">\r\n                <div className=\"ac-stack-tag\">SEC_0{index + 1}</div>\r\n                {children}\r\n            </div>\r\n        </motion.div>\r\n    );\r\n};\r\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "AcidScrollStack.css",
+      "content": ".ac-scroll-stack {\r\n    display: flex;\r\n    flex-direction: column;\r\n    gap: 40px;\r\n    padding-bottom: 200px;\r\n}\r\n\r\n.ac-stack-item-wrapper {\r\n    width: 100%;\r\n    transform-origin: top;\r\n    will-change: transform, opacity;\r\n}\r\n\r\n.ac-stack-card {\r\n    background: var(--ac-surface);\r\n    border: 1px solid var(--ac-border-muted);\r\n    border-radius: 12px;\r\n    padding: 2rem;\r\n    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);\r\n    position: relative;\r\n    overflow: hidden;\r\n}\r\n\r\n.ac-stack-card::after {\r\n    content: '';\r\n    position: absolute;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, transparent 100%);\r\n    pointer-events: none;\r\n}\r\n\r\n.ac-stack-tag {\r\n    position: absolute;\r\n    top: 1rem;\r\n    right: 1rem;\r\n    font-size: 0.6rem;\r\n    font-family: var(--font-mono);\r\n    color: var(--ac-brand);\r\n    border: 1px solid var(--ac-brand);\r\n    padding: 2px 6px;\r\n    border-radius: 4px;\r\n    text-transform: uppercase;\r\n}",
+      "type": "registry:ui"
+    }
+  ]
+}

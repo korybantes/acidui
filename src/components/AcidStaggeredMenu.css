@@ -1,0 +1,72 @@
+.ac-staggered-menu {
+    width: 100%;
+}
+
+.ac-staggered-menu-track {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.ac-staggered-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    text-decoration: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.ac-staggered-index {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: #fff;
+    opacity: 0.4;
+    transition: opacity 0.2s ease;
+}
+
+.ac-staggered-item:hover .ac-staggered-index {
+    opacity: 1;
+}
+
+.ac-staggered-label {
+    font-size: 3rem;
+    font-weight: 950;
+    text-transform: uppercase;
+    letter-spacing: -2px;
+    line-height: 0.9;
+    transition: color 0.2s ease;
+}
+
+.ac-staggered-item:hover .ac-staggered-label {
+    color: #fff;
+}
+
+.ac-staggered-line {
+    flex-grow: 1;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    transition: background 0.3s ease;
+}
+
+.ac-staggered-item:hover .ac-staggered-line {
+    background: #fff;
+}
+
+/* Printstream style: high contrast block overlay */
+.ac-staggered-item::before {
+    content: '';
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    width: 8px;
+    height: 8px;
+    background: #fff;
+    transform: translateY(-50%) scale(0);
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.ac-staggered-item:hover::before {
+    transform: translateY(-50%) scale(1);
+}
