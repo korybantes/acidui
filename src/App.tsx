@@ -5,6 +5,7 @@ import { AcidDynamicNavbar } from './components/AcidDynamicNavbar';
 import { Landing } from './pages/Landing';
 import { Docs } from './pages/Docs';
 import { Library } from './pages/Library';
+import { Studio } from './pages/Studio';
 import './App.css';
 
 import { AcidToastProvider } from './components/AcidToast';
@@ -22,15 +23,22 @@ function App() {
 
   return (
     <AcidToastProvider>
-      <div className="app-layout">
-        {navbarType === 'default' ? <AcidNavbar /> : <AcidDynamicNavbar />}
+      <Routes>
+        {/* Studio is full-screen, no global navbar */}
+        <Route path="/studio" element={<Studio />} />
 
-        <Routes>
-          <Route path="/" element={<Landing />} />
-          <Route path="/docs" element={<Docs />} />
-          <Route path="/library" element={<Library />} />
-        </Routes>
-      </div>
+        {/* All other pages use the shared navbar */}
+        <Route path="*" element={
+          <div className="app-layout">
+            {navbarType === 'default' ? <AcidNavbar /> : <AcidDynamicNavbar />}
+            <Routes>
+              <Route path="/" element={<Landing />} />
+              <Route path="/docs" element={<Docs />} />
+              <Route path="/library" element={<Library />} />
+            </Routes>
+          </div>
+        } />
+      </Routes>
     </AcidToastProvider>
   );
 }

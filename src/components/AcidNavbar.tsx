@@ -82,6 +82,10 @@ export const AcidNavbar = () => {
                         sidebarItems={sidebarItems}
                         browseAllHref="/docs"
                     />
+
+                    <Link to="/studio" className={clsx('ac-navbar-link', location.pathname === '/studio' && 'active')} style={{ color: 'var(--ac-brand)', fontWeight: 900 }}>
+                        <span>* STUDIO</span>
+                    </Link>
                 </nav>
 
                 <div className="ac-navbar-right">
